@@ -1,0 +1,21 @@
+
+.btn-row{
+	margin-top: 30rpx;
+}
+.primary{
+		background:-webkit-gradient(linear,left top, right top,from(#0286f7),to(#1bb8b7));
+		background:-o-linear-gradient(left,#0286f7,#1bb8b7);
+		background:linear-gradient(to right,#0286f7,#1bb8b7);
+		margin-top: 30rpx;
+		width: 90%;
+		margin-left: 5%;
+}
+.l-input{
+		width: 98%;
+		margin-left: 1%;
+		margin-bottom: 2rpx;
+}
+.input-group{
+		margin-top: 10rpx;
+}
+

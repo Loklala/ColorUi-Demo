@@ -1,0 +1,83 @@
+
+.input-group{
+		margin-top: 20rpx;
+}
+.text-olive{
+		color: #1bb8b7;
+}
+.primary{
+		background:-webkit-gradient(linear,left top, right top,from(#0286f7),to(#1bb8b7));
+		background:-o-linear-gradient(left,#0286f7,#1bb8b7);
+		background:linear-gradient(to right,#0286f7,#1bb8b7);
+}
+.login-btn{
+		margin-top: 50rpx;
+		margin-bottom: 10rpx;
+		width: 90%;
+		margin-left: 5%;
+}
+.head{
+		height: 230rpx;
+		background-color: #f1f1f1;
+}
+.head-img{
+		padding: 10%;
+		margin:0 auto;
+}
+.l-input{
+		margin-bottom: 2rpx;
+		width: 98%;
+		margin-left: 1%;
+}
+.action-row {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+}
+.action-row navigator {
+        color: #007aff;
+        padding: 0 20rpx;
+}
+.oauth-row {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        -webkit-flex-direction: row;
+            -ms-flex-direction: row;
+                flex-direction: row;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+}
+.oauth-image {
+        width: 100rpx;
+        height: 100rpx;
+        border: 1rpx solid #dddddd;
+        border-radius: 100rpx;
+        margin: 0 40rpx;
+        background-color: #ffffff;
+}
+.oauth-image image {
+        width: 60rpx;
+        height: 60rpx;
+        margin: 20rpx;
+}
+
