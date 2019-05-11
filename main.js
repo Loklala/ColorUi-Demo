@@ -1,17 +1,23 @@
 import Vue from 'vue'
 import App from './App'
-
+//元素
 import basics from './pages/basics/home.vue'
 Vue.component('basics',basics)
-
+//组件
 import components from './pages/component/home.vue'
 Vue.component('components',components)
 
-import plugin from './pages/plugin/home.vue'
-Vue.component('plugin',plugin)
+// import plugin from './pages/plugin/home.vue'
+// Vue.component('plugin',plugin)
+//
+import share from './pages/share/home.vue'
+Vue.component('share',share)
 
 import about from './pages/about/home.vue'
 Vue.component('about',about)
+
+import burse from './pages/burse/home.vue'
+Vue.component('burse',burse)
 
 import IdCard from './static/js/IdCard.js'
 Vue.prototype.validid = IdCard;

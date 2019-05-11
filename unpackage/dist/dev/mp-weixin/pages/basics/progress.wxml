@@ -1,2 +1,2 @@
 <import src="./progress.vue.wxml" />
-    <template is="41979f93" data="{{ ...$root['0'], $root }}"/>
+    <template is="7e6ede9a" data="{{ ...$root['0'], $root }}"/>

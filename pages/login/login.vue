@@ -1,13 +1,15 @@
 <template>
     <view class="content">
-<!-- 		<cu-custom bgColor="bg-gradual-blue" :isBack="false">
-		<block slot="backText"></block> -->
-<!-- 			<block slot="content">登录</block>
-		</cu-custom> --> 
+<!-- 		<cu-custom class="toptab" bgColor="bg-gradual-blue" :isBack="false">
+			<block slot="backText"></block>
+			<block slot="content">皮蛋游戏代理系统</block>
+			<block slot="right"></block>
+		</cu-custom> -->
+
 <!-- 		<view class="cu-form-group head"> 
 				<view class="cu-avatar xl round margin-left head-img" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg);"></view>
 		</view> -->
-		<image src="https://cdn.nlark.com/yuque/0/2019/png/280374/1552996358228-assets/web-upload/e256b4ce-d9a4-488b-8da2-032747213982.png"
+		<image src="../../static/img/login-logo.jpg" 
 		 mode="widthFix" class="response"></image>
         <view class="input-group">
 			<view class="cu-form-group l-input">
@@ -16,9 +18,16 @@
 				<m-input class="m-input" type="text" clearable focus v-model="account" placeholder="请输入账号"></m-input>
 			</view>
 			<view class="cu-form-group l-input">
-<!-- 				<view class="title">密码：</view>-->	
-			<text class="cuIcon-command text-olive"></text>
-			<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
+				<!-- <view class="title">密码：</view> -->
+				<text class="cuIcon-lock text-olive"></text>
+				<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
+			</view>
+			<view class="cu-form-group l-input">
+				<!-- <view class="title">验证码：</view> -->
+				<!-- <text class="cuIcon-mark text-olive"></text> -->
+				<text class="cuIcon-safe text-olive"></text>
+			<m-input class="m-input" type="text" clearable focus v-model="code" placeholder="输入验证码"></m-input>
+				<image :src="code_url" class="code-img" @click="changeImg"></image>	
 			</view>
         </view>
         <view class="btn-row login-btn">
@@ -40,8 +49,8 @@
 <script>
     import service from '../../service.js';
     import {
-        mapState,
-        mapMutations
+        // mapState,
+        // mapMutations
     } from 'vuex'
     import mInput from '../../components/m-input.vue'
 
@@ -51,17 +60,40 @@
         },
         data() {
             return {
+				code_url:'',
 				disableScroll:true,
                 providerList: [],
                 hasProvider: false,
                 account: '',
                 password: '',
-                positionTop: 0
+                positionTop: 0,
+				code:'',
             }
         },
-        computed: mapState(['forcedLogin']),
+		onLoad:function(){
+			this.changeImg();
+		},
+        // computed: mapState(['forcedLogin']),
         methods: {
-            ...mapMutations(['login']),
+			//获取验证码
+			changeImg(){
+				var rand= new Date().getTime();
+				// var rands = Math.floor(Math.random() * ( 1557572085840 + 1));
+				uni.request({
+					url: 'http://192.168.0.199/agent/login/captcha?refresh'+'&_='+rand,
+					method: 'GET',
+					dataType: 'json',
+					cache: false,
+					data: {},
+					success: res => {
+						this.code_url='http://192.168.0.199'+res.data['url'];
+						console.log(this.code_url)
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
+            // ...mapMutations(['login']),
             initProvider() {
                 const filters = ['weixin', 'qq', 'sinaweibo'];
                 uni.getProvider({
@@ -84,56 +116,93 @@
                     }
                 });
             },
-            initPosition() {
-                /**
-                 * 使用 absolute 定位，并且设置 bottom 值进行定位。软键盘弹出时，底部会因为窗口变化而被顶上来。
-                 * 反向使用 top 进行定位，可以避免此问题。
-                 */
+            
+			 /**
+			 * 使用 absolute 定位，并且设置 bottom 值进行定位。软键盘弹出时，底部会因为窗口变化而被顶上来。
+			 * 反向使用 top 进行定位，可以避免此问题。
+			 */
+			initPosition() {
                 this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
             },
-            bindLogin() {
-                /**
-                 * 客户端对账号信息进行一些必要的校验。
-                 * 实际开发中，根据业务需要进行处理，这里仅做示例。
-                 */
-                if (this.account.length < 5) {
+            
+			 /**
+             * 客户端对账号信息进行一些必要的校验。
+             * 实际开发中，根据业务需要进行处理，这里仅做示例。
+             */
+			bindLogin() {
+                if (this.account.length < 4) {
                     uni.showToast({
                         icon: 'none',
-                        title: '账号最短为 5 个字符'
+                        title: '账号最短为 4 个字符'
                     });
                     return;
                 }
-                if (this.password.length < 5) {
+                if (this.password.length < 4) {
                     uni.showToast({
                         icon: 'none',
-                        title: '密码最短为 6 个字符'
+                        title: '密码最短为 4 个字符'
                     });
                     return;
                 }
+				uni.request({
+					url: 'http://192.168.0.199/agent/login/ajax-login',
+					method: 'GET',
+					dataType: 'json',
+					cache: false,
+					data: {
+						username:this.account,
+						pwd:this.password,
+						verify_code:this.code,
+					},
+					success: res => {
+						console.log(res)
+						if(res.data.isSuccess==200){
+							uni.showToast({
+							    icon: 'none',
+							    title: res.data.message
+							});
+						}else{
+							uni.showToast({
+							    icon: 'none',
+							   title: res.data.message
+							});
+						}
+					},
+					fail: () => {
+						
+					},
+					complete: () => {}
+				});
+				
+				
+				
+				
                 /**
                  * 下面简单模拟下服务端的处理
                  * 检测用户账号密码是否在已注册的用户列表中
                  * 实际开发中，使用 uni.request 将账号信息发送至服务端，客户端在回调函数中获取结果信息。
                  */
-                const data = {
-                    account: this.account,
-                    password: this.password
-                };
-                const validUser = service.getUsers().some(function (user) {
-                    return data.account === user.account && data.password === user.password;
-                });
-				console.log(validUser);
-                if (validUser) {
-                    // this.toMain(this.account);
-					uni.redirectTo({
-						url: '../index/index?account='+this.account
-					});
-                } else {
-                    uni.showToast({
-                        icon: 'none',
-                        title: '用户账号或密码不正确',
-                    });
-                }
+    //             const data = {
+    //                 account: this.account,
+    //                 password: this.password,
+				// 	
+    //             };
+    //             const validUser = service.getUsers().some(function (user) {
+    //                 return data.account === user.account && data.password === user.password;
+    //             });
+				// console.log(validUser);
+    //             if (validUser) {
+    //                 this.toMain(this.account);
+				// 	// uni.redirectTo({
+				// 	// 	url: '../index/index?account='+this.account
+				// 	// });
+				// 	
+    //             } else {
+    //                 uni.showToast({
+    //                     icon: 'none',
+    //                     title: '用户账号或密码不正确',
+    //                 });
+    //             }
             },
             oauth(value) {
                 uni.login({
@@ -162,9 +231,12 @@
                  * 返回首页也使用reLaunch方式
                  */
                 if (this.forcedLogin) {
-                    uni.reLaunch({
-                        url: '../main/main',
-                    });
+                    // uni.reLaunch({
+                    //     url: '../main/main',
+                    // });
+					uni.redirectTo({
+						url: '../index/index?account='+this.account
+					});
                 } else {
                     uni.navigateBack();
                 }
@@ -179,20 +251,30 @@
 </script>
 
 <style>
+	.toptab{
+		height: 60upx;
+	}
+	.code-img{
+		float: right;
+		margin-right: -20upx;
+		height: 90upx;
+		width: 180upx;
+	}
 	.input-group{
-		margin-top: 20upx;
+		margin-top: -2upx;
 	}
 	.text-olive{
 		color: #1bb8b7;
 	}
 	.primary{
+		border-radius:8upx ;
 		background:linear-gradient(to right,#0286f7,#1bb8b7);
 	}
 	.login-btn{
 		margin-top: 50upx;
 		margin-bottom: 10upx;
-		width: 90%;
-		margin-left: 5%;
+		width:98%;
+		margin-left: 1%;
 	}
 	.head{
 		height: 230upx;

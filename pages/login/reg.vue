@@ -166,7 +166,7 @@ export default {
 			idcard: '',
 			radio: 'A',
 			disabled: false,
-			isdisabledFn:false,
+			isdisabledFn:true,
 			time: 0,
 			btntxt: '获取验证码',
 			checkbox: [
@@ -224,6 +224,7 @@ export default {
 		hideModal(e) {
 			this.modalName = null
 		},
+		//阅读协议
 		CheckboxChange(e) {
 			var items = this.checkbox,
 				values = e.detail.value;
@@ -243,10 +244,9 @@ export default {
 				}
 			}
 		},
-		/**
-		 * 客户端对账号信息进行一些必要的校验。
-		 * 实际开发中，根据业务需要进行处理，这里仅做示例。
-		 */
+		
+		// 客户端对账号信息进行一些必要的校验。
+		//实际开发中，根据业务需要进行处理，这里仅做示例。
 		register() {
 			var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
 			var regs = /^([\u4E00-\u9FA5]){2,4}$/;
@@ -266,10 +266,10 @@ export default {
 				});
 				return;
 			}
-			if (this.tel.length < 5) {
+			if (this.tel.length < 11) {
 				uni.showToast({
 					icon: 'none',
-					title: '账号最短为 5 个字符'
+					title: '手机号格式不正确'
 				});
 				return;
 			}
@@ -280,24 +280,10 @@ export default {
 				});
 				return;
 			}
-			if (this.code != 1234) {
+			if (this.password.length < 4) {
 				uni.showToast({
 					icon: 'none',
-					title: '验证码不正确'
-				});
-				return;
-			}
-			if (this.password.length < 5) {
-				uni.showToast({
-					icon: 'none',
-					title: '密码最短为 5 个字符'
-				});
-				return;
-			}
-			if (this.repassword.length < 5) {
-				uni.showToast({
-					icon: 'none',
-					title: '确认密码最短为 5 个字符'
+					title: '密码最短为 4 个字符'
 				});
 				return;
 			}
@@ -308,7 +294,6 @@ export default {
 				});
 				return;
 			}
-			console.log(rmatch)
 			if (rmatch==null) {
 				uni.showToast({
 					icon: 'none',
@@ -330,6 +315,7 @@ export default {
 				});
 				return;
 			}
+			//验证身份证
 			if(this.idcard==""){
 				uni.showToast({
 					icon: 'none',
@@ -344,23 +330,45 @@ export default {
 				});
 				return;
 			}
-			const data = {
-				account: this.tel,
-				password: this.password,
-				code: this.code,
-				name:this.name,
-				idcard:this.idcard,
-			};
-			service.addUser(data);
-			uni.showToast({
-				title: '注册成功'
+			
+			uni.request({
+				url: 'http://192.168.0.199/agent/login/ajax-reg',
+				method: 'GET',
+				dataType: 'json',
+				cache: false,
+				data: {
+					agent_tel: this.tel,
+					agent_pwd: this.password,
+					sms_code: this.code,
+					agent_name:this.name,
+					card_id:this.idcard,
+				},
+				success: res => {
+					console.log(res)
+					if(res.data.isSuccess==200){
+						uni.showToast({
+						    icon: 'none',
+							duration:2000,
+						    title: res.data.message
+						});
+					}else{
+						uni.showToast({
+						    icon: 'none',
+							duration:2000,
+						   title: res.data.message
+						});
+					}
+				},
+				fail: () => {
+					
+				},
+				complete: () => {}
 			});
 			var self = this;
 			setTimeout(function() {
 				self.navTo();
 			}, 2000);
 		},
-
 		//验证手机号码部分
 		sendcode() {
 			var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;

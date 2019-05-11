@@ -1,2 +1,2 @@
 <import src="./avatar.vue.wxml" />
-    <template is="618c7f82" data="{{ ...$root['0'], $root }}"/>
+    <template is="2234795f" data="{{ ...$root['0'], $root }}"/>

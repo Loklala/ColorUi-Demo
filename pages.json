@@ -7,6 +7,71 @@
 				"navigationBarTitleText": ""
 			}
 		},
+		
+		
+		
+		
+		{
+            "path" : "pages/about/info",
+            "style" : {
+                "navigationBarTitleText" : ""
+            }
+        },
+        {
+            "path" : "pages/about/editinfo",
+            "style" : {
+                "navigationBarTitleText" : ""
+            }
+        },
+        {
+            "path" : "pages/about/deposit",
+            "style" : {
+                "navigationBarTitleText" : ""
+            }
+        },
+        {
+            "path" : "pages/about/editdeposit",
+            "style" : {
+                "navigationBarTitleText" : ""
+            }
+        },
+        {
+            "path" : "pages/about/password",
+            "style" : {
+                "navigationBarTitleText" : ""
+            }
+        },
+        {
+            "path" : "pages/about/about",
+            "style" : {
+                "navigationBarTitleText" : ""
+            }
+        },
+        {
+            "path" : "pages/about/feedback",
+            "style" : {
+                "navigationBarTitleText" : ""
+            }
+        },
+		{
+		    "path" : "pages/share/shareway", 
+		    "style" : {
+		        "navigationBarTitleText" : ""
+		    }
+		},
+		{
+		    "path" : "pages/share/hasplayer", 
+		    "style" : {
+		        "navigationBarTitleText" : ""
+		    }
+		},
+		
+		
+		
+		
+		
+		
+		
 		{
 			"path": "pages/basics/layout",
 			"style": {

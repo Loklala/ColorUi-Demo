@@ -1,6 +1,15 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/about/info",
+    "pages/about/editinfo",
+    "pages/about/deposit",
+    "pages/about/editdeposit",
+    "pages/about/password",
+    "pages/about/about",
+    "pages/about/feedback",
+    "pages/share/shareway",
+    "pages/share/hasplayer",
     "pages/basics/layout",
     "pages/basics/background",
     "pages/basics/text",

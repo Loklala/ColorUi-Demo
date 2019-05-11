@@ -1,177 +1,241 @@
 <import src="/colorui/components/cu-custom.vue.wxml" />
+<import src="/components/mpvuePicker.vue.wxml" />
+<import src="/components/mpvueCityPicker.vue.wxml" />
 <import src="/components/m-input.vue.wxml" />
+<import src="/node-modules/mescroll-uni/mescroll-uni.vue.wxml" />
 <import src="/pages/basics/home.vue.wxml" />
 <import src="/pages/component/home.vue.wxml" />
-<import src="/pages/plugin/home.vue.wxml" />
+<import src="/pages/share/home.vue.wxml" />
+<import src="/pages/burse/home.vue.wxml" />
 <import src="/pages/about/home.vue.wxml" />
 <import src="/common/slots.wxml" />
 <import src="/components/m-icon/m-icon.vue.wxml" />
 
-<template name="f714e6a6-default-f714e6a6-0"></template>
+<template name="33dcb330-default-33dcb330-0"></template>
 
-<template name="f714e6a6-backText-f714e6a6-0">返回</template>
+<template name="33dcb330-backText-33dcb330-0">返回</template>
 
-<template name="f714e6a6-content-f714e6a6-0">导航栏</template>
+<template name="33dcb330-content-33dcb330-0">布局</template>
 
-<template name="0a3708c6-default-0a3708c6-0"></template>
+<template name="75a58402-default-75a58402-0"></template>
 
-<template name="0a3708c6-backText-0a3708c6-0">返回</template>
+<template name="75a58402-backText-75a58402-0">返回</template>
 
-<template name="0a3708c6-content-0a3708c6-0">卡片</template>
+<template name="75a58402-content-75a58402-0">图标</template>
 
-<template name="0a389a7a-default-0a389a7a-0"></template>
+<template name="759b729a-default-759b729a-0"></template>
 
-<template name="0a389a7a-backText-0a389a7a-0">返回</template>
+<template name="759b729a-backText-759b729a-0">返回</template>
 
-<template name="0a389a7a-content-0a389a7a-0">表单</template>
+<template name="759b729a-content-759b729a-0">文本</template>
 
-<template name="f71540c6-default-f71540c6-0"></template>
+<template name="23e3df38-default-23e3df38-0"></template>
 
-<template name="f71540c6-backText-f71540c6-0">返回</template>
+<template name="23e3df38-backText-23e3df38-0">返回</template>
 
-<template name="f71540c6-content-f71540c6-0">操作条</template>
+<template name="23e3df38-content-23e3df38-0">按钮</template>
 
-<template name="0a3b3e54-default-0a3b3e54-0"></template>
+<template name="266b79c4-default-266b79c4-0"></template>
 
-<template name="0a3b3e54-backText-0a3b3e54-0">返回</template>
+<template name="266b79c4-backText-266b79c4-0">返回</template>
 
-<template name="0a3b3e54-content-0a3b3e54-0">列表</template>
+<template name="266b79c4-content-266b79c4-0">按钮 / 设计</template>
 
-<template name="7517a0ae-default-7517a0ae-0"></template>
+<template name="065c7554-default-065c7554-0"></template>
 
-<template name="7517a0ae-backText-7517a0ae-0">返回</template>
+<template name="065c7554-backText-065c7554-0">返回</template>
 
-<template name="7517a0ae-content-7517a0ae-0">轮播图</template>
+<template name="065c7554-content-065c7554-0">标签</template>
 
-<template name="173796f7-default-173796f7-0"></template>
+<template name="40263126-default-40263126-0"></template>
 
-<template name="173796f7-backText-173796f7-0">返回</template>
+<template name="40263126-backText-40263126-0">返回</template>
 
-<template name="173796f7-content-173796f7-0">时间轴</template>
+<template name="40263126-content-40263126-0">边框阴影</template>
 
-<template name="3d93fc31-default-3d93fc31-0"></template>
+<template name="2234795f-default-2234795f-0"></template>
 
-<template name="3d93fc31-backText-3d93fc31-0">返回</template>
+<template name="2234795f-backText-2234795f-0">返回</template>
 
-<template name="3d93fc31-content-3d93fc31-0">步骤条</template>
+<template name="2234795f-content-2234795f-0">头像</template>
 
-<template name="0a37210e-default-0a37210e-0"></template>
+<template name="5f529a34-default-5f529a34-0"></template>
 
-<template name="0a37210e-backText-0a37210e-0">返回</template>
+<template name="5f529a34-backText-5f529a34-0">返回</template>
 
-<template name="0a37210e-content-0a37210e-0">聊天</template>
+<template name="5f529a34-content-5f529a34-0">背景</template>
 
-<template name="056bd608-default-056bd608-0"></template>
+<template name="511fce86-default-511fce86-0"></template>
 
-<template name="056bd608-backText-056bd608-0">返回</template>
+<template name="511fce86-backText-511fce86-0">返回</template>
 
-<template name="056bd608-content-056bd608-0">索引</template>
+<template name="511fce86-content-511fce86-0">操作条</template>
 
-<template name="66d8f2e8-default-66d8f2e8-0"></template>
+<template name="5e4629f6-default-5e4629f6-0"></template>
 
-<template name="66d8f2e8-backText-66d8f2e8-0">返回</template>
+<template name="5e4629f6-backText-5e4629f6-0">返回</template>
 
-<template name="66d8f2e8-content-66d8f2e8-0">微动画</template>
+<template name="5e4629f6-content-5e4629f6-0">加载</template>
 
-<template name="2d474ef5-default-2d474ef5-0"></template>
+<template name="5e4629f6-right-5e4629f6-0"><view class="_view 5e4629f6 action"><view class="_view 5e4629f6 cu-load load-icon {{!isLoad ? 'loading' : 'over'}}"></view></view></template>
 
-<template name="2d474ef5-backText-2d474ef5-0">返回</template>
+<template name="511f7466-default-511f7466-0"></template>
 
-<template name="2d474ef5-content-2d474ef5-0">垂直导航</template>
+<template name="511f7466-backText-511f7466-0">返回</template>
 
-<template name="3e3c0be0-default-3e3c0be0-0"></template>
+<template name="511f7466-content-511f7466-0">导航栏</template>
 
-<template name="3e3c0be0-backText-3e3c0be0-0">返回</template>
+<template name="47f658e4-default-47f658e4-0"></template>
 
-<template name="3e3c0be0-content-3e3c0be0-0">布局</template>
+<template name="47f658e4-backText-47f658e4-0">返回</template>
 
-<template name="57e3c4d7-default-57e3c4d7-0"></template>
+<template name="47f658e4-content-47f658e4-0">轮播图</template>
 
-<template name="57e3c4d7-content-57e3c4d7-0"><image src="/static/cjkz.png" mode="aspectFill" style="width: 240rpx;height: 60rpx;" class="_image 57e3c4d7"></image></template>
+<template name="169373a6-default-169373a6-0"></template>
 
-<template name="3150aa2e-default-3150aa2e-0"></template>
+<template name="169373a6-backText-169373a6-0">返回</template>
 
-<template name="3150aa2e-backText-3150aa2e-0">返回</template>
+<template name="169373a6-content-169373a6-0">卡片</template>
 
-<template name="3150aa2e-content-3150aa2e-0">全屏抽屉</template>
+<template name="7e6ede9a-default-7e6ede9a-0"></template>
 
-<template name="2ecd1dd8-default-2ecd1dd8-0"></template>
+<template name="7e6ede9a-backText-7e6ede9a-0">返回</template>
 
-<template name="2ecd1dd8-backText-2ecd1dd8-0">返回</template>
+<template name="7e6ede9a-content-7e6ede9a-0">进度条</template>
 
-<template name="2ecd1dd8-content-2ecd1dd8-0">背景</template>
+<template name="1697a934-default-1697a934-0"></template>
 
-<template name="5e2db3d0-default-5e2db3d0-0"></template>
+<template name="1697a934-backText-1697a934-0">返回</template>
 
-<template name="5e2db3d0-backText-5e2db3d0-0">返回</template>
+<template name="1697a934-content-1697a934-0">列表</template>
 
-<template name="5e2db3d0-content-5e2db3d0-0">按钮</template>
+<template name="1695055a-default-1695055a-0"></template>
 
-<template name="591e7eb8-default-591e7eb8-0"></template>
+<template name="1695055a-backText-1695055a-0">返回</template>
 
-<template name="591e7eb8-backText-591e7eb8-0">返回</template>
+<template name="1695055a-content-1695055a-0">表单</template>
 
-<template name="591e7eb8-content-591e7eb8-0">按钮 / 设计</template>
+<template name="77a391d7-default-77a391d7-0"></template>
 
-<template name="64579a74-default-64579a74-0"></template>
+<template name="77a391d7-backText-77a391d7-0">返回</template>
 
-<template name="64579a74-backText-64579a74-0">返回</template>
+<template name="77a391d7-content-77a391d7-0">时间轴</template>
 
-<template name="64579a74-content-64579a74-0">标签</template>
+<template name="16938bee-default-16938bee-0"></template>
 
-<template name="618c7f82-default-618c7f82-0"></template>
+<template name="16938bee-backText-16938bee-0">返回</template>
 
-<template name="618c7f82-backText-618c7f82-0">返回</template>
+<template name="16938bee-content-16938bee-0">聊天</template>
 
-<template name="618c7f82-content-618c7f82-0">头像</template>
+<template name="6e69b4b8-default-6e69b4b8-0"></template>
 
-<template name="269bc593-default-269bc593-0"></template>
+<template name="6e69b4b8-backText-6e69b4b8-0">返回</template>
 
-<template name="269bc593-backText-269bc593-0">返回</template>
+<template name="6e69b4b8-content-6e69b4b8-0">邀请</template>
 
-<template name="269bc593-content-269bc593-0">文本</template>
+<template name="6e69b4b8-right-6e69b4b8-0"></template>
 
-<template name="41979f93-default-41979f93-0"></template>
+<template name="8676255e-default-8676255e-0"></template>
 
-<template name="41979f93-backText-41979f93-0">返回</template>
+<template name="8676255e-backText-8676255e-0">返回</template>
 
-<template name="41979f93-content-41979f93-0">进度条</template>
+<template name="8676255e-content-8676255e-0">步骤条</template>
 
-<template name="25a90ff4-default-25a90ff4-0"></template>
+<template name="ca081a98-default-ca081a98-0"></template>
 
-<template name="25a90ff4-backText-25a90ff4-0">返回</template>
+<template name="ca081a98-backText-ca081a98-0"></template>
 
-<template name="25a90ff4-content-25a90ff4-0">边框阴影</template>
+<template name="ca081a98-content-ca081a98-0">个人信息</template>
 
-<template name="51e9bf16-default-51e9bf16-0"></template>
+<template name="ca081a98-right-ca081a98-0"></template>
 
-<template name="51e9bf16-backText-51e9bf16-0">返回</template>
+<template name="8723d652-default-8723d652-0"></template>
 
-<template name="51e9bf16-content-51e9bf16-0">加载</template>
+<template name="8723d652-backText-8723d652-0">返回</template>
 
-<template name="51e9bf16-right-51e9bf16-0"><view class="_view 51e9bf16 action"><view class="_view 51e9bf16 cu-load load-icon {{!isLoad ? 'loading' : 'over'}}"></view></view></template>
+<template name="8723d652-content-8723d652-0">模态窗口</template>
 
-<template name="2db4f2ec-default-2db4f2ec-0"></template>
+<template name="77e75372-default-77e75372-0"></template>
 
-<template name="2db4f2ec-backText-2db4f2ec-0"></template>
+<template name="77e75372-backText-77e75372-0"></template>
 
-<template name="2db4f2ec-content-2db4f2ec-0">注册</template>
+<template name="77e75372-content-77e75372-0">关于</template>
 
-<template name="3d3d23b7-default-3d3d23b7-0"></template>
+<template name="56aed8be-default-56aed8be-0"></template>
 
-<template name="3d3d23b7-backText-3d3d23b7-0">返回</template>
+<template name="56aed8be-backText-56aed8be-0"></template>
 
-<template name="3d3d23b7-content-3d3d23b7-0">模态窗口</template>
+<template name="56aed8be-content-56aed8be-0">修改个人信息</template>
 
-<template name="2db4fd9a-default-2db4fd9a-0"></template>
+<template name="3fb1d5a1-default-3fb1d5a1-0"></template>
 
-<template name="2db4fd9a-backText-2db4fd9a-0"></template>
+<template name="3fb1d5a1-backText-3fb1d5a1-0"></template>
 
-<template name="2db4fd9a-content-2db4fd9a-0">忘记密码</template>
+<template name="3fb1d5a1-content-3fb1d5a1-0">修改密码</template>
 
-<template name="2696bcdf-default-2696bcdf-0"></template>
+<template name="60bff4f2-default-60bff4f2-0"></template>
 
-<template name="2696bcdf-backText-2696bcdf-0">返回</template>
+<template name="60bff4f2-backText-60bff4f2-0"></template>
 
-<template name="2696bcdf-content-2696bcdf-0">图标</template>
+<template name="60bff4f2-content-60bff4f2-0">邀请列表</template>
+
+<template name="60bff4f2-right-60bff4f2-0"></template>
+
+<template name="60bff4f2-default-60bff4f2-1"><view class="_view 60bff4f2 cu-list menu padding-xl radius shadow-warp bg-white margin-top {{[0 ? 'sm-border' : '', 0 ? 'card-menu margin-top' : '']}}" wx:key="k" key="{{k}}" wx:for="{{pdList}}" wx:for-index="k" wx:for-item="pd"><view class="_view 60bff4f2 cu-item  {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}" bindtap="handleProxy" data-eventid="{{'60bff4f2-2-'+k}}" data-comkey="{{$k}}"><text class="_text 60bff4f2 list-text1">ID:</text><text class="_text 60bff4f2 list-text2">{{pd.id}}</text><text class="_text 60bff4f2 list-text1">昵称:</text><text class="_text 60bff4f2 list-text5">{{pd.pdName}}</text><text class="_text 60bff4f2 cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text><text class="_text 60bff4f2 cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view><view class="_view 60bff4f2 {{pd.isDisplay ? 'cu-item show bg-c bg-grey' : 'hide bg-white'}}"><text class="_text 60bff4f2 list-text2">注册时间:</text><text class="_text 60bff4f2 list-text3">{{endDate}}</text><text class="_text 60bff4f2 list-text2">最后登陆:</text><text class="_text 60bff4f2 list-text3">{{endDate}}</text></view></view></template>
+
+<template name="4dcc688e-default-4dcc688e-0"></template>
+
+<template name="4dcc688e-backText-4dcc688e-0"></template>
+
+<template name="4dcc688e-content-4dcc688e-0">编辑账号信息</template>
+
+<template name="2883f2ea-default-2883f2ea-0"></template>
+
+<template name="2883f2ea-backText-2883f2ea-0"></template>
+
+<template name="2883f2ea-content-2883f2ea-0">反馈</template>
+
+<template name="17a9ca53-default-17a9ca53-0"></template>
+
+<template name="17a9ca53-backText-17a9ca53-0"></template>
+
+<template name="17a9ca53-content-17a9ca53-0">忘记密码</template>
+
+<template name="d3a6fa50-default-d3a6fa50-0"></template>
+
+<template name="d3a6fa50-backText-d3a6fa50-0"></template>
+
+<template name="d3a6fa50-content-d3a6fa50-0">提现账号</template>
+
+<template name="d3a6fa50-right-d3a6fa50-0"></template>
+
+<template name="3a526409-default-3a526409-0"></template>
+
+<template name="3a526409-backText-3a526409-0">返回</template>
+
+<template name="3a526409-content-3a526409-0">全屏抽屉</template>
+
+<template name="3380b96c-default-3380b96c-0"></template>
+
+<template name="3380b96c-backText-3380b96c-0">返回</template>
+
+<template name="3380b96c-content-3380b96c-0">微动画</template>
+
+<template name="e4996c56-default-e4996c56-0"></template>
+
+<template name="e4996c56-backText-e4996c56-0">返回</template>
+
+<template name="e4996c56-content-e4996c56-0">垂直导航</template>
+
+<template name="11c840e8-default-11c840e8-0"></template>
+
+<template name="11c840e8-backText-11c840e8-0">返回</template>
+
+<template name="11c840e8-content-11c840e8-0">索引</template>
+
+<template name="17a9cfaa-default-17a9cfaa-0"></template>
+
+<template name="17a9cfaa-backText-17a9cfaa-0"></template>
+
+<template name="17a9cfaa-content-17a9cfaa-0">注册</template>
 

@@ -1,7 +1,6 @@
 <template name="about">
 	<scroll-view :scroll-y="modalName==null" class="page" :class="modalName!=null?'show':''">
-		
-			<view class="padding img">
+			<view class="padding img"  @click="PageChange" data-cur="../about/info">
 				<view class="cu-avatar xl round margin-left head" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg);"></view>
 				<view class="content flex-sub">
 					<text class="flex">昵称:{{name}}</text>
@@ -10,32 +9,40 @@
 			</view>
 
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']">
+			
 			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<button class="cu-btn content" open-type="contact">
+				<button class="cu-btn content" @click="PageChange" data-cur="../about/info">
 					<text class="cuIcon-circlefill text-grey"></text>
 					<text class="text-grey">个人信息</text>
 				</button>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<button class="cu-btn content" open-type="contact">
-					<image src="/static/logo.png" class="png" mode="aspectFit"></image>
-					<text class="text-grey">图片 + 标题</text>
+				<button class="cu-btn content"  @click="PageChange" data-cur="../about/deposit">
+					<text class="cuIcon-circlefill text-grey"></text>
+					<text class="text-grey">提现设置</text>
 				</button>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<button class="cu-btn content" open-type="contact">
-					<text class="cuIcon-btn text-olive"></text>
-					<text class="text-grey">Open-type 按钮</text>
+				<button class="cu-btn content"  @click="PageChange" data-cur="../about/password">
+					<text class="cuIcon-circlefill text-grey"></text>
+					<text class="text-grey">密码设置</text>
 				</button>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<button class="cu-btn content" open-type="contact">
-					<text class="cuIcon-discoverfill text-orange"></text>
-					<text class="text-grey">Navigator 跳转</text>
+				<button class="cu-btn content"  @click="PageChange" data-cur="../about/feedback">
+					<text class="cuIcon-circlefill text-grey"></text>
+					<text class="text-grey">反馈</text>
 				</button>
 			</view>
+			<view class="cu-item" :class="menuArrow?'arrow':''">
+				<button class="cu-btn content"  @click="PageChange" data-cur="../about/about">
+					<text class="cuIcon-circlefill text-grey"></text>
+					<text class="text-grey">关于</text>
+				</button>
+			</view>
+			
 		</view>
-			<button class="cu-btn bg-red margin-tb-sm lg logout" @click="NavToPage">退出</button>
+			<button class="cu-btn bg-white margin-tb-sm lg logout" @click="PageChange" data-cur="../login/login">退出</button>
 	</scroll-view>
 	
 </template>
@@ -46,59 +53,6 @@
 			return {
 				name:'凯尔',
 				id:'112236',
-				// iconList: [
-				// {
-				// 	icon: 'cardboardfill',
-				// 	color: 'red',
-				// 	badge: 120,
-				// 	name: 'VR'
-				// }, {
-				// 	icon: 'recordfill',
-				// 	color: 'orange',
-				// 	badge: 1,
-				// 	name: '录像'
-				// }, {
-				// 	icon: 'picfill',
-				// 	color: 'yellow',
-				// 	badge: 0,
-				// 	name: '图像'
-				// }, {
-				// 	icon: 'noticefill',
-				// 	color: 'olive',
-				// 	badge: 22,
-				// 	name: '通知'
-				// }, {
-				// 	icon: 'upstagefill',
-				// 	color: 'cyan',
-				// 	badge: 0,
-				// 	name: '排行榜'
-				// }, {
-				// 	icon: 'clothesfill',
-				// 	color: 'blue',
-				// 	badge: 0,
-				// 	name: '皮肤'
-				// }, {
-				// 	icon: 'discoverfill',
-				// 	color: 'purple',
-				// 	badge: 0,
-				// 	name: '发现'
-				// }, {
-				// 	icon: 'questionfill',
-				// 	color: 'mauve',
-				// 	badge: 0,
-				// 	name: '帮助'
-				// }, {
-				// 	icon: 'commandfill',
-				// 	color: 'purple',
-				// 	badge: 0,
-				// 	name: '问答'
-				// }, {
-				// 	icon: 'brandfill',
-				// 	color: 'mauve',
-				// 	badge: 0,
-				// 	name: '版权'
-				// },
-				// ],
 				modalName: null,
 				gridCol: 4,
 				gridBorder: true,//宫格列表边框
@@ -155,12 +109,14 @@
 				}
 				this.listTouchDirection = null
 			},
-			NavToPage: function() {
-					uni.redirectTo({
-						url: '../login/login'
-							});
-			}
-			
+			PageChange: function(e) {
+				console.log(e.currentTarget.dataset.cur);
+				// e.currentTarget.dataset.cur
+				uni.navigateTo({
+					url:e.currentTarget.dataset.cur
+						});
+			},
+		
 		}
 	}
 </script>
@@ -191,5 +147,6 @@
 		margin-left:5%;
 		width: 90%;
 		margin-top: 100upx;
+		color: red;
 	}
 </style>
