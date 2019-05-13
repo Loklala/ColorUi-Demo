@@ -4,6 +4,7 @@
 <!-- 			<basics v-if="PageCur=='basics'"></basics> -->
 <!-- 			<components v-if="PageCur=='component'"></components> -->
 			<share v-if="PageCur=='share'"></share>
+			<earn v-if="PageCur=='earn'"></earn>
 			<burse v-if="PageCur=='burse'"></burse>
 			<about v-if="PageCur=='about'"></about>
 

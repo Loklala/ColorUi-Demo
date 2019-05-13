@@ -1,20 +1,15 @@
 <template name="components">
-	<view class="bg-white">
+	<view>
 		<scroll-view scroll-y class="page">
 			<!-- #ifdef H5 -->
-<!-- 			<view class="cu-bar bg search margin-bottom-sm">
-				<image class="cu-avatar round" :src="src"></image>
+			<view class="cu-bar bg search ">
 				<view class="content title-text">
-					推广中心
+					收益
 				</view>
 				<view class="action">
-					<text class="cuIcon-more"></text>
 				</view>
-			</view> -->
-			
-			
-			
-			<view class="cu-list menu uni-badge-warning bg" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" >
+			</view>
+<!-- 			<view class="cu-list menu uni-badge-warning bg" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" >
 				<view class="icon-text bg">
 					<text class="cuIcon-notification text-white text-xl "></text>
 				</view>
@@ -25,44 +20,30 @@
 						</swiper-item>
 					</swiper>
 				</view>
-			</view>
-					
+			</view> -->
+			
+<!-- 								<image src="../../static/img/login-logo.jpg" 
+			mode="widthFix" class="response"></image> -->
 			<!-- #endif -->
-			<image src="../../static/img/login-logo.jpg" mode="widthFix" class="response"></image>
 			<view class="bg-gray">
-<!-- 				<view class="cu-list menu uni-badge-warning top" :class="[0?'sm-border':'',0?'card-menu ':'']">
-					<view class="cu-item list-btn " :class="0?'arrow bg-white':'bg-white'" @click="PageChange" data-cur="../share/share" >
-						<text class="content">
-							<text class="cuIcon-link text-cyan icon-sm "></text>
-							<text class="lables">推广方式</text>
-						</text>
-					</view>
-					<view class="cu-item list-btn1" :class="0?'arrow bg-white':'bg-white'" @click="PageChange" data-cur="../share/hasplayer">
-						<text class="content ">
-							<text class="cuIcon-addressbook text-cyan icon-sm"></text>
-							<text class="lables">已邀请玩家</text>
-						</text>
-					</view>
-				</view> -->
-				<!-- @click="PageChange" data-cur="../share/share" -->
-				<view class="cu-list menu uni-badge-warning top bg-white" :class="[0?'sm-border':'',0?'card-menu ':'']">
+				<view class="cu-list menu uni-badge-warning top bg-gray" :class="[0?'sm-border':'',0?'card-menu ':'']">
 					
 					<view class="nav-list top" style="margin-top: 50upx;">
 						<navigator hover-class="none" :url="'../share/shareway'" class="nav-li" navigateTo :class="'bg-olive'"
 						:style="[{animation: 'show ' + ((0+1)*0.2+0.1) + 's 1'}]" >
-							<view class="nav-title">推广方式</view>
+							<view class="nav-title">房卡收益</view>
 							<view class="nav-name">_</view>
 							<text :class="'cuIcon-share'"></text>
 						</navigator>
 						<navigator hover-class="none" :url="'../share/hasplayer'" class="nav-li" navigateTo :class="'bg-cyan'"
 						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >
-							<view class="nav-title">已邀请玩家</view>
+							<view class="nav-title">俱乐部收益</view>
 							<view class="nav-name">_</view>
 							<text :class="'cuIcon-addressbook'"></text>
 						</navigator>
 						<navigator hover-class="none" :url="'../share/0'" class="nav-li" navigateTo :class="'bg-green'"
 						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >
-							<view class="nav-title">俱乐部</view>
+							<view class="nav-title">充值收益</view>
 							<view class="nav-name">_</view>
 							<text :class="'cuIcon-addressbook'"></text>
 						</navigator>
@@ -96,20 +77,6 @@
 					'邀请好友！绑定代理账户就可以获得收益！',
 					'随时随地查看当前收益金额，随时随地提现到账',
 					'收益到达一定额度，即可提交提现申请哦'
-				],
-				elements: [{
-						title: '推广方式',
-						name: '推广',
-						color: 'pink',
-						icon: 'share'
-					},
-					{
-						title: '已邀请玩家',
-						name: '玩家',
-						color: 'mauve',
-						icon: 'friendfill'
-					},
-					
 				],
 				
 				

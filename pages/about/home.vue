@@ -1,6 +1,15 @@
 <template name="about">
 	<scroll-view :scroll-y="modalName==null" class="page" :class="modalName!=null?'show':''">
-			<view class="padding img"  @click="PageChange" data-cur="../about/info">
+			<!-- 未登录 -->
+			<view :class="islogin?'padding img hide':'padding img show'"  @click="PageChange" data-cur="../login/login">
+				<image class="cu-avatar xl round margin-left head bg-white" :src="src"></image>
+				<view class="content flex-sub">
+					<text class="flex">暂未登陆</text>
+					<text class="flex">点击去登陆</text>
+				</view>
+			</view>
+			<!-- 登陆成功 -->
+			<view :class="islogin?'padding img show':'padding img hide'"   @click="PageChange" data-cur="../about/info">
 				<image class="cu-avatar xl round margin-left head bg-white" :src="src"></image>
 				<view class="content flex-sub">
 					<text class="flex">昵称:{{name}}</text>
@@ -52,6 +61,7 @@
 	export default {
 		data() {
 			return {
+				islogin:false,
 				src:'../../static/logo.png',
 				name:"",
 				id:"",
@@ -69,9 +79,12 @@
 		created:function(){//beforeCreate
 			const value = uni.getStorageSync('agentInfo');
 			if (value) {
+				this.src="../../static/logo.png";
 				this.id=value.agent_id;
 				this.name=value.nickname;
 				console.log(value.id.toString());
+			}else{
+				this.src="";
 			}
 		},
 		methods: {
@@ -132,6 +145,12 @@
 </script>
 
 <style>
+	.hide{
+		display: none;
+	}
+	.show{
+		display: block;
+	}
 	.page {
 		height: 100Vh;
 		width: 100vw;

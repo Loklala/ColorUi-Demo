@@ -14,6 +14,9 @@ import App from './App'
 import share from './pages/share/home.vue'
 Vue.component('share',share)
 
+import earn from './pages/earn/home.vue'
+Vue.component('earn',earn)
+
 import about from './pages/about/home.vue'
 Vue.component('about',about)
 

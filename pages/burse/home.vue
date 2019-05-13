@@ -19,22 +19,22 @@
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" style="margin-top: 30upx;">
 			<view class="cu-list grid bg" :class="['col-' + gridCol,gridBorder?'':'no-border']">
 				<view class="cu-item ">
-					<view class="money-title">房卡总收益</view><view class="money-css">0.00</view>
+					<view class="money-title">房卡总收益</view><view class="money-css">{{fkmoney}}</view>
 				</view>
 				<view class="cu-item">
-					<view class="money-title">充值总收益</view><view class="money-css">0.00</view>
+					<view class="money-title">充值总收益</view><view class="money-css">{{czmoney}}</view>
 				</view>
 				<view class="cu-item">
-					<view class="money-title">俱乐部总收益</view><view class="money-css">0.00</view>
+					<view class="money-title">俱乐部总收益</view><view class="money-css">{{jlbmoney}}</view>
 				</view>
 				<view class="cu-item">
-					<view class="money-title">总提现</view><view class="money-css">0.00</view>
+					<view class="money-title">总提现</view><view class="money-css">{{ztsmoney}}</view>
 				</view>
 				<view class="cu-item">
-					<view class="money-title">余额</view><view class="money-css">0.00</view>
+					<view class="money-title">余额</view><view class="money-css">{{thismoney}}</view>
 				</view>
 				<view class="cu-item">
-					<view class="money-title">可提余额</view><view class="money-css">0.00</view>
+					<view class="money-title">可提余额</view><view class="money-css">{{ktmoney}}</view>
 				</view>
 			</view>
 		</view>	
@@ -68,7 +68,7 @@
 			</view>
 		</view>
 		<view class="cu-item" :class="0?'arrow':''">
-				<button type="default" class="primary bg">申请提现</button>
+				<button type="default" class="primary bg" @click="ontsmoney()">申请提现</button>
 		</view>
 		
 		</scroll-view>
@@ -81,17 +81,42 @@
 		components: {
 			mInput
 		},
+		//加载金额
 		created:function(){//beforeCreate
 			const value = uni.getStorageSync('agentInfo');
 			if (value) {
 				var id=value.id;
-				console.log(value.id);
+			uni.request({
+				url: 'http://192.168.0.199:8080/agent/login/captcha?refresh= ',
+				method: 'GET',
+				dataType: 'json',
+				cache: false,
+				data: {
+					id:id,
+				},
+				success: res => {
+					
+					
+					
+					
+				},
+				fail: () => {},
+				complete: () => {}
+			});
 			}
 		},
 		data() {
 			return {
+				fkmoney:'0.00',
+				czmoney:'0.00',
+				jlbmoney:'0.00',
+				ztsmoney:'0.00',
+				thismoney:'0.00',
+				ktmoney:'0.00',
+				
 				money:'',
 				password:'',
+				
 				modalName: null,
 				gridCol: 3,
 				gridBorder: true,
@@ -106,6 +131,29 @@
 			};
 		},
 		methods: {
+			// 点击提现
+			ontsmoney(){
+				console.log("提现")
+				uni.request({
+					url: 'http://192.168.0.199:8080/agent/login/captcha?refresh= ',
+					method: 'GET',
+					dataType: 'json',
+					cache: false,
+					data: {
+						id:id,
+						money:this.money,
+						password:this.password,
+					},
+					success: res => {
+						
+						
+						
+						
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			},
 			showModal(e) {
 				this.modalName = e.currentTarget.dataset.target
 			},
