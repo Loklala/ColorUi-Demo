@@ -2,6 +2,12 @@
 	"pages": [
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
+		    "path" : "pages/login/login",
+		    "style": {
+		    	"navigationBarTitleText": ""
+		    }
+		},
+		{
 			"path": "pages/index/index",
 			"style": {
 				"navigationBarTitleText": ""
@@ -62,13 +68,14 @@
 		{
 		    "path" : "pages/share/hasplayer", 
 		    "style" : {
-		        "navigationBarTitleText" : ""
+		        "navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"onReachBottomDistance" : 100, // 页面上拉触底事件触发时距页面底部距离, 默认 50
+				"app-plus" : {
+					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
 		    }
 		},
-		
-		
-		
-		
 		
 		
 		
@@ -217,20 +224,12 @@
 			"style": {
 				"navigationBarTitleText": ""
 			}
-		}
-        ,{
-            "path" : "pages/login/login",
-            "style": {
-            	"navigationBarTitleText": ""
-            }
-        },
-		{
+		},{
 		    "path" : "pages/login/pwd",
 		    "style": {
 		    	"navigationBarTitleText": ""
 		    }
-		},
-		{
+		},{
 		    "path" : "pages/login/reg",
 		    "style": {
 		    	"navigationBarTitleText": ""

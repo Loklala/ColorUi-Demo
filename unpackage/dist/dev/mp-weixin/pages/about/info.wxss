@@ -1,0 +1,27 @@
+
+.menu{
+	margin-top: 10rpx;
+}
+.btn{
+	background: -webkit-gradient(linear,left top, right top,from(#3396e9),to(#1ab7b9));
+	background: -o-linear-gradient(left,#3396e9,#1ab7b9);
+	background: linear-gradient(to right,#3396e9,#1ab7b9);
+	width: 96%;
+	margin-left: 2%;
+	margin-top: 50rpx;
+}
+.page {
+	height: 100Vh;
+	width: 100vw;
+}
+.title{
+	color: #777777;
+	text-align: left;
+	width: 120rpx;
+}
+.btn-bg{
+	background: #fff;
+	color: #007AFF;
+}
+
+

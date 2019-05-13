@@ -47,11 +47,8 @@
 </template>
 
 <script>
+	var self;
     import service from '../../service.js';
-    import {
-        // mapState,
-        // mapMutations
-    } from 'vuex'
     import mInput from '../../components/m-input.vue'
 	
     export default {
@@ -59,8 +56,10 @@
             mInput
         },
         data() {
+			lists:[],
+			self=this
             return {
-				code_url:'',
+				code_url:'http://192.168.0.199:8080/agent/login/captcha?',
 				disableScroll:true,
                 providerList: [],
                 hasProvider: false,
@@ -77,13 +76,12 @@
 			console.log('random_num'+this.random_num);
 			this.changeImg();
 		},
-        // computed: mapState(['forcedLogin']),
         methods: {
 			//获取验证码
 			changeImg(){
+				this.code_url="";
 				var rand= new Date().getTime();
 				this.random_num= this.random_num+1;
-				console.log('rands:'+this.random_num)
 				uni.request({
 					url: 'http://192.168.0.199:8080/agent/login/captcha?refresh= ',//+'&_='+this.random_num,
 					method: 'GET',
@@ -91,6 +89,7 @@
 					cache: false,
 					data: {},
 					success: res => {
+						console.log(res);
 						this.code_url='http://192.168.0.199:8080'+res.data['url'];
 						console.log(this.code_url)
 					},
@@ -144,23 +143,53 @@
                     return;
                 }
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/login/test-cap',
-					method: 'GET',
+					url: 'http://192.168.0.199:8080/agent/login/ajax-login',
+					method: 'POST',
 					dataType: 'json',
 					cache: false,
 					data: {
+						account:this.account,
+						password:this.password,
 						code:this.code,
 					},
 					success: res => {
 						console.log(res)
 						if(res.data.isSuccess==200){
-							uni.showToast({
-							    icon: 'none',
-							    title: res.data.message
+							// uni.showToast({
+							//     icon: 'none',
+							//     title: res.data.message
+							// });
+							const data = {
+								id:res.data.result.id,
+								agent_id:res.data.result.agent_id,
+							    agent_tel:res.data.result.agent_tel,
+								nackname:res.data.result.nackname,
+							}
+							window["KeyValueManager"] = {};
+							window["KeyValueManager"]["playerInfo"] = {
+								id:data.id,
+								agent_id:data.agent_id,
+								agent_tel:data.agent_tel,
+								nackname:data.nackname,
+							};
+							//缓存
+							uni.setStorage({
+								key: 'agentInfo',
+								data: {
+									id:data.id,
+									agent_id:data.agent_id,
+									agent_tel:data.agent_tel,
+									nackname:data.nackname,
+								},
+								success: function () {
+									uni.redirectTo({
+										url: '../index/index'
+									});
+								}
 							});
 							
 							
-							
+							// service.addUser(data);
 						}else{
 							uni.showToast({
 							    icon: 'none',
@@ -169,7 +198,10 @@
 						}
 					},
 					fail: () => {
-						
+						uni.showToast({
+							icon: 'none',
+							title: '网络异常,请稍后重试'
+						});
 					},
 					complete: () => {}
 				});

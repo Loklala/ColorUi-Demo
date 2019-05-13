@@ -1,0 +1,52 @@
+
+.tips{
+	/* text-indent:5upx; */
+	color: red;
+}
+.edit-btn{
+	background: -webkit-gradient(linear,left top, right top,from(#4dbf92),to(#1cbbb4));
+	background: -o-linear-gradient(left,#4dbf92,#1cbbb4);
+	background: linear-gradient(to right,#4dbf92,#1cbbb4);
+	font-size: 25rpx;
+	margin-right: 15rpx;
+	color: #555555;
+}
+.bg{
+	background: -webkit-gradient(linear,left top, right top,from(#4dbf92),to(#1cbbb4));
+	background: -o-linear-gradient(left,#4dbf92,#1cbbb4);
+	background: linear-gradient(to right,#4dbf92,#1cbbb4);
+}
+.menu{
+	margin-top: 30rpx;
+}
+.btn{
+	background: -webkit-gradient(linear,left top, right top,from(#4dbf92),to(#1cbbb4));
+	background: -o-linear-gradient(left,#4dbf92,#1cbbb4);
+	background: linear-gradient(to right,#4dbf92,#1cbbb4);
+	width: 94%;
+	margin-left: 3%;
+	margin-top: 50rpx;
+}
+.hide{
+	display: none;
+}
+.page {
+	height: 100Vh;
+	width: 100vw;
+}
+.title{
+	color: #777777;
+	text-align: left;
+	width: 160rpx;
+}
+.icon-title{
+	color: #777777;
+	text-align: left;
+	width: 60rpx;
+}
+.btn-bg{
+	background: #fff;
+	color: #007AFF;
+}
+
+

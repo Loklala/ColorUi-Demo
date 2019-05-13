@@ -1,7 +1,7 @@
 <template name="about">
 	<scroll-view :scroll-y="modalName==null" class="page" :class="modalName!=null?'show':''">
 			<view class="padding img"  @click="PageChange" data-cur="../about/info">
-				<view class="cu-avatar xl round margin-left head" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg);"></view>
+				<image class="cu-avatar xl round margin-left head bg-white" :src="src"></image>
 				<view class="content flex-sub">
 					<text class="flex">昵称:{{name}}</text>
 					<text class="flex"> ID:{{id}}</text>
@@ -48,11 +48,13 @@
 </template>
 
 <script>
+	var self;
 	export default {
 		data() {
 			return {
-				name:'凯尔',
-				id:'112236',
+				src:'../../static/logo.png',
+				name:"",
+				id:"",
 				modalName: null,
 				gridCol: 4,
 				gridBorder: true,//宫格列表边框
@@ -63,6 +65,9 @@
 				listTouchStart: 0,
 				listTouchDirection: null,
 			};
+		},
+		beforeCreate:function(){
+			console.log("sssssssssss");
 		},
 		methods: {
 			showModal(e) {
@@ -109,15 +114,15 @@
 				}
 				this.listTouchDirection = null
 			},
+			//页面跳转
 			PageChange: function(e) {
-				console.log(e.currentTarget.dataset.cur);
-				// e.currentTarget.dataset.cur
 				uni.navigateTo({
 					url:e.currentTarget.dataset.cur
-						});
+					});
 			},
 		
 		}
+		
 	}
 </script>
 
