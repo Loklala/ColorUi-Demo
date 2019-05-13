@@ -155,22 +155,18 @@
 					success: res => {
 						console.log(res)
 						if(res.data.isSuccess==200){
-							// uni.showToast({
-							//     icon: 'none',
-							//     title: res.data.message
-							// });
 							const data = {
 								id:res.data.result.id,
 								agent_id:res.data.result.agent_id,
 							    agent_tel:res.data.result.agent_tel,
-								nackname:res.data.result.nackname,
+								nickname:res.data.result.nickname,
 							}
 							window["KeyValueManager"] = {};
 							window["KeyValueManager"]["playerInfo"] = {
 								id:data.id,
 								agent_id:data.agent_id,
 								agent_tel:data.agent_tel,
-								nackname:data.nackname,
+								nickname:data.nickname,
 							};
 							//缓存
 							uni.setStorage({
@@ -179,7 +175,7 @@
 									id:data.id,
 									agent_id:data.agent_id,
 									agent_tel:data.agent_tel,
-									nackname:data.nackname,
+									nickname:data.nickname,
 								},
 								success: function () {
 									uni.redirectTo({

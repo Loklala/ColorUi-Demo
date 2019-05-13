@@ -81,6 +81,13 @@
 		components: {
 			mInput
 		},
+		created:function(){//beforeCreate
+			const value = uni.getStorageSync('agentInfo');
+			if (value) {
+				var id=value.id;
+				console.log(value.id);
+			}
+		},
 		data() {
 			return {
 				money:'',

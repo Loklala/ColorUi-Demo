@@ -66,8 +66,13 @@
 				listTouchDirection: null,
 			};
 		},
-		beforeCreate:function(){
-			console.log("sssssssssss");
+		created:function(){//beforeCreate
+			const value = uni.getStorageSync('agentInfo');
+			if (value) {
+				this.id=value.agent_id;
+				this.name=value.nickname;
+				console.log(value.id.toString());
+			}
 		},
 		methods: {
 			showModal(e) {
