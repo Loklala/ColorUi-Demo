@@ -53,7 +53,7 @@
         // mapMutations
     } from 'vuex'
     import mInput from '../../components/m-input.vue'
-
+	
     export default {
         components: {
             mInput
@@ -68,9 +68,13 @@
                 password: '',
                 positionTop: 0,
 				code:'',
+				
+				random_num:0,
             }
         },
 		onLoad:function(){
+			this.random_num=new Date().getTime();
+			console.log('random_num'+this.random_num);
 			this.changeImg();
 		},
         // computed: mapState(['forcedLogin']),
@@ -78,15 +82,16 @@
 			//获取验证码
 			changeImg(){
 				var rand= new Date().getTime();
-				// var rands = Math.floor(Math.random() * ( 1557572085840 + 1));
+				this.random_num= this.random_num+1;
+				console.log('rands:'+this.random_num)
 				uni.request({
-					url: 'http://192.168.0.199/agent/login/captcha?refresh'+'&_='+rand,
+					url: 'http://192.168.0.199:8080/agent/login/captcha?refresh= ',//+'&_='+this.random_num,
 					method: 'GET',
 					dataType: 'json',
 					cache: false,
 					data: {},
 					success: res => {
-						this.code_url='http://192.168.0.199'+res.data['url'];
+						this.code_url='http://192.168.0.199:8080'+res.data['url'];
 						console.log(this.code_url)
 					},
 					fail: () => {},
@@ -116,19 +121,13 @@
                     }
                 });
             },
-            
-			 /**
-			 * 使用 absolute 定位，并且设置 bottom 值进行定位。软键盘弹出时，底部会因为窗口变化而被顶上来。
-			 * 反向使用 top 进行定位，可以避免此问题。
-			 */
+			//使用 absolute 定位，并且设置 bottom 值进行定位。软键盘弹出时，底部会因为窗口变化而被顶上来。
+			// 反向使用 top 进行定位，可以避免此问题。
 			initPosition() {
                 this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
             },
             
-			 /**
-             * 客户端对账号信息进行一些必要的校验。
-             * 实际开发中，根据业务需要进行处理，这里仅做示例。
-             */
+			//登录
 			bindLogin() {
                 if (this.account.length < 4) {
                     uni.showToast({
@@ -145,14 +144,12 @@
                     return;
                 }
 				uni.request({
-					url: 'http://192.168.0.199/agent/login/ajax-login',
+					url: 'http://192.168.0.199:8080/agent/login/test-cap',
 					method: 'GET',
 					dataType: 'json',
 					cache: false,
 					data: {
-						username:this.account,
-						pwd:this.password,
-						verify_code:this.code,
+						code:this.code,
 					},
 					success: res => {
 						console.log(res)
@@ -161,6 +158,9 @@
 							    icon: 'none',
 							    title: res.data.message
 							});
+							
+							
+							
 						}else{
 							uni.showToast({
 							    icon: 'none',
@@ -204,6 +204,40 @@
     //                 });
     //             }
             },
+			login(){
+				uni.request({
+					url: 'http://192.168.0.199/agent/login/ajax-login',
+					method: 'POST',
+					dataType: 'json',
+					cache: false,
+					data: {
+						username:this.account,
+						pwd:this.password,
+						verify_code:this.code,
+					},
+					success: res => {
+						console.log(res)
+						if(res.data.isSuccess==200){
+							uni.showToast({
+							    icon: 'none',
+							    title: res.data.message
+							});
+							
+							
+							
+						}else{
+							uni.showToast({
+							    icon: 'none',
+							   title: res.data.message
+							});
+						}
+					},
+					fail: () => {
+						
+					},
+					complete: () => {}
+				});
+			},
             oauth(value) {
                 uni.login({
                     provider: value,
