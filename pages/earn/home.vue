@@ -25,6 +25,31 @@
 <!-- 								<image src="../../static/img/login-logo.jpg" 
 			mode="widthFix" class="response"></image> -->
 			<!-- #endif -->
+			
+					<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" style="margin-top: 30upx;">
+				<view class="cu-list grid bg" :class="['col-' + gridCol,gridBorder?'':'no-border']">
+					<view class="cu-item ">
+						<view class="money-title">房卡总收益</view><view class="money-css">{{fkmoney}}</view>
+					</view>
+					<view class="cu-item">
+						<view class="money-title">充值总收益</view><view class="money-css">{{czmoney}}</view>
+					</view>
+					<view class="cu-item">
+						<view class="money-title">俱乐部总收益</view><view class="money-css">{{jlbmoney}}</view>
+					</view>
+					<!-- <view class="cu-item">
+						<view class="money-title">总提现</view><view class="money-css">{{ztsmoney}}</view>
+					</view>
+					<view class="cu-item">
+						<view class="money-title">余额</view><view class="money-css">{{thismoney}}</view>
+					</view>
+					<view class="cu-item">
+						<view class="money-title">可提余额</view><view class="money-css">{{ktmoney}}</view>
+					</view> -->
+				</view>
+			</view>	
+			
+			
 			<view class="bg-gray">
 				<view class="cu-list menu uni-badge-warning top bg-gray" :class="[0?'sm-border':'',0?'card-menu ':'']">
 					
@@ -67,6 +92,13 @@
 		name: "components",
 		data() {
 			return {
+								fkmoney:'0.00',
+				czmoney:'0.00',
+				jlbmoney:'0.00',
+				ztsmoney:'0.00',
+				thismoney:'0.00',
+				ktmoney:'0.00',
+				
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
 				src:'',
@@ -79,6 +111,13 @@
 					'收益到达一定额度，即可提交提现申请哦'
 				],
 				
+								modalName: null,
+				gridCol: 3,
+				gridBorder: true,
+				
+				menuBorder: true,
+				menuArrow: true,
+				menuCard: true,
 				
 				cardCur: 0,
 				swiperList: [{
