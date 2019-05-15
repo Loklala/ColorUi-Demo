@@ -5084,16 +5084,6 @@ scroll-view.cu-steps .cu-item {
 
 
 
-.page {
-	height: 100vh;
-}
-
-
-.page {
-	height: 100vh;
-}
-
-
 .lables{
 	font-size: 30rpx;
 }
@@ -5152,6 +5142,73 @@ scroll-view.cu-steps .cu-item {
 
 
 
+.money-css{
+	min-height: 50rpx;
+}
+.lables{
+	font-size: 30rpx;
+}
+.list-btn{
+	width: 50%;float: left;border-right: 1px solid #dddddd;text-align: center;
+}
+.list-btn1{
+	width: 50%;float: left;text-align: center;border-left: 1px solid #dddddd;
+}
+.top{
+	margin-top: 5rpx;
+}
+.title-text{
+	color: #fff;
+}
+.bg{
+	background: -webkit-gradient(linear,left top, right top,from(#3396a6),to(#33966a));
+	background: -o-linear-gradient(left,#3396a6,#33966a);
+	background: linear-gradient(to right,#3396a6,#33966a);
+}
+.bg-1{
+	background-color:#33966a;
+}
+.bg1{
+	background: -webkit-gradient(linear,left top, left bottom,from(#33966a),to(#ffffff));
+	background: -o-linear-gradient(top,#33966a,#ffffff);
+	background: linear-gradient(to bottom,#33966a,#ffffff);
+}
+.icon-xl{
+	font-size: 50rpx;
+}
+.icon-text{
+	width: 10%;float: left;text-align: right;line-height: 60rpx;
+}
+.solle-text{
+	height: 50rpx;width: 90%;float: left;text-align: center;line-height: 60rpx;
+}
+.tip-text{
+	width: 100%;
+	text-indent: 45rpx;
+}
+.page {
+	height: 100vh;
+}
+.Title-text{
+	font-size: 23rpx;
+}
+.cardTitle {
+	color: #fff;
+	padding: 90rpx 60rpx;
+	font-size: 40rpx;
+	font-weight: 300;
+	position: relative;
+	text-shadow: 0px 0px 6rpx rgba(0, 0, 0, 1)
+}
+
+
+
+.hide{
+	display: none;
+}
+.show{
+	display: block;
+}
 .page {
 	height: 100Vh;
 	width: 100vw;
@@ -5183,6 +5240,9 @@ scroll-view.cu-steps .cu-item {
 }
 
 
+.ye{
+	min-height: 130rpx;
+}
 .title-text{
 	color: #fff;
 }

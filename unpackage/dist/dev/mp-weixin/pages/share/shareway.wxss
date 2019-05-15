@@ -1,4 +1,10 @@
 
+.ths{
+	height: 70rpx;
+}
+.bg-none{
+	background-color: none;
+}
 .con{
 	text-align: left;
 	width: 70%;

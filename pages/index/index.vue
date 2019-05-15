@@ -75,8 +75,8 @@
 			},
 		},
 		onLoad(){
-			console.log('*************')
-			console.log(window["KeyValueManager"]);
+			// console.log('*************')
+			// console.log(window["KeyValueManager"]);
 			try {
 				const value = uni.getStorageSync('agentInfo');
 				if (value) {

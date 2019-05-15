@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/login/login",
     "pages/about/info",
     "pages/about/editinfo",
     "pages/about/deposit",
@@ -10,6 +11,9 @@
     "pages/about/feedback",
     "pages/share/shareway",
     "pages/share/hasplayer",
+    "pages/earn/clubearn",
+    "pages/earn/roomearn",
+    "pages/earn/rechearn",
     "pages/basics/layout",
     "pages/basics/background",
     "pages/basics/text",
@@ -35,16 +39,16 @@
     "pages/plugin/animation",
     "pages/plugin/drawer",
     "pages/plugin/verticalnav",
-    "pages/login/login",
     "pages/login/pwd",
     "pages/login/reg"
   ],
   "subPackages": [],
   "window": {
     "navigationBarBackgroundColor": "#0081ff",
-    "navigationBarTitleText": "ColorUi for UniApp",
+    "navigationBarTitleText": "皮蛋游戏推广后台",
     "navigationStyle": "custom",
     "navigationBarTextStyle": "white"
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

@@ -1,11 +1,21 @@
 
+.toptab{
+		height: 60rpx;
+}
+.code-img{
+		float: right;
+		margin-right: -20rpx;
+		height: 90rpx;
+		width: 180rpx;
+}
 .input-group{
-		margin-top: 20rpx;
+		margin-top: -2rpx;
 }
 .text-olive{
 		color: #1bb8b7;
 }
 .primary{
+		border-radius:8rpx;
 		background:-webkit-gradient(linear,left top, right top,from(#0286f7),to(#1bb8b7));
 		background:-o-linear-gradient(left,#0286f7,#1bb8b7);
 		background:linear-gradient(to right,#0286f7,#1bb8b7);
@@ -13,8 +23,8 @@
 .login-btn{
 		margin-top: 50rpx;
 		margin-bottom: 10rpx;
-		width: 90%;
-		margin-left: 5%;
+		width:98%;
+		margin-left: 1%;
 }
 .head{
 		height: 230rpx;

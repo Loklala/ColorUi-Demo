@@ -134,6 +134,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _service = _interopRequireDefault(__webpack_require__(/*! ../../service.js */ "../../../ColorUi-Demo/service.js"));
 var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-input.vue */ "../../../ColorUi-Demo/components/m-input.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 
@@ -143,25 +164,268 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
 
   data: function data() {
     return {
-      email: '' };
+      scrollTop: 0,
+      old: {
+        scrollTop: 0 },
+
+      CustomBar: this.CustomBar,
+      modalName: null,
+
+      tel: '',
+      password: '',
+      repassword: '',
+      code: '',
+
+      radio: 'A',
+      disabled: false,
+      time: 0,
+      btntxt: '获取验证码',
+      checkbox: [{
+        value: 'A',
+        checked: false },
+
+      {
+        value: 'B',
+        checked: true },
+
+      {
+        value: 'C',
+        checked: false }] };
+
+
+
+
+  },
+  onLoad: function onLoad() {var _this = this;
+    var last_tel = uni.getStorageSync('last_tel');
+    if (last_tel) {
+      console.log(last_tel);
+    }
+    uni.request({
+      url: 'http://192.168.0.199:8080/agent/login/last-sms-time',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' },
+
+      method: 'POST',
+      dataType: 'json',
+      cache: false,
+      data: {
+        last_tel: last_tel,
+        sms_type: 1 },
+
+      success: function success(res) {
+        var lists = res;
+        var data = lists.data;
+        if (data.isSuccess == 200) {
+          _this.time = 60 - parseInt(data.result);
+          console.log(_this.time);
+          _this.disabled = true;
+          _this.timer();
+        } else {
+          _this.time = 0;
+          _this.disabled = false;
+        }
+      },
+      fail: function fail() {
+        uni.showToast({
+          icon: 'none',
+          title: '网络异常,请稍后重试' });
+
+      },
+      complete: function complete() {} });
 
   },
   methods: {
-    findPassword: function findPassword() {
-      /**
-                                            * 仅做示例
-                                            */
-      if (this.email.length < 3 || !~this.email.indexOf('@')) {
+    upper: function upper(e) {
+      console.log(e);
+    },
+    lower: function lower(e) {
+      console.log(e);
+    },
+    scroll: function scroll(e) {
+      console.log(e);
+      this.old.scrollTop = e.detail.scrollTop;
+    },
+    showModal: function showModal(e) {
+      this.modalName = e.currentTarget.dataset.target;
+    },
+    hideModal: function hideModal(e) {
+      this.modalName = null;
+    },
+    //找回密码
+    commit: function commit() {var _this2 = this;
+      var reg =  true && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+      if (this.tel == '') {
         uni.showToast({
           icon: 'none',
-          title: '邮箱地址不合法' });
+          title: '请输入手机号码' });
+
+        return;
+      } else if (!reg.test(this.tel)) {
+        uni.showToast({
+          icon: 'none',
+          title: '手机格式不正确' });
 
         return;
       }
-      uni.showToast({
-        icon: 'none',
-        title: '已发送重置邮件至注册邮箱，请注意查收。',
-        duration: 3000 });
+      if (this.tel.length < 11) {
+        uni.showToast({
+          icon: 'none',
+          title: '手机号格式不正确' });
+
+        return;
+      }
+      if (this.code == '') {
+        uni.showToast({
+          icon: 'none',
+          title: '请输入验证码' });
+
+        return;
+      }
+      if (this.password.length < 4) {
+        uni.showToast({
+          icon: 'none',
+          title: '密码最短为 4 个字符' });
+
+        return;
+      }
+      if (this.password != this.repassword) {
+        uni.showToast({
+          icon: 'none',
+          title: '两次密码不一致' });
+
+        return;
+      }
+      uni.request({
+        url: 'http://192.168.0.199:8080/agent/login/ajax-find-pwd',
+        method: 'GET',
+        data: {
+          tel: this.tel,
+          smsCode: this.code,
+          pwd: this.repassword,
+          sms_type: 1 },
+
+        success: function success(res) {
+          _this2.list = res;
+          var data = _this2.list.data;
+          var msg = data.result;
+          if (data.isSuccess == 200) {
+            _this2.time = 60;
+            _this2.disabled = true;
+            uni.showToast({
+              icon: 'none',
+              title: msg },
+            2000);
+            var self = _this2;
+            //记录成功发送验证码手机号
+            uni.setStorage({
+              key: 'last_tel',
+              data: _this2.tel,
+              success: function success() {
+                self.timer();
+              } });
+
+
+          }
+          if (data.isSuccess == 400) {
+            uni.showToast({
+              icon: 'none',
+              title: "请稍候再试" },
+            2000);
+            _this2.time = 0;
+            setTimeout(_this2.timer, 1000);
+            _this2.disabled = false;
+          }
+        },
+        fail: function fail() {
+          uni.showToast({
+            icon: 'none',
+            title: '网络异常,请稍后重试' });
+
+        },
+        complete: function complete() {} });
+
+    },
+    //验证手机号码部分
+    sendcode: function sendcode() {var _this3 = this;
+      var reg =  true && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+      if (this.tel == '') {
+        uni.showToast({
+          icon: 'none',
+          title: '请输入手机号码' });
+
+        return;
+      } else if (!reg.test(this.tel)) {
+        uni.showToast({
+          icon: 'none',
+          title: '手机格式不正确' });
+
+        return;
+      }
+      uni.request({
+        url: 'http://192.168.0.199:8080/agent/login/ajax-findpwd-code',
+        method: 'GET',
+        data: {
+          tel: this.tel,
+          sms_type: 1 },
+
+        success: function success(res) {
+          _this3.list = res;
+          var data = _this3.list.data;
+          var msg = data.result;
+          if (data.isSuccess == 200) {
+            _this3.time = 60;
+            _this3.disabled = true;
+            uni.showToast({
+              icon: 'none',
+              title: msg },
+            2000);
+            var self = _this3;
+            //记录成功发送验证码手机号
+            uni.setStorage({
+              key: 'last_tel',
+              data: _this3.tel,
+              success: function success() {
+                self.timer();
+              } });
+
+
+          }
+          if (data.isSuccess == 400) {
+            uni.showToast({
+              icon: 'none',
+              title: "请稍候再试" },
+            2000);
+            _this3.time = 0;
+            setTimeout(_this3.timer, 1000);
+            _this3.disabled = false;
+          }
+        },
+        fail: function fail() {
+          uni.showToast({
+            icon: 'none',
+            title: '网络异常,请稍后重试' });
+
+        },
+        complete: function complete() {} });
+
+
+
+    },
+    timer: function timer() {
+      if (this.time > 0) {
+        this.time--;
+        this.btntxt = this.time + 's后获取';
+        setTimeout(this.timer, 1000);
+      } else {
+        this.time = 0;
+        this.btntxt = '获取验证码';
+        this.disabled = false;
+      }
+    },
+    navTo: function navTo() {
+      uni.redirectTo({
+        url: 'login' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -194,73 +458,171 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "view",
-    { staticClass: "content" },
-    [
+  return _c("view", { staticClass: "content" }, [
+    _c("view", { staticClass: "cu-bar bg search bg-gradual-blue" }, [
       _c(
-        "cu-custom",
+        "view",
         {
-          attrs: {
-            bgColor: "bg-gradual-blue",
-            isBack: true,
-            mpcomid: "17a9ca53-0"
+          staticClass: "action",
+          attrs: { eventid: "17a9ca53-0" },
+          on: {
+            tap: function($event) {
+              _vm.navTo()
+            }
           }
         },
+        [_c("text", { staticClass: "cuIcon-back text-white" }), _vm._v("返回")]
+      ),
+      _c("view", { staticClass: "content title-text" }, [_vm._v("找回密码")]),
+      _c("view", { staticClass: "action" })
+    ]),
+    _c("view", { staticClass: "input-group" }, [
+      _c(
+        "view",
+        { staticClass: "cu-form-group l-input" },
         [
-          _c("block", { slot: "backText" }),
-          _c("block", { slot: "content" }, [_vm._v("忘记密码")])
+          _c("view", { staticClass: "title" }, [_vm._v("手机号：")]),
+          _c("m-input", {
+            staticClass: "m-input",
+            attrs: {
+              type: "number",
+              clearable: "",
+              focus: "",
+              placeholder: "输入手机号码",
+              eventid: "17a9ca53-1",
+              mpcomid: "17a9ca53-0"
+            },
+            model: {
+              value: _vm.tel,
+              callback: function($$v) {
+                _vm.tel = $$v
+              },
+              expression: "tel"
+            }
+          }),
+          _vm._m(0)
         ],
         1
       ),
-      _c("view", { staticClass: "input-group" }, [
-        _c(
-          "view",
-          { staticClass: "cu-form-group l-input" },
-          [
-            _c("view", { staticClass: "title" }, [_vm._v("邮箱：")]),
-            _c("m-input", {
-              staticClass: "m-input",
-              attrs: {
-                type: "text",
-                displayable: "",
-                placeholder: "请输入邮箱",
-                eventid: "17a9ca53-0",
-                mpcomid: "17a9ca53-1"
-              },
-              model: {
-                value: _vm.email,
-                callback: function($$v) {
-                  _vm.email = $$v
-                },
-                expression: "email"
-              }
-            })
-          ],
-          1
-        )
-      ]),
       _c(
         "view",
-        { staticClass: "btn-row" },
+        { staticClass: "cu-form-group l-input" },
         [
+          _c("view", { staticClass: "title" }, [_vm._v("验证码：")]),
+          _c("m-input", {
+            staticClass: "m-input",
+            attrs: {
+              placeholder: "输入验证码",
+              type: "number",
+              clearable: "",
+              focus: "",
+              eventid: "17a9ca53-2",
+              mpcomid: "17a9ca53-1"
+            },
+            model: {
+              value: _vm.code,
+              callback: function($$v) {
+                _vm.code = $$v
+              },
+              expression: "code"
+            }
+          }),
           _c(
             "button",
             {
-              staticClass: "primary",
-              attrs: { type: "primary", eventid: "17a9ca53-1" },
-              on: { tap: _vm.findPassword }
+              staticClass: "cu-btn bg-gradual-blue shadow",
+              attrs: {
+                type: "button",
+                disabled: _vm.disabled,
+                eventid: "17a9ca53-3"
+              },
+              on: { click: _vm.sendcode }
             },
-            [_vm._v("提交")]
+            [_vm._v(_vm._s(_vm.btntxt))]
           )
         ],
         1
+      ),
+      _c(
+        "view",
+        { staticClass: "cu-form-group l-input" },
+        [
+          _c("view", { staticClass: "title" }, [_vm._v("密 码：")]),
+          _c("m-input", {
+            staticClass: "m-input",
+            attrs: {
+              type: "password",
+              displayable: "",
+              placeholder: "输入密码",
+              eventid: "17a9ca53-4",
+              mpcomid: "17a9ca53-2"
+            },
+            model: {
+              value: _vm.password,
+              callback: function($$v) {
+                _vm.password = $$v
+              },
+              expression: "password"
+            }
+          })
+        ],
+        1
+      ),
+      _c(
+        "view",
+        { staticClass: "cu-form-group l-input" },
+        [
+          _c("view", { staticClass: "title" }, [_vm._v("确认密码：")]),
+          _c("m-input", {
+            staticClass: "m-input",
+            attrs: {
+              type: "password",
+              displayable: "",
+              placeholder: "输入确认密码",
+              eventid: "17a9ca53-5",
+              mpcomid: "17a9ca53-3"
+            },
+            model: {
+              value: _vm.repassword,
+              callback: function($$v) {
+                _vm.repassword = $$v
+              },
+              expression: "repassword"
+            }
+          })
+        ],
+        1
       )
-    ],
-    1
-  )
+    ]),
+    _c(
+      "view",
+      { staticClass: "btn-row" },
+      [
+        _c(
+          "button",
+          {
+            staticClass: "primary",
+            attrs: { type: "primary", eventid: "17a9ca53-6" },
+            on: { tap: _vm.commit }
+          },
+          [_vm._v("提交")]
+        )
+      ],
+      1
+    )
+  ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("view", { staticClass: "cu-capsule radius" }, [
+      _c("view", { staticClass: "cu-tag bg-gradual-blue " }, [_vm._v("+86")]),
+      _c("view", { staticClass: "cu-tag line-blue" }, [_vm._v("中国大陆")])
+    ])
+  }
+]
 render._withStripped = true
 
 

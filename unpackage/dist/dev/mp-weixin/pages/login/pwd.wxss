@@ -1,21 +1,64 @@
 
-.btn-row{
+.xy-text {
+	text-align: left;
+}
+.cu-btn {
+	border-radius: 8rpx;
+}
+.cu-tag {
+	height: 55rpx;
+}
+.padding-xl {
+	padding: 0rpx 10rpx;
+}
+.scroll-Y {
+	height: 1000rpx
+}
+.ruls {
+	color: #007AFF;
+}
+.title {
+	width: 180rpx;
+}
+.cu-item {
+	line-height: 15rpx;
+	height: 110rpx;
+}
+.btn-rows {
+	margin-top: 60rpx;
+}
+.round {
+	float: left;
+	height: 40supx;
+	width: 40rpx;
+}
+.block {
+	margin: 0 auto;
+	padding-left: 55rpx;
+	height: 30rpx;
+	width: 550rpx;
+}
+.texy {
+	text-align: center;
+	line-height: 50rpx;
+}
+.btn-row {
 	margin-top: 30rpx;
 }
-.primary{
-		background:-webkit-gradient(linear,left top, right top,from(#0286f7),to(#1bb8b7));
-		background:-o-linear-gradient(left,#0286f7,#1bb8b7);
-		background:linear-gradient(to right,#0286f7,#1bb8b7);
-		margin-top: 30rpx;
-		width: 90%;
-		margin-left: 5%;
+.primary {
+	margin-top: 100rpx;
+	background: -webkit-gradient(linear, left top, right top, from(#0286f7), to(#1bb8b7));
+	background: -o-linear-gradient(left, #0286f7, #1bb8b7);
+	background: linear-gradient(to right, #0286f7, #1bb8b7);
+	width: 90%;
+	margin-left: 5%;
 }
-.l-input{
-		width: 98%;
-		margin-left: 1%;
-		margin-bottom: 2rpx;
+.l-input {
+	width: 98%;
+	margin-left: 1%;
+	margin-bottom: 2rpx;
 }
-.input-group{
-		margin-top: 10rpx;
+.input-group {
+	margin-top: 10rpx;
 }
 

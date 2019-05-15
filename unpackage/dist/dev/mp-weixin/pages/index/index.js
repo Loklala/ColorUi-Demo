@@ -95,33 +95,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
 
 
 
@@ -188,28 +162,29 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 {
   data: function data() {
     return {
-      PageCur: 'basics' };
+      PageCur: 'share',
+      data: '' };
 
   },
   methods: {
     NavChange: function NavChange(e) {
-      console.log(e.currentTarget.dataset.cur);
       this.PageCur = e.currentTarget.dataset.cur;
     } },
 
   onLoad: function onLoad() {
-    // this.WeixinJSBridge.call('hideToolbar');
-    // if (typeof WeixinJSBridge == "undefined"){
-    // 	if( document.addEventListener ){
-    // 		document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
-    // 	}else if (document.attachEvent){
-    // 		document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
-    // 		document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
-    // 	}
-    // }else{
-    // 	onBridgeReady();
-    // }
+    // console.log('*************')
+    // console.log(window["KeyValueManager"]);
+    try {
+      var value = uni.getStorageSync('agentInfo');
+      if (value) {
+        this.data = value;
+        console.log(value);
+      }
+    } catch (e) {
+      // error
+    }
   } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -231,79 +206,24 @@ var render = function() {
   return _c(
     "view",
     [
-      _vm.PageCur == "basics"
-        ? _c("basics", { attrs: { mpcomid: "54a2cdde-0" } })
-        : _vm._e(),
-      _vm.PageCur == "component"
-        ? _c("components", { attrs: { mpcomid: "54a2cdde-1" } })
-        : _vm._e(),
       _vm.PageCur == "share"
-        ? _c("share", { attrs: { mpcomid: "54a2cdde-2" } })
+        ? _c("share", { attrs: { mpcomid: "54a2cdde-0" } })
+        : _vm._e(),
+      _vm.PageCur == "earn"
+        ? _c("earn", { attrs: { mpcomid: "54a2cdde-1" } })
         : _vm._e(),
       _vm.PageCur == "burse"
-        ? _c("burse", { attrs: { mpcomid: "54a2cdde-3" } })
+        ? _c("burse", { attrs: { mpcomid: "54a2cdde-2" } })
         : _vm._e(),
       _vm.PageCur == "about"
-        ? _c("about", { attrs: { mpcomid: "54a2cdde-4" } })
+        ? _c("about", { attrs: { mpcomid: "54a2cdde-3" } })
         : _vm._e(),
       _c("view", { staticClass: "cu-bar tabbar bg-white shadow foot" }, [
         _c(
           "view",
           {
             staticClass: "action",
-            attrs: { "data-cur": "basics", eventid: "54a2cdde-0" },
-            on: { click: _vm.NavChange }
-          },
-          [
-            _c("view", { staticClass: "cuIcon-cu-image" }, [
-              _c("image", {
-                attrs: {
-                  src:
-                    "/static/tabbar/basics" +
-                    [_vm.PageCur == "basics" ? "_cur" : ""] +
-                    ".png"
-                }
-              })
-            ]),
-            _c(
-              "view",
-              { class: _vm.PageCur == "basics" ? "text-green" : "text-gray" },
-              [_vm._v("元素")]
-            )
-          ]
-        ),
-        _c(
-          "view",
-          {
-            staticClass: "action",
-            attrs: { "data-cur": "component", eventid: "54a2cdde-1" },
-            on: { click: _vm.NavChange }
-          },
-          [
-            _c("view", { staticClass: "cuIcon-cu-image" }, [
-              _c("image", {
-                attrs: {
-                  src:
-                    "/static/tabbar/component" +
-                    [_vm.PageCur == "component" ? "_cur" : ""] +
-                    ".png"
-                }
-              })
-            ]),
-            _c(
-              "view",
-              {
-                class: _vm.PageCur == "component" ? "text-green" : "text-gray"
-              },
-              [_vm._v("组件")]
-            )
-          ]
-        ),
-        _c(
-          "view",
-          {
-            staticClass: "action",
-            attrs: { "data-cur": "share", eventid: "54a2cdde-2" },
+            attrs: { "data-cur": "share", eventid: "54a2cdde-0" },
             on: { click: _vm.NavChange }
           },
           [
@@ -328,7 +248,32 @@ var render = function() {
           "view",
           {
             staticClass: "action",
-            attrs: { "data-cur": "burse", eventid: "54a2cdde-3" },
+            attrs: { "data-cur": "earn", eventid: "54a2cdde-1" },
+            on: { click: _vm.NavChange }
+          },
+          [
+            _c("view", { staticClass: "cuIcon-cu-image" }, [
+              _c("image", {
+                attrs: {
+                  src:
+                    "/static/tabbar/earn" +
+                    [_vm.PageCur == "earn" ? "_cur" : ""] +
+                    ".png"
+                }
+              })
+            ]),
+            _c(
+              "view",
+              { class: _vm.PageCur == "earn" ? "text-green" : "text-gray" },
+              [_vm._v("收益")]
+            )
+          ]
+        ),
+        _c(
+          "view",
+          {
+            staticClass: "action",
+            attrs: { "data-cur": "burse", eventid: "54a2cdde-2" },
             on: { click: _vm.NavChange }
           },
           [
@@ -353,7 +298,7 @@ var render = function() {
           "view",
           {
             staticClass: "action",
-            attrs: { "data-cur": "about", eventid: "54a2cdde-4" },
+            attrs: { "data-cur": "about", eventid: "54a2cdde-3" },
             on: { click: _vm.NavChange }
           },
           [

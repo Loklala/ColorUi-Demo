@@ -1,80 +1,60 @@
 <template name="components">
 	<view>
 		<scroll-view scroll-y class="page">
-			<!-- #ifdef H5 -->
-			<view class="cu-bar bg search ">
-				<view class="content title-text">
-					收益
-				</view>
-				<view class="action">
-				</view>
-			</view>
-<!-- 			<view class="cu-list menu uni-badge-warning bg" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" >
-				<view class="icon-text bg">
+			<cu-custom bgColor="" class="bg title-text" :isBack="false">
+				<block slot="backText"></block>
+				<block slot="content">收益</block>
+			</cu-custom>
+			<view class="cu-list menu uni-badge-warning bg-black" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" >
+				<view class="icon-text bg-black">
 					<text class="cuIcon-notification text-white text-xl "></text>
 				</view>
-				<view class="solle-text bg-gray bg">
+				<view class="solle-text bg-gray bg-black">
 					<swiper autoplay="true" circular="true" interval="3000">
 						<swiper-item v-for="(item, index) in msg" :key="index">
 							<navigator class="text-white">{{item}}</navigator>
 						</swiper-item>
 					</swiper>
 				</view>
-			</view> -->
-			
-<!-- 								<image src="../../static/img/login-logo.jpg" 
-			mode="widthFix" class="response"></image> -->
-			<!-- #endif -->
-			
-					<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" style="margin-top: 30upx;">
-				<view class="cu-list grid bg" :class="['col-' + gridCol,gridBorder?'':'no-border']">
+			</view>
+					<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" >
+				<view class="cu-list grid bg" :class="['col-' + 3,gridBorder?'':'no-border']">
 					<view class="cu-item ">
-						<view class="money-title">房卡总收益</view><view class="money-css">{{fkmoney}}</view>
+						<view class="money-title text-white">房卡总收益&yen;</view><view class="money-css text-white text-xxl">{{fkmoney}}</view>
 					</view>
 					<view class="cu-item">
-						<view class="money-title">充值总收益</view><view class="money-css">{{czmoney}}</view>
+						<view class="money-title text-white">充值总收益&yen;</view><view class="money-css text-white text-xxl">{{czmoney}}</view>
 					</view>
 					<view class="cu-item">
-						<view class="money-title">俱乐部总收益</view><view class="money-css">{{jlbmoney}}</view>
+						<view class="money-title text-white">俱乐部总收益&yen;</view><view class="money-css text-white text-xxl">{{jlbmoney}}</view>
 					</view>
-					<!-- <view class="cu-item">
-						<view class="money-title">总提现</view><view class="money-css">{{ztsmoney}}</view>
-					</view>
-					<view class="cu-item">
-						<view class="money-title">余额</view><view class="money-css">{{thismoney}}</view>
-					</view>
-					<view class="cu-item">
-						<view class="money-title">可提余额</view><view class="money-css">{{ktmoney}}</view>
-					</view> -->
 				</view>
 			</view>	
-			
-			
 			<view class="bg-gray">
 				<view class="cu-list menu uni-badge-warning top bg-gray" :class="[0?'sm-border':'',0?'card-menu ':'']">
 					
 					<view class="nav-list top" style="margin-top: 50upx;">
-						<navigator hover-class="none" :url="'../share/shareway'" class="nav-li" navigateTo :class="'bg-olive'"
-						:style="[{animation: 'show ' + ((0+1)*0.2+0.1) + 's 1'}]" >
-							<view class="nav-title">房卡收益</view>
-							<view class="nav-name">_</view>
-							<text :class="'cuIcon-share'"></text>
-						</navigator>
-						<navigator hover-class="none" :url="'../share/hasplayer'" class="nav-li" navigateTo :class="'bg-cyan'"
+						<navigator hover-class="none" class="nav-li" redirectTo :class="'bg-olive'" :url="'../earn/roomearn'"
+						:style="[{animation: 'show ' + ((0+1)*0.2+0.1) + 's 1'}]" >                 
+							<view class="nav-title">房卡收益</view>                                 
+							<view class="nav-name">_</view>                                         
+							<text :class="'cuIcon-share'"></text>                                   
+						</navigator>                                                                
+						<navigator hover-class="none" class="nav-li" redirectTo :class="'bg-green'" :url="'../earn/rechearn'"
+						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >                           
+							<view class="nav-title">充值收益</view>                                 
+							<view class="nav-name">_</view>                                         
+							<text :class="'cuIcon-addressbook'"></text>                             
+						</navigator>                                                                
+						<navigator hover-class="none" class="nav-li" redirectTo :class="'bg-cyan'" :url="'../earn/clubearn'"
+						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >                          
+							<view class="nav-title">俱乐部收益</view>                               
+							<view class="nav-name">_</view>                                        
+							<text :class="'cuIcon-addressbook'"></text>                            
+						</navigator>                                                               
+						<navigator hover-class="none" class="nav-li"  :class="'bg-brown'" redirectTo :url="'../earn/depositresult'"
 						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >
-							<view class="nav-title">俱乐部收益</view>
-							<view class="nav-name">_</view>
-							<text :class="'cuIcon-addressbook'"></text>
-						</navigator>
-						<navigator hover-class="none" :url="'../share/0'" class="nav-li" navigateTo :class="'bg-green'"
-						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >
-							<view class="nav-title">充值收益</view>
-							<view class="nav-name">_</view>
-							<text :class="'cuIcon-addressbook'"></text>
-						</navigator>
-						<navigator hover-class="none" :url="'../share/0'" class="nav-li" navigateTo :class="'bg-brown'"
-						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >
-							<view class="nav-title">我的俱乐部</view>
+							<view class="nav-title">提现记录</view>
 							<view class="nav-name">_</view>
 							<text :class="'cuIcon-addressbook'"></text>
 						</navigator>
@@ -92,23 +72,20 @@
 		name: "components",
 		data() {
 			return {
-								fkmoney:'0.00',
+				fkmoney:'0.00',
 				czmoney:'0.00',
 				jlbmoney:'0.00',
-				ztsmoney:'0.00',
-				thismoney:'0.00',
-				ktmoney:'0.00',
 				
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
 				src:'',
 				title:"滚动公告",
 				msg : [
+					'皮蛋游戏大厅推广系统正式上线啦！',
 					'代理通过多种方式邀请玩家均会获得收益',
-					'皮蛋游戏大厅-代理推广系统正式上线啦！',
 					'邀请好友！绑定代理账户就可以获得收益！',
 					'随时随地查看当前收益金额，随时随地提现到账',
-					'收益到达一定额度，即可提交提现申请哦'
+					'收益到达一定额度，即可提交提现申请'
 				],
 				
 								modalName: null,
@@ -154,30 +131,52 @@
 				direction: ''
 			};
 		},
-		created:function(){//beforeCreate
+		//加载金额
+		beforeCreate:function(){//beforeCreate
 			const value = uni.getStorageSync('agentInfo');
 			if (value) {
-				this.src="../../static/logo.png";
-			}else{
-				this.src="";
+				var id=value.id;
+			uni.request({
+				url: 'http://192.168.0.199:8080/agent/earnings/ajax-earn',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					method: 'POST',
+					dataType: 'json',
+					cache: false,
+					data: {
+						id:id,
+					},
+					success: res => {
+						console.log(res.data.isSuccess);
+						if(res.data.isSuccess==200){
+							let data=res.data.result;
+							console.log(data);
+							this.fkmoney=data.fkmoney;
+							this.zcmoney=data.zcmoney;
+							this.jlbmoney=data.jlbmoney;
+						}else{
+							console.log('请设置提现密码再提现')
+						}
+					},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
 		},
 		methods: {
 			// cardSwiper
 			cardSwiper(e) {
 				this.cardCur = e.detail.current
-			},
-			PageChange: function(e) {
-				uni.navigateTo({
-					url:e.currentTarget.dataset.cur
-				});
-			},
-			
-		},
+			},	
+		}
 	}
 </script>
 
 <style>
+	.money-css{
+		min-height: 50upx;
+	}
 	.lables{
 		font-size: 30upx;
 	}

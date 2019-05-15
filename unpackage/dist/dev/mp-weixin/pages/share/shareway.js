@@ -113,7 +113,10 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default =
+
+
+
 
 
 
@@ -211,7 +214,11 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   // },
   // 
   methods: {
+    navTo: function navTo() {
+      uni.redirectTo({
+        url: '../index/index' });
 
+    },
     //复制分享链接
 
     // sharurl(){
@@ -306,6 +313,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     openLink: function openLink() {
       // plus.runtime.openWeb(this.sourceLink)
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
 
@@ -336,72 +344,71 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "content" }, [
-    _c("view", { staticClass: "top" }),
-    _c(
-      "view",
-      { staticClass: "banner" },
-      [
-        _c(
-          "cu-custom",
-          {
-            attrs: {
-              bgColor: "bg-gradual-blue",
-              isBack: true,
-              mpcomid: "6e69b4b8-0"
+    _c("view", { staticClass: "cu-bar bg search bg-gradual-blue fixed" }, [
+      _c(
+        "view",
+        {
+          staticClass: "action",
+          attrs: { eventid: "6e69b4b8-0" },
+          on: {
+            tap: function($event) {
+              _vm.navTo()
             }
+          }
+        },
+        [_c("text", { staticClass: "cuIcon-back text-white" })]
+      ),
+      _c("view", { staticClass: " title-text text-center text-xl bg-none" }, [
+        _vm._v("推广")
+      ]),
+      _c("view", { staticClass: "action" })
+    ]),
+    _c("view", { staticClass: "top" }),
+    _c("view", { staticClass: "banner " }, [
+      _c("view", { staticClass: "ths" }),
+      _vm._m(0),
+      _vm._m(1),
+      _c("view", { staticClass: "sharbuttn" }, [
+        _c(
+          "view",
+          {
+            staticClass: "btn",
+            attrs: { eventid: "6e69b4b8-1" },
+            on: { click: _vm.save }
           },
-          [
-            _c("block", { slot: "backText" }, [_vm._v("返回")]),
-            _c("block", { slot: "content" }, [_vm._v("邀请")]),
-            _c("block", { slot: "right" })
-          ],
-          1
+          [_vm._v("保存二维码")]
         ),
-        _vm._m(0),
-        _vm._m(1),
-        _c("view", { staticClass: "sharbuttn" }, [
-          _c(
-            "view",
-            {
-              staticClass: "btn",
-              attrs: { eventid: "6e69b4b8-0" },
-              on: { click: _vm.save }
-            },
-            [_vm._v("保存二维码")]
-          ),
-          _c(
-            "view",
-            {
-              staticClass: "btn",
-              attrs: { eventid: "6e69b4b8-1" },
-              on: { click: _vm.sharurl }
-            },
-            [_vm._v("复制推广链接")]
-          )
-        ]),
-        _c("view", {
-          staticClass: "text-center text-bold text-xxl bg-gradual-green",
-          staticStyle: { height: "5rpx", "margin-top": "20rpx" }
-        }),
-        _c("view", { staticClass: "sharbuttn" }, [
-          _vm._m(2),
-          _c(
-            "view",
-            {
-              staticClass: "btn",
-              attrs: { eventid: "6e69b4b8-2" },
-              on: { click: _vm.sharurl }
-            },
-            [_vm._v("复制推广码")]
-          )
-        ]),
-        _vm._m(3),
-        _vm._m(4),
-        _vm._m(5),
-        _c("view", { staticClass: "bottom" })
-      ],
-      1
-    )
+        _c(
+          "view",
+          {
+            staticClass: "btn",
+            attrs: { eventid: "6e69b4b8-2" },
+            on: { click: _vm.sharurl }
+          },
+          [_vm._v("复制推广链接")]
+        )
+      ]),
+      _c("view", {
+        staticClass: "text-center text-bold text-xxl bg-gradual-green",
+        staticStyle: { height: "5rpx", "margin-top": "20rpx" }
+      }),
+      _c("view", { staticClass: "sharbuttn" }, [
+        _vm._m(2),
+        _c(
+          "view",
+          {
+            staticClass: "btn",
+            attrs: { eventid: "6e69b4b8-3" },
+            on: { click: _vm.sharurl }
+          },
+          [_vm._v("复制推广码")]
+        )
+      ]),
+      _vm._m(3),
+      _vm._m(4),
+      _vm._m(5),
+      _c("view", { staticClass: "bottom" })
+    ])
   ])
 }
 var staticRenderFns = [

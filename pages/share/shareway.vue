@@ -1,13 +1,16 @@
 <template>
 	<view class="content" >
+		<view class="cu-bar bg search bg-gradual-blue fixed">
+			<view class="action" @tap="navTo()">
+				<text class="cuIcon-back text-white"></text>
+			</view>
+			<view class=" title-text text-center text-xl bg-none">推广</view>
+			<view class="action">
+			</view>
+		</view>
 	<view class="top"></view>
-	<view class="banner">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-				<block slot="backText">返回</block>
-				<block slot="content">邀请</block>
-				<block slot="right"></block>
-		</cu-custom>
-		
+	<view class="banner ">
+		<view class="ths"></view>
 		<view class="img">
 			<image src="../../static/img/ewm.jpg" mode=""></image>
 		</view>
@@ -96,7 +99,11 @@
 		// },
 		// 
 		methods:{
-			
+			navTo() {
+				uni.redirectTo({
+					url: '../index/index'
+				});
+			},
 			//复制分享链接
 			
 			// sharurl(){
@@ -198,6 +205,12 @@
 </script>
 
 <style>
+	.ths{
+		height: 70upx;
+	}
+	.bg-none{
+		background-color: none;
+	}
 	.con{
 		text-align: left;
 		width: 70%;

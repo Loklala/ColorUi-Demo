@@ -78,12 +78,14 @@
 		},
 		created:function(){//beforeCreate
 			const value = uni.getStorageSync('agentInfo');
+			console.log(value);
 			if (value) {
 				this.src="../../static/logo.png";
 				this.id=value.agent_id;
 				this.name=value.nickname;
-				console.log(value.id.toString());
+				this.islogin=true;
 			}else{
+				this.islogin=false;
 				this.src="";
 			}
 		},

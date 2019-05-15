@@ -83,8 +83,11 @@
 				var rand= new Date().getTime();
 				this.random_num= this.random_num+1;
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/login/captcha?refresh= ',//+'&_='+this.random_num,
-					method: 'GET',
+					url: 'http://192.168.0.199:8080/agent/login/captcha?refresh= ',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					method: 'POST',
 					dataType: 'json',
 					cache: false,
 					data: {},
@@ -97,29 +100,6 @@
 					complete: () => {}
 				});
 			},
-            // ...mapMutations(['login']),
-            initProvider() {
-                const filters = ['weixin', 'qq', 'sinaweibo'];
-                uni.getProvider({
-                    service: 'oauth',
-                    success: (res) => {
-                        if (res.provider && res.provider.length) {
-                            for (let i = 0; i < res.provider.length; i++) {
-                                if (~filters.indexOf(res.provider[i])) {
-                                    this.providerList.push({
-                                        value: res.provider[i],
-                                        image: '../../static/img/' + res.provider[i] + '.png'
-                                    });
-                                }
-                            }
-                            this.hasProvider = true;
-                        }
-                    },
-                    fail: (err) => {
-                        console.error('获取服务供应商失败：' + JSON.stringify(err));
-                    }
-                });
-            },
 			//使用 absolute 定位，并且设置 bottom 值进行定位。软键盘弹出时，底部会因为窗口变化而被顶上来。
 			// 反向使用 top 进行定位，可以避免此问题。
 			initPosition() {
@@ -144,6 +124,9 @@
                 }
 				uni.request({
 					url: 'http://192.168.0.199:8080/agent/login/ajax-login',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
 					method: 'POST',
 					dataType: 'json',
 					cache: false,
@@ -266,26 +249,6 @@
 					complete: () => {}
 				});
 			},
-            oauth(value) {
-                uni.login({
-                    provider: value,
-                    success: (res) => {
-                        uni.getUserInfo({
-                            provider: value,
-                            success: (infoRes) => {
-                                /**
-                                 * 实际开发中，获取用户信息后，需要将信息上报至服务端。
-                                 * 服务端可以用 userInfo.openId 作为用户的唯一标识新增或绑定用户信息。
-                                 */
-                                this.toMain(infoRes.userInfo.nickName);
-                            }
-                        });
-                    },
-                    fail: (err) => {
-                        console.error('授权登录失败：' + JSON.stringify(err));
-                    }
-                });
-            },
             toMain(userName) {
                 this.login(userName);
                 /**

@@ -77,6 +77,55 @@
 				}
 		    }
 		},
+		{
+		    "path" : "pages/earn/clubearn", 
+		    "style" : {
+		        "navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"onReachBottomDistance" : 100, // 页面上拉触底事件触发时距页面底部距离, 默认 50
+				"app-plus" : {
+					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+		    }
+		},
+		{
+		    "path" : "pages/earn/roomearn", 
+		    "style" : {
+		        "navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"onReachBottomDistance" : 100, // 页面上拉触底事件触发时距页面底部距离, 默认 50
+				"app-plus" : {
+					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+		    }
+		},
+		{
+		    "path" : "pages/earn/rechearn", 
+		    "style" : {
+		        "navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"onReachBottomDistance" : 100, // 页面上拉触底事件触发时距页面底部距离, 默认 50
+				"app-plus" : {
+					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+		    }
+		},
+		{
+		    "path" : "pages/earn/depositresult", 
+		    "style" : {
+		        "navigationBarTitleText" : "",
+				"enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
+				"onReachBottomDistance" : 100, // 页面上拉触底事件触发时距页面底部距离, 默认 50
+				"app-plus" : {
+					"bounce" : "none" // 取消iOS回弹,避免和下拉刷新冲突 (小程序无法取消)
+				}
+		    }
+		},
+		
+		
+		
+		
+		
 		
 		
 		
@@ -244,7 +293,7 @@
 			"allowsBounceVertical": "NO"
 		},
 		"navigationBarBackgroundColor": "#0081ff",
-		"navigationBarTitleText": "ColorUi for UniApp",
+		"navigationBarTitleText": "皮蛋游戏推广后台",
 		"navigationStyle": "custom",
 		"navigationBarTextStyle": "white"
 	},

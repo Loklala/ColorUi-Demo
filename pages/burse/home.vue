@@ -1,59 +1,51 @@
 <template>
 	<view>
 		<scroll-view :scroll-y="modalName==null" class="page" :class="modalName!=null?'show':''">
-			<!-- <cu-custom bgColor="" class="bg title-text" :isBack="false">
+			<cu-custom bgColor="" class="bg title-text" :isBack="false">
 				<block slot="backText"></block>
 				<block slot="content">钱包</block>
-			</cu-custom> -->
-			<view class="cu-bar bg search">
-				<!-- <view class="cu-avatar round" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big91012.jpg);"></view> -->
-				<view class="content title-text">
-					钱包
+			</cu-custom>
+		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" style="margin-top: 10upx;">
+			<view class="cu-list grid bg" :class="['col-' + 2,gridBorder?'':'no-border']">
+				<view class="cu-item">
+					<view class="money-title"></view><view class="text-white text-xl">总提现</view>
 				</view>
-				<view class="action">
-					<!-- <text class="cuIcon-more"></text> -->
+				<view class="cu-item">
+					<view class="money-title"></view><view class="text-white text-bold text-xxl">{{ztsmoney}}</view>
+				</view>
+				<view class="cu-item">
+					<view class="money-title"></view><view class="text-white text-xl">当前余额</view>
+				</view>
+				<view class="cu-item">
+					<view class="money-title"></view><view class="text-white text-bold text-xxl">{{thismoney}}</view>
+				</view>
+				<view class="cu-item">
+					<view class="money-title"></view><view class="text-white  text-xl">可提金额</view>
+				</view>
+				<view class="cu-item">
+					<view class="money-title"></view><view class="text-white text-bold text-xxl">{{ktmoney}}</view>
 				</view>
 			</view>
-			
-			
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" style="margin-top: 30upx;">
-			<view class="cu-list grid bg" :class="['col-' + gridCol,gridBorder?'':'no-border']">
-				<view class="cu-item ">
-					<view class="money-title">房卡总收益</view><view class="money-css">{{fkmoney}}</view>
-				</view>
-				<view class="cu-item">
-					<view class="money-title">充值总收益</view><view class="money-css">{{czmoney}}</view>
-				</view>
-				<view class="cu-item">
-					<view class="money-title">俱乐部总收益</view><view class="money-css">{{jlbmoney}}</view>
-				</view>
-				<view class="cu-item">
-					<view class="money-title">总提现</view><view class="money-css">{{ztsmoney}}</view>
-				</view>
-				<view class="cu-item">
-					<view class="money-title">余额</view><view class="money-css">{{thismoney}}</view>
-				</view>
-				<view class="cu-item">
-					<view class="money-title">可提余额</view><view class="money-css">{{ktmoney}}</view>
-				</view>
-			</view>
+<!-- 			<view class=" grid bg text-center ye" :class="['col-' + 1,gridBorder?'':'no-border']">
+				
+			</view> -->
 		</view>	
-		<view class="cu-list menu  " :class="[menuBorder?'sm-border':'',menuCard?'card-menu ':'']">
-			<!-- <view class="cu-item " :class="0?'arrow':''">
+		<view class="cu-list menu  " :class="[menuBorder?'sm-border':'',menuCard?'card-menu ':'']" style="margin-top: 15upx;">
+			<view class="cu-item " :class="0?'arrow':''">
 					<text class="title text-gray">tips：</text>
 					<text class=" content text-gray">
 						温馨提示
 					</text>
-			</view> -->
-			<!-- <view class="cu-item" :class="0?'arrow':''">
-					<text class=" content text-gray">
-						每天单次提现金额大于100
-						每天单次提现金额小于1000可提，
-						审核通过后将对您所提交提现订单的账户转账汇款，请耐心等待！
+			</view>
+			<view class="cu-item" :class="0?'arrow':''">
+					<text class=" content text-gray ">
+						<text>每天单次提现金额＞100</text>
+						<text>每天单次提现金额＜1000 </text>
+						<text>审核通过后将对您所提交提现订单的账户转账汇款，请耐心等待！</text>
 					</text>
-			</view> -->
+			</view>
 		</view>
-		<view class="cu-list menu  " :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']" >
+		<view class="cu-list menu  " :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']" style="margin-top: 15upx;">
 			<view class="cu-item " :class="0?'arrow':''">
 					<text class="title">金额：</text>
 					<text class=" content" >
@@ -82,34 +74,40 @@
 			mInput
 		},
 		//加载金额
-		created:function(){//beforeCreate
+		beforeCreate:function(){//beforeCreate
 			const value = uni.getStorageSync('agentInfo');
 			if (value) {
 				var id=value.id;
 			uni.request({
-				url: 'http://192.168.0.199:8080/agent/login/captcha?refresh= ',
-				method: 'GET',
-				dataType: 'json',
-				cache: false,
-				data: {
-					id:id,
-				},
-				success: res => {
-					
-					
-					
-					
-				},
-				fail: () => {},
-				complete: () => {}
-			});
+				url: 'http://192.168.0.199:8080/agent/earnings/ajax-burse-money',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					method: 'POST',
+					dataType: 'json',
+					cache: false,
+					data: {
+						id:id,
+					},
+					success: res => {
+						console.log(res.data.isSuccess);
+						if(res.data.isSuccess==200){
+							let data=res.data.result;
+							console.log(data);
+							this.ztsmoney=data.alltsMoney;
+							this.thismoney=data.thisMoney;
+							this.ktmoney=data.ktMoney;
+						}else{
+							console.log('请设置提现密码再提现')
+						}
+					},
+					fail: () => {},
+					complete: () => {}
+				});
 			}
 		},
 		data() {
 			return {
-				fkmoney:'0.00',
-				czmoney:'0.00',
-				jlbmoney:'0.00',
 				ztsmoney:'0.00',
 				thismoney:'0.00',
 				ktmoney:'0.00',
@@ -131,11 +129,14 @@
 			};
 		},
 		methods: {
+			initPosition() {
+			    this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
+			},
 			// 点击提现
 			ontsmoney(){
 				console.log("提现")
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/login/captcha?refresh= ',
+					url: '',
 					method: 'GET',
 					dataType: 'json',
 					cache: false,
@@ -198,11 +199,17 @@
 				}
 				this.listTouchDirection = null
 			}
+		},
+		onReady() {
+		    this.initPosition();
 		}
 	}
 </script>
 
 <style>
+	.ye{
+		min-height: 130upx;
+	}
 	.title-text{
 		color: #fff;
 	}

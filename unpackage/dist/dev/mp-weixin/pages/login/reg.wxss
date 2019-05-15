@@ -1,20 +1,20 @@
 
-.xy-text{
+.xy-text {
 	text-align: left;
 }
-.cu-btn{
-	border-radius:8rpx;
+.cu-btn {
+	border-radius: 8rpx;
 }
-.cu-tag{
+.cu-tag {
 	height: 55rpx;
 }
-.padding-xl{
-	padding:0rpx 10rpx;
+.padding-xl {
+	padding: 0rpx 10rpx;
 }
-.scroll-Y{
-	height:1000rpx
+.scroll-Y {
+	height: 1000rpx
 }
-.ruls{
+.ruls {
 	color: #007AFF;
 }
 .title {

@@ -88,3 +88,58 @@
 
 <style>
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+uni.request({
+				url: 'http://192.168.0.199:8080/agent/login/ajax-agent-reg',
+				header: {'content-type': 'application/x-www-form-urlencoded'},
+				method: 'POST',
+				dataType: 'json',
+				cache: false,
+				data: {
+					sms_type:0,
+					agent_tel: this.tel,
+					agent_pwd: this.password,
+					sms_code: this.code,
+					name:this.name,
+					idcard:this.idcard,
+				}, 
+				success: res => {
+					let lists=res;
+					let data=lists.data
+						if(data.isSuccess==200){
+							uni.showToast({
+								icon: 'none',
+								duration:2000,
+								title:data.message
+							});
+							
+						}
+						else{
+							uni.showToast({
+							    icon: 'none',
+								duration:2000,
+							   title:data.message
+							});
+						}
+				},
+				fail: () => {
+					uni.showToast({
+						icon: 'none',
+						title: '网络异常,请稍后重试'
+					});
+				},
+				complete: () => {}
+			});

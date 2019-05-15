@@ -1,8 +1,8 @@
 {
-    "name" : "ColorUi for UniApp",
+    "name" : "皮蛋游戏推广后台",
     "appid" : "__UNI__D504919",
     "description" : "",
-    "versionName" : "ColorUi for UniApp 2.1.4",
+    "versionName" : "皮蛋游戏推广后台 2.1.4",
     "versionCode" : 214,
     "transformPx" : false,
     "app-plus" : {
@@ -55,7 +55,7 @@
         }
     },
     "h5" : {
-        "title" : "ColorUi for UniApp",
+        "title" : "皮蛋游戏推广后台",
         "domain" : "demo.color-ui.com"
     }
 }
