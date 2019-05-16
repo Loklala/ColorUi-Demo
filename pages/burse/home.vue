@@ -8,7 +8,7 @@
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" style="margin-top: 10upx;">
 			<view class="cu-list grid bg" :class="['col-' + 2,gridBorder?'':'no-border']">
 				<view class="cu-item">
-					<view class="money-title"></view><view class="text-white text-xl">总提现</view>
+					<view class="money-title"></view><view class="text-white text-xl">累计提现</view>
 				</view>
 				<view class="cu-item">
 					<view class="money-title"></view><view class="text-white text-bold text-xxl">{{ztsmoney}}</view>
@@ -39,9 +39,12 @@
 			</view>
 			<view class="cu-item" :class="0?'arrow':''">
 					<text class=" content text-gray ">
-						<text>每天单次提现金额＞100</text>
-						<text>每天单次提现金额＜1000 </text>
-						<text>审核通过后将对您所提交提现订单的账户转账汇款，请耐心等待！</text>
+						<view>{{text1}}</view>
+						<view>{{text2}}</view>
+						<view>{{text3}}</view>
+<!-- 						<view>每天单次提现金额＞{{minmoney}}每天单次提现金额＜{{maxmoney}}</view>
+						<view>每天单次提现金额＞{{minmoney}}每天单次提现金额＜{{maxmoney}}</view> -->
+						<view>审核通过后将对您所提交提现订单的账户转账汇款，请耐心等待！</view>
 					</text>
 			</view>
 		</view>
@@ -93,10 +96,20 @@
 						console.log(res.data.isSuccess);
 						if(res.data.isSuccess==200){
 							let data=res.data.result;
-							console.log(data);
 							this.ztsmoney=data.alltsMoney;
 							this.thismoney=data.thisMoney;
 							this.ktmoney=data.ktMoney;
+							let configval=JSON.parse(data.configval);
+								if(configval[0].status==0){
+									let minPrice=configval[0].minPrice
+									this.text1="每次提现范围:"+configval[0].minPrice+"<金额<"+configval[0].maxPrice+"，最多可提现"+configval[0].num+"次，2~24小时到账";
+								}else if(configval[1].status==0){
+									let minPrice=configval[1].minPrice
+									this.text2="每次提现范围:"+configval[1].minPrice+"<金额<"+configval[1].maxPrice+"，最多可提现"+configval[1].num+"次，每周五24:00前提交的提现申请将在下周一前17:00结算";
+								}else if(configval[2].status==0){
+									let minPrice=configval[2].minPrice
+									this.text3="每次提现范围:"+configval[2].minPrice+"<金额<"+configval[2].maxPrice+"，最多可提现"+configval[2].num+"次，每月最后一天24:00前提交的提现申请将在下月第一个工作日17:00结算";
+								}
 						}else{
 							console.log('请设置提现密码再提现')
 						}
@@ -111,6 +124,11 @@
 				ztsmoney:'0.00',
 				thismoney:'0.00',
 				ktmoney:'0.00',
+				minmoney:'100',
+				maxmoney:'1000',
+				text1:"",
+				text2:"",
+				text3:"",
 				
 				money:'',
 				password:'',

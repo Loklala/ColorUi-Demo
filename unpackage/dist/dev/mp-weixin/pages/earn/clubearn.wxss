@@ -1,0 +1,86 @@
+
+.cu-text{
+	width: 100%;
+}
+.idnet-text{
+	margin-left: 30rpx;
+	font-size: 25rpx;
+}
+.time{
+	width: 100%;
+	text-align: center;
+	border-radius:30rpx;
+}
+.bg-c{
+	color: #000;
+}
+.show{
+	display: block;
+}
+.hide{
+	display: none;
+}
+.header{
+	height: 100rpx;
+	border-top: 2px solid #eeeeee;
+}
+.hander1{
+	border-top: 2px solid #1AB7B9;
+}
+.cu-list{
+	padding: 0rpx 0rpx;
+	margin-top:10rpx;
+}
+.person-text{
+	color: #000;
+	background:none;
+	float: left;
+	font-size: 30rpx;
+	margin-top: 5rpx;
+	text-align: center;
+	width: 50%;
+}
+.list-text{
+	text-align: left;
+}
+.list-text1{
+	text-align: left;
+	width:10%;
+}
+.list-text1_5{
+	text-align: left;
+	width: 15%;
+}
+.list-text2{
+	text-align: left;
+	width: 20%;
+}
+.list-text3{
+	text-align: left;
+	width: 30%;
+}
+.list-text4{
+	text-align: left;
+	width: 40%;
+}
+.list-text5{
+	text-align: left;
+	width: 50%;
+}
+.list-text6{
+	text-align: left;
+	width: 60%;
+}
+.list-text7{
+	text-align: left;
+	width:70%;
+}
+.list-text8{
+	text-align: left;
+	width:80%;
+}
+.list-text9{
+	text-align: left;
+	width:90%;
+}
+

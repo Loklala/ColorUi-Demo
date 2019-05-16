@@ -1,37 +1,49 @@
 <template name="components">
-	<view class="bg-white">
+	<view class="">
+
 		<scroll-view scroll-y class="page">
-			<image src="../../static/img/login-logo.jpg" mode="widthFix" class="response" ></image>
-			<view class="bg-gray">
-				<view class="cu-list menu uni-badge-warning top bg-white" :class="[0?'sm-border':'',0?'card-menu ':'']">
-					<view class="nav-list top" style="margin-top: 50upx;">
-						<navigator hover-class="none" :url="'../share/shareway'" class="nav-li" redirectTo :class="'bg-olive'"
-						:style="[{animation: 'show ' + ((0+1)*0.2+0.1) + 's 1'}]" >
-							<view class="nav-title">推广中心</view>
-							<view class="nav-name">_</view>
-							<text :class="'cuIcon-share'"></text>
-						</navigator>
-						<navigator hover-class="none" :url="'../share/hasplayer'" class="nav-li" redirectTo :class="'bg-cyan'"
-						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >
-							<view class="nav-title">已邀请玩家</view>
-							<view class="nav-name">_</view>
-							<text :class="'cuIcon-addressbook'"></text>
-						</navigator>
-						<navigator hover-class="none" :url="''" class="nav-li" redirectTo :class="'bg-green'"
-						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >
-							<view class="nav-title">俱乐部</view>
-							<view class="nav-name">_</view>
-							<text :class="'cuIcon-addressbook'"></text>
-						</navigator>
-						<navigator hover-class="none" :url="''" class="nav-li" redirectTo :class="'bg-brown'"
-						:style="[{animation: 'show ' + (0.4) + 's 1'}]" >
-							<view class="nav-title">我的俱乐部</view>
-							<view class="nav-name">_</view>
-							<text :class="'cuIcon-addressbook'"></text>
-						</navigator>
+			<view class="cu-bar bg-gradual-blue search">
+				<!-- <view class="cu-avatar round"></view> -->
+				<view class="content">
+					首页
+				</view>
+				<view class="action">
+				</view>
+			</view>
+			<view style="background-image: url('../../static/img/login-logo.jpg');height: 350upx;background-size: 100%;"></view>
+			
+			<!-- card-menu -->
+			<view class="cu-list menu  margin-top-xs margin-bottom-sm shadow-lg">
+				<view class="cu-item arrow">
+					<view class="content" data-cur="../mains/shareway" @click="PageChange">
+						<text class="cuIcon-share text-grey"></text>
+						<text class="text-grey">分享中心</text>
 					</view>
 				</view>
-				
+				<view class="cu-item arrow margin-top-xs" data-cur="../mains/hasplayer"  @click="PageChange">
+					<view class="content">
+						<text class="cuIcon-group_fill text-grey"></text>
+						<text class="text-grey">邀请列表</text>
+					</view>
+				</view>
+				<view class="cu-item arrow margin-top-xs" data-cur=""  @click="PageChange">
+					<view class="content">
+						<text class="cuIcon-crown text-grey"></text>
+						<text class="text-grey">俱乐部中心</text>
+					</view>
+				</view>
+				<view class="cu-item arrow margin-top-xs" data-cur=""  @click="PageChange">
+					<view class="content">
+						<text class="cuIcon-crownfill text-grey"></text>
+						<text class="text-grey">我的俱乐部</text>
+					</view>
+				</view>
+				<view class="cu-item arrow margin-top-xs" data-cur=""  @click="PageChange">
+					<view class="content">
+						<text class="cuIcon-noticefill text-grey"></text>
+						<text class="text-grey">公告</text>
+					</view>
+				</view>
 			</view>
 			<view class="cu-tabbar-height"></view>
 		</scroll-view>
@@ -130,6 +142,9 @@
 </script>
 
 <style>
+	.imgs{
+		height: 350upx;
+	}
 	.lables{
 		font-size: 30upx;
 	}

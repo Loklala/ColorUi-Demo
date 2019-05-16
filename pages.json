@@ -2,7 +2,7 @@
 	"pages": [
 		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/tabbar/tabbar",
 			"style": {
 				"navigationBarTitleText": ""
 			}
@@ -61,13 +61,13 @@
             }
         },
 		{
-		    "path" : "pages/share/shareway", 
+		    "path" : "pages/mains/shareway", 
 		    "style" : {
 		        "navigationBarTitleText" : ""
 		    }
 		},
 		{
-		    "path" : "pages/share/hasplayer", 
+		    "path" : "pages/mains/hasplayer", 
 		    "style" : {
 		        "navigationBarTitleText" : "",
 				"enablePullDownRefresh" : false, // 不开启下拉刷新, 默认就是false
@@ -285,6 +285,7 @@
 		    	"navigationBarTitleText": ""
 		    }
 		}
+        
     ],
 	"globalStyle": {
 		"mp-alipay": {

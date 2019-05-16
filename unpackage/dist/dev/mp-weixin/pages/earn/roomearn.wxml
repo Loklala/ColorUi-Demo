@@ -1,0 +1,2 @@
+<import src="./roomearn.vue.wxml" />
+    <template is="2d148f74" data="{{ ...$root['0'], $root }}"/>

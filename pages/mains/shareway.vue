@@ -101,7 +101,7 @@
 		methods:{
 			navTo() {
 				uni.redirectTo({
-					url: '../index/index'
+					url: '../tabbar/tabbar'
 				});
 			},
 			//复制分享链接

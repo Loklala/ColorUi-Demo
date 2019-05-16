@@ -3,6 +3,7 @@
 		<!-- 控制视图跳跳转 -->
 <!-- 			<basics v-if="PageCur=='basics'"></basics> -->
 <!-- 			<components v-if="PageCur=='component'"></components> -->
+			<mains v-if="PageCur=='mains'"></mains>
 			<share v-if="PageCur=='share'"></share>
 			<earn v-if="PageCur=='earn'"></earn>
 			<burse v-if="PageCur=='burse'"></burse>
@@ -29,11 +30,11 @@
 				<view :class="PageCur=='plugin'?'text-green':'text-gray'">扩展</view>
 			</view> -->
 			
-			<view class="action" @click="NavChange" data-cur="share">
+			<view class="action " @click="NavChange" data-cur="mains">
 				<view class='cuIcon-cu-image'>
-					<image :src="'/static/tabbar/share' + [PageCur == 'share'?'_cur':''] + '.png'"></image>
+					<image :src="'/static/tabbar/mains' + [PageCur == 'mains'?'_cur':''] + '.png'"></image>
 				</view>
-				<view :class="PageCur=='share'?'text-green':'text-gray'">推广</view>
+				<view :class="PageCur=='mains'?'text-green':'text-gray'">首页</view>
 			</view>
 			
 			<view class="action" @click="NavChange" data-cur="earn">
@@ -65,7 +66,7 @@
 	export default {
 		data() {
 		return {
-				PageCur: 'share',
+				PageCur: 'mains',
 				data:'',
 			}
 		},

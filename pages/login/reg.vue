@@ -1,7 +1,7 @@
 <template>
 	<view class="content">
 
-		<view class="cu-bar bg search bg-gradual-blue fixed">
+<!-- 		<view class="cu-bar bg search bg-gradual-blue fixed">
 			<view class="action" @tap="navTo()">
 				<text class="cuIcon-back text-white"></text>
 				返回
@@ -11,8 +11,11 @@
 			</view>
 			<view class="action">
 			</view>
-		</view>
-
+		</view> -->
+			<cu-custom bgColor="" class="bg title-text bg-gradual-blue" :isBack="true">
+				<block slot="backText"></block>
+				<block slot="content">注册</block>
+			</cu-custom>
 		<view class="bg-white margin-top-xs">
 			<view class="cu-steps ">
 				<view class="cu-item" :class="'' ? '' : 'text-blue'" v-for="(item, index) in basicsList" :key="index">

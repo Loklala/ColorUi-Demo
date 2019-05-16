@@ -136,7 +136,7 @@
 			},
 			//页面跳转
 			PageChange: function(e) {
-				uni.navigateTo({
+				uni.redirectTo({
 					url:e.currentTarget.dataset.cur
 					});
 			},

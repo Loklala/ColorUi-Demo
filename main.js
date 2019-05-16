@@ -11,8 +11,8 @@ import App from './App'
 // import plugin from './pages/plugin/home.vue'
 // Vue.component('plugin',plugin)
 //
-import share from './pages/share/home.vue'
-Vue.component('share',share)
+import mains from './pages/mains/home.vue'
+Vue.component('mains',mains)
 
 import earn from './pages/earn/home.vue'
 Vue.component('earn',earn)
