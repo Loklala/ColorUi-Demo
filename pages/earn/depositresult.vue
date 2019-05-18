@@ -6,7 +6,7 @@
 			<view class="action" @tap="navTo()">
 				<text class="cuIcon-back text-white"></text>
 			</view>
-			<view class=" title-text text-center text-xl" >房卡收益</view>
+			<view class=" title-text text-center text-xl" >提现记录</view>
 			<view class="action">
 			</view>
 		</view>
@@ -185,7 +185,7 @@
 		methods: {
 			navTo() {
 				uni.redirectTo({
-					url: '../index/index'
+					url: '../tabbar/tabbar'
 				});
 			},
 			ontoday(){

@@ -20,8 +20,8 @@ Vue.component('earn',earn)
 import about from './pages/about/home.vue'
 Vue.component('about',about)
 
-import burse from './pages/burse/home.vue'
-Vue.component('burse',burse)
+// import burse from './pages/burse/home.vue'
+// Vue.component('burse',burse)
 
 
 

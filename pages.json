@@ -121,7 +121,12 @@
 				}
 		    }
 		},
-		
+		{
+			"path": "pages/earn/burse",
+			"style": {
+				"navigationBarTitleText": ""
+			}
+		},
 		
 		
 		

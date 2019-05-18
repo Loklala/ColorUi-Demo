@@ -6,7 +6,7 @@
 			<mains v-if="PageCur=='mains'"></mains>
 			<share v-if="PageCur=='share'"></share>
 			<earn v-if="PageCur=='earn'"></earn>
-			<burse v-if="PageCur=='burse'"></burse>
+<!-- 			<burse v-if="PageCur=='burse'"></burse> -->
 			<about v-if="PageCur=='about'"></about>
 
 		<view class="cu-bar tabbar bg-white shadow foot">
@@ -44,12 +44,12 @@
 				<view :class="PageCur=='earn'?'text-green':'text-gray'">收益</view>
 			</view>
 			
-			<view class="action" @click="NavChange" data-cur="burse">
+<!-- 			<view class="action" @click="NavChange" data-cur="burse">
 				<view class='cuIcon-cu-image'>
 					<image :src="'/static/tabbar/burse' + [PageCur == 'burse'?'_cur':''] + '.png'"></image>
 				</view>
 				<view :class="PageCur=='burse'?'text-green':'text-gray'">钱包</view>
-			</view>
+			</view> -->
 			<view class="action" @click="NavChange" data-cur="about">
 				<view class='cuIcon-cu-image'>
 					<image :src="'/static/tabbar/about' + [PageCur == 'about'?'_cur':''] + '.png'"></image>

@@ -16,7 +16,19 @@
 					<text class="flex"> ID:{{id}}</text>
 				</view>
 			</view>
-
+<view class="cu-list menu " :class="[0?'sm-border':'',0?'margin-top':'']" >
+				<view class="cu-list grid bg" :class="['col-' + 3,1?'':'no-border']">
+					<view class="cu-item ">
+						<view class="money-title text-white">房卡总收益&yen;</view><view class="money-css text-white text-xxl">{{fkmoney}}</view>
+					</view>
+					<view class="cu-item">
+						<view class="money-title text-white">充值总收益&yen;</view><view class="money-css text-white text-xxl">{{czmoney}}</view>
+					</view>
+					<view class="cu-item">
+						<view class="money-title text-white">俱乐部总收益&yen;</view><view class="money-css text-white text-xxl">{{jlbmoney}}</view>
+					</view>
+				</view>
+</view>	
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']">
 			
 			<view class="cu-item" :class="menuArrow?'arrow':''">
@@ -147,6 +159,9 @@
 </script>
 
 <style>
+	.bg{
+		background:linear-gradient(to right,#0388f5,#1bb9b7);
+	}
 	.hide{
 		display: none;
 	}
@@ -160,7 +175,7 @@
 	.img{
 		width: 100%;
 		height: 280upx;
-		background: linear-gradient(to right,#3396a6,#33966a);
+		background:linear-gradient(to right,#0388f5,#1bb9b7);
 	}
 	.head{
 		margin-top: 45upx;

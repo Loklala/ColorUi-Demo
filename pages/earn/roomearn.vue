@@ -185,7 +185,7 @@
 		methods: {
 			navTo() {
 				uni.redirectTo({
-					url: '../index/index'
+					url: '../tabbar/tabbar'
 				});
 			},
 			ontoday(){

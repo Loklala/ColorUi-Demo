@@ -5,19 +5,14 @@
 				<block slot="backText"></block>
 				<block slot="content">收益</block>
 			</cu-custom>
-			<view class="cu-list menu uni-badge-warning bg-black" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" >
-				<view class="icon-text bg-black">
-					<text class="cuIcon-notification text-white text-xl "></text>
-				</view>
-				<view class="solle-text bg-gray bg-black">
-					<swiper autoplay="true" circular="true" interval="3000">
-						<swiper-item v-for="(item, index) in msg" :key="index">
-							<navigator class="text-white">{{item}}</navigator>
-						</swiper-item>
-					</swiper>
-				</view>
-			</view>
-					<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" >
+			<!-- <swiper class="screen-swiper" :class="1?'square-dot':'round-dot'" :indicator-dots="true" :circular="true"
+			 :autoplay="true" interval="5000" duration="500">
+				<swiper-item v-for="(item,index) in swiperList" :key="index">
+					<image :src="item.url" mode="aspectFill" v-if="item.type=='image'"></image>
+					<video :src="item.url" autoplay loop muted :show-play-btn="false" :controls="false" objectFit="cover" v-if="item.type=='video'"></video>
+				</swiper-item>
+			</swiper> -->
+			<view class="cu-list menu solid-top" :class="[1?'sm-border':'',0?'margin-top':'']" >
 				<view class="cu-list grid bg" :class="['col-' + 3,gridBorder?'':'no-border']">
 					<view class="cu-item ">
 						<view class="money-title text-white">房卡总收益&yen;</view><view class="money-css text-white text-xxl">{{fkmoney}}</view>
@@ -31,7 +26,7 @@
 				</view>
 			</view>	
 			<view class="bg-gray">
-				<view class="cu-list menu uni-badge-warning top bg-gray" :class="[0?'sm-border':'',0?'card-menu ':'']">
+				<!-- <view class="cu-list menu uni-badge-warning top bg-gray" :class="[0?'sm-border':'',0?'card-menu ':'']">
 					
 					<view class="nav-list top" style="margin-top: 50upx;">
 						<navigator hover-class="none" class="nav-li" redirectTo :class="'bg-olive'" :url="'../earn/roomearn'"
@@ -59,8 +54,37 @@
 							<text :class="'cuIcon-addressbook'"></text>
 						</navigator>
 					</view>
+				</view> -->
+				<view class="cu-list menu" :class="[menuBorder?'sm-border':'',0?'card-menu margin-top':'']" >
+				<view class="cu-list menu   margin-bottom-sm shadow-lg">
+					<view class="cu-item arrow">
+						<view class="content" data-cur="../earn/roomearn" @click="PageChange">
+							<text class="cuIcon-share text-grey"></text>
+							<text class="text-grey">房卡收益记录</text>
+						</view>
+					</view>
+					<view class="cu-item arrow " data-cur="../earn/rechearn"  @click="PageChange">
+						<view class="content">
+							<text class="cuIcon-group_fill text-grey"></text>
+							<text class="text-grey">充值收益记录</text>
+						</view>
+					</view>
+					<view class="cu-item arrow " data-cur="../earn/clubearn"  @click="PageChange">
+						<view class="content">
+							<text class="cuIcon-crown text-grey"></text>
+							<text class="text-grey">俱乐部收益记录</text>
+						</view>
+					</view>
+					<view class="cu-item arrow  " data-cur="../earn/depositresult"  @click="PageChange">
+						<view class="content">
+							<text class="cuIcon-crownfill text-grey"></text>
+							<text class="text-grey">提现记录</text>
+						</view>
+					</view>
 				</view>
-				
+				</view>
+				<button class="cu-btn bg-white margin-tb-sm lg deposit" @click="PageChange" data-cur="../earn/burse">提现</button>
+				<!-- <button class="cu-btn bg-white margin-tb-sm lg depositres" @click="PageChange" data-cur="../burse/home">提现</button> -->
 			</view>
 			<view class="cu-tabbar-height"></view>
 		</scroll-view>
@@ -79,16 +103,8 @@
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
 				src:'',
-				title:"滚动公告",
-				msg : [
-					'皮蛋游戏大厅推广系统正式上线啦！',
-					'代理通过多种方式邀请玩家均会获得收益',
-					'邀请好友！绑定代理账户就可以获得收益！',
-					'随时随地查看当前收益金额，随时随地提现到账',
-					'收益到达一定额度，即可提交提现申请'
-				],
 				
-								modalName: null,
+				modalName: null,
 				gridCol: 3,
 				gridBorder: true,
 				
@@ -100,7 +116,7 @@
 				swiperList: [{
 					id: 0,
 					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
+					url: '../../static/img/login-logo.jpg'
 				}, {
 					id: 1,
 					type: 'image',
@@ -169,11 +185,36 @@
 			cardSwiper(e) {
 				this.cardCur = e.detail.current
 			},	
+			//页面跳转
+			PageChange: function(e) {
+				if(e.currentTarget.dataset.cur==""){
+					uni.showToast({
+						icon: 'none',
+						title: '暂未开放'
+					},1000);
+				}else{
+					uni.redirectTo({
+						url:e.currentTarget.dataset.cur
+					});
+				}
+			},
 		}
 	}
 </script>
 
 <style>
+	.deposit{
+		margin-left:5%;
+		width: 90%;
+		margin-top: 50upx;
+		color: #3396e6;
+	}
+	.depositres{
+		margin-left:5%;
+		width: 90%;
+		
+		color: #3396e6;
+	}
 	.money-css{
 		min-height: 50upx;
 	}
@@ -193,13 +234,13 @@
 		color: #fff;
 	}
 	.bg{
-		background: linear-gradient(to right,#3396a6,#33966a);
+		background: linear-gradient(to right,#0388f5,#1bb9b7);
 	}
 	.bg-1{
 		background-color:#33966a;
 	}
 	.bg1{
-		background: linear-gradient(to bottom,#33966a,#ffffff);
+		background: linear-gradient(to bottom,#0388f5,#ffffff);
 	}
 	.icon-xl{
 		font-size: 50upx;
