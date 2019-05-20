@@ -5084,6 +5084,9 @@ scroll-view.cu-steps .cu-item {
 
 
 
+.imgs{
+	height: 350rpx;
+}
 .lables{
 	font-size: 30rpx;
 }
@@ -5142,6 +5145,18 @@ scroll-view.cu-steps .cu-item {
 
 
 
+.deposit{
+	margin-left:5%;
+	width: 90%;
+	margin-top: 50rpx;
+	color: #3396e6;
+}
+.depositres{
+	margin-left:5%;
+	width: 90%;
+	
+	color: #3396e6;
+}
 .money-css{
 	min-height: 50rpx;
 }
@@ -5161,17 +5176,17 @@ scroll-view.cu-steps .cu-item {
 	color: #fff;
 }
 .bg{
-	background: -webkit-gradient(linear,left top, right top,from(#3396a6),to(#33966a));
-	background: -o-linear-gradient(left,#3396a6,#33966a);
-	background: linear-gradient(to right,#3396a6,#33966a);
+	background: -webkit-gradient(linear,left top, right top,from(#0388f5),to(#1bb9b7));
+	background: -o-linear-gradient(left,#0388f5,#1bb9b7);
+	background: linear-gradient(to right,#0388f5,#1bb9b7);
 }
 .bg-1{
 	background-color:#33966a;
 }
 .bg1{
-	background: -webkit-gradient(linear,left top, left bottom,from(#33966a),to(#ffffff));
-	background: -o-linear-gradient(top,#33966a,#ffffff);
-	background: linear-gradient(to bottom,#33966a,#ffffff);
+	background: -webkit-gradient(linear,left top, left bottom,from(#0388f5),to(#ffffff));
+	background: -o-linear-gradient(top,#0388f5,#ffffff);
+	background: linear-gradient(to bottom,#0388f5,#ffffff);
 }
 .icon-xl{
 	font-size: 50rpx;
@@ -5203,6 +5218,11 @@ scroll-view.cu-steps .cu-item {
 
 
 
+.bg{
+	background:-webkit-gradient(linear,left top, right top,from(#0388f5),to(#1bb9b7));
+	background:-o-linear-gradient(left,#0388f5,#1bb9b7);
+	background:linear-gradient(to right,#0388f5,#1bb9b7);
+}
 .hide{
 	display: none;
 }
@@ -5216,9 +5236,9 @@ scroll-view.cu-steps .cu-item {
 .img{
 	width: 100%;
 	height: 280rpx;
-	background: -webkit-gradient(linear,left top, right top,from(#3396a6),to(#33966a));
-	background: -o-linear-gradient(left,#3396a6,#33966a);
-	background: linear-gradient(to right,#3396a6,#33966a);
+	background:-webkit-gradient(linear,left top, right top,from(#0388f5),to(#1bb9b7));
+	background:-o-linear-gradient(left,#0388f5,#1bb9b7);
+	background:linear-gradient(to right,#0388f5,#1bb9b7);
 }
 .head{
 	margin-top: 45rpx;
@@ -5237,58 +5257,5 @@ scroll-view.cu-steps .cu-item {
 	width: 90%;
 	margin-top: 100rpx;
 	color: red;
-}
-
-
-.ye{
-	min-height: 130rpx;
-}
-.title-text{
-	color: #fff;
-}
-.bg{
-	background: -webkit-gradient(linear,left top, right top,from(#3396a6),to(#33966a));
-	background: -o-linear-gradient(left,#3396a6,#33966a);
-	background: linear-gradient(to right,#3396a6,#33966a);
-}
-.primary{
-	margin-top: 50rpx;
-	width: 92%;
-	color:#fff;
-}
-.money-title{
-	color: #F8F8F8;
-	font-size: 25rpx;
-}
-.money-title1{
-	color: #fff;
-	font-size: 30rpx;
-}
-.money-css{
-	font-size: 40rpx;
-	color: #fff;
-}
-.money-css1{
-	font-size: 40rpx;
-	width: 75%;
-}
-.page {
-	height: 100Vh;
-	width: 100vw;
-}
-.page.show {
-	overflow: hidden;
-}
-.switch-sex::after {
-	content: "\E716";
-}
-.switch-sex::before {
-	content: "\E7A9";
-}
-.switch-music::after {
-	content: "\E66A";
-}
-.switch-music::before {
-	content: "\E6DB";
 }
 

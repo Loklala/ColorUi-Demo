@@ -1,65 +1,70 @@
 <template>
 	<view  class="content">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="backText"></block>
-			<block slot="content">提现账号</block>
-			<block slot="right"></block>
-		</cu-custom>
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']">
-			<view class="cu-bar bg-white solid-bottom bg">
+		<view class="cu-bar bg-gradual-blue search" :style="[{height:CustomBar + 'px'}]">
+			<view class="action" @click="navTo()"><text class="cuIcon-back"></text></view>
+			<view class="content">
+				提现账号
+			</view>
+			<view class="action">
+			</view>
+		</view>
+		
+		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu ':'',isaccount?'show':'hide']">
+			<view class="cu-bar bg-white solid-bottom bg-grey">
 				<view class="action">
 					<text class='cuIcon-newsfill text-blue icon-title'></text>
 					账号信息
 				</view>
 				<view>
-					<button type="default" class="edit-btn" @click="editdeposit">编辑</button>
+					<button type="default" class="edit-btn " @click="editdeposit">编辑</button>
 				</view>
 			</view>
-			<view class="cu-item" :class="0?'arrow':''">
-				<text class='cuIcon-peoplelist text-blue icon-title'></text>
-			<text class="title">姓名：</text>
-				<text class=" content" >
-					<text class="text-grey">{{name}}</text>
-				</text>
-			</view>
-			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<text class='cuIcon-shake text-blue icon-title'></text>
-				<text class="title">类型：</text>
-				<text class="content" >
-					<text class="text-grey">{{payname}}</text>
-				</text>
-			</view>
-			
-			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<text class='cuIcon-brand text-blue icon-title'></text>
-				<text class="title">账号：</text>
-				<text class=" content" >
-					<text class="text-grey">{{payaccount}}</text>
-				</text>
-			</view>
-
+				<view class="cu-item" :class="0?'arrow':''">
+					<text class='cuIcon-peoplelist text-blue icon-title'></text>
+					<text class="title">姓名：</text>
+					<text class=" content" >
+						<text class="text-grey">{{name}}</text>
+					</text>
+				</view>
+				<view class="cu-item" :class="menuArrow?'arrow':''">
+					<text class='cuIcon-shake text-blue icon-title'></text>
+					<text class="title">类型：</text>
+					<text class="content" >
+						<text class="text-grey">{{payname}}</text>
+					</text>
+				</view>
+				
+				<view class="cu-item" :class="menuArrow?'arrow':''">
+					<text class='cuIcon-brand text-blue icon-title'></text>
+					<text class="title">账号：</text>
+					<text class=" content" >
+						<text class="text-grey">{{payaccount}}</text>
+					</text>
+				</view>
 		</view>
-				<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']">
-					<view class="cu-item" :class="menuArrow?'arrow':''">
-						<text class='cuIcon-notice text-blue icon-title'></text>
-						<text class="title">温馨提示：</text>
-						<text class=" content" ></text>
-					</view>	
-					<view class="cu-item" :class="menuArrow?'arrow':''">
-						<text class=" content ">
-							<text class="tip-text">
-								1.确保姓名为本人真实姓名。
-							</text >
-							<text class="tip-text">
-								2.确保账号为可转账账号。
-							</text>
-							<text class="tip-text">
-								3.确保账户类型和账号一致。
-							</text>
-						</text>
-					</view>	
-				</view> 
-
+		
+		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu ':'',isaccount?'hide':'show']">
+			<view class="cu-bar bg-white solid-bottom bg-grey">
+				<view class="action">
+					<text class='cuIcon-newsfill text-blue icon-title '></text>
+					账号信息
+				</view>
+				<view>
+				</view>
+			</view>
+			<view class="cu-item text-xxl" :class="0?'arrow':''" >
+				<text class="content cuIcon-emoji text-center text-xxl emoji" style="height: 300upx;font-size: 200upx;width: 100%;"></text>
+			</view>
+			<view class="cu-item text-xxl" :class="0?'arrow':''" >
+				<text class="content  text-center text-xxl emoji">
+					暂无账号信息请先添加账号
+				</text>
+			</view>
+			<view class=" margin-top-xl bg-gray" :class="0?'arrow':''">
+					<button class="cu-btn bg-gradual-blue margin-tb-sm lg deposit-btn" @click="editdeposit()">添加提现账号</button>
+			</view>
+		</view>
+		
 	</view>
 </template>
 
@@ -67,27 +72,85 @@
 export default {
 		data() {
 			return {
-				name:"李白",
-				payname:"微信",
-				payaccount:"LIBAI001WEIXIN",
+				name:" ",
+				payname:" ",
+				payaccount:" ",
 				
-				menuBorder: true,
+				id:0,
+				StatusBar: this.StatusBar,
+				CustomBar: this.CustomBar,
+				menuBorder: false,
 				menuArrow: false,
 				menuCard: true,
+				
+				isaccount:true,
 			};
+		},
+		onLoad() {
+			const value = uni.getStorageSync('agentInfo');
+			if (value) {
+				this.id=value.id;
+			uni.request({
+				url: 'http://192.168.0.199:8080/agent/agent/ajax-get-info',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					method: 'POST',
+					dataType: 'json',
+					cache: false,
+					data: {
+						id:this.id,
+					},
+					success: res => {
+						console.log(res.data.isSuccess);
+						let data=res.data.result;
+						if(data){
+							this.name=data.current_payname;
+							if(data.current_paytype=='0'){
+								this.payname='微信';
+								this.payaccount=data.wechat_num;
+							}else if(data.current_paytype=='1'){
+								this.payname='支付宝';
+								this.payaccount=data.alipay_num;
+							}else if(data.current_paytype=='2'){
+								this.payname='银行卡';
+								this.payaccount=data.bank_num;
+							}else if(data.current_paytype==''){
+								this.isaccount=false;
+							}
+						}
+					},
+					fail: () => {},
+					complete: () => {}
+				});
+			}
 		},
 		methods: {
 			editdeposit: function() {
-					uni.navigateTo({
+					uni.redirectTo({
 						url: '../about/editdeposit'
 					});
+			},
+			navTo(){
+				uni.redirectTo({
+					url: '../tabbar/tabbar'
+				});
 			}
-			
 		}
+		
 	}
 </script>
 
 <style>
+	.deposit-btn{
+		width: 100%;
+	}
+	.show{
+		display: block;
+	}
+	.hide{
+		display: none;
+	}
 	.tips{
 		/* text-indent:5upx; */
 		color: red;

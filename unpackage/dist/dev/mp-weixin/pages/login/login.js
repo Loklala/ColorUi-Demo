@@ -209,6 +209,7 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
         success: function success(res) {
           console.log(res);
           _this.code_url = 'http://192.168.0.199:8080' + res.data['url'];
+          console.log(res.data['url']);
           console.log(_this.code_url);
         },
         fail: function fail() {},
@@ -238,7 +239,7 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
         return;
       }
       uni.request({
-        url: 'http://192.168.0.199:8080/agent/login/ajax-login',
+        url: 'http://192.168.0.199:8080/agent/login/ajax-login', //
         header: {
           'content-type': 'application/x-www-form-urlencoded' },
 
@@ -253,37 +254,23 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
         success: function success(res) {
           console.log(res);
           if (res.data.isSuccess == 200) {
-            var data = {
-              id: res.data.result.id,
-              agent_id: res.data.result.agent_id,
-              agent_tel: res.data.result.agent_tel,
-              nickname: res.data.result.nickname };
-
-            window["KeyValueManager"] = {};
-            window["KeyValueManager"]["playerInfo"] = {
-              id: data.id,
-              agent_id: data.agent_id,
-              agent_tel: data.agent_tel,
-              nickname: data.nickname };
-
             //缓存
             uni.setStorage({
               key: 'agentInfo',
               data: {
-                id: data.id,
-                agent_id: data.agent_id,
-                agent_tel: data.agent_tel,
-                nickname: data.nickname },
+                id: res.data.result.id,
+                agent_id: res.data.result.agent_id,
+                agent_tel: res.data.result.agent_tel,
+                herf_pic: res.data.result.herf_pic,
+                nickname: res.data.result.nickname,
+                token: res.data.result.token },
 
               success: function success() {
                 uni.redirectTo({
-                  url: '../index/index' });
+                  url: '../tabbar/tabbar' });
 
               } });
 
-
-
-            // service.addUser(data);
           } else {
             uni.showToast({
               icon: 'none',
@@ -299,36 +286,6 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
         },
         complete: function complete() {} });
 
-
-
-
-
-      /**
-                                              * 下面简单模拟下服务端的处理
-                                              * 检测用户账号密码是否在已注册的用户列表中
-                                              * 实际开发中，使用 uni.request 将账号信息发送至服务端，客户端在回调函数中获取结果信息。
-                                              */
-      //             const data = {
-      //                 account: this.account,
-      //                 password: this.password,
-      // 	
-      //             };
-      //             const validUser = service.getUsers().some(function (user) {
-      //                 return data.account === user.account && data.password === user.password;
-      //             });
-      // console.log(validUser);
-      //             if (validUser) {
-      //                 this.toMain(this.account);
-      // 	// uni.redirectTo({
-      // 	// 	url: '../index/index?account='+this.account
-      // 	// });
-      // 	
-      //             } else {
-      //                 uni.showToast({
-      //                     icon: 'none',
-      //                     title: '用户账号或密码不正确',
-      //                 });
-      //             }
     },
     login: function login() {
       uni.request({
@@ -385,7 +342,6 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
 
   onReady: function onReady() {
     this.initPosition();
-    this.initProvider();
   } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 

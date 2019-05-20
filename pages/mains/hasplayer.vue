@@ -106,15 +106,15 @@
 					
 					curPageData:[],
 					totalPage:0,
-					
-					allnum:0,
-					weeknum:0,
+					token:'',
+					allnum:'0',
+					weeknum:'0',
 				}
 		},
 		onLoad() {
 			const agentInfo = uni.getStorageSync('agentInfo');
 			if (agentInfo) {
-				this.agent_id=agentInfo.id;
+				this.token=agentInfo.token;
 			}
 			this.loadPersonNum();
 		},
@@ -143,19 +143,14 @@
 					dataType: 'json',
 					cache: false,
 					data: {
-						agent_id:this.agent_id,
+						token:this.token,
 					},
 					success: res => {
-						console.log(res);
 						let lists = res;
 						let data = lists.data
-						if (data.isSuccess == 200) {
-							console.log(data);
-							this.allnum=data.result.allnum;
-							this.weeknum=data.result.weeknum;
-							
-						} else {
-						
+						if (data.code == 200) {
+							this.allnum=data.data.allnum;
+							this.weeknum=data.data.weeknum;
 						}
 					},
 					fail: () => {
@@ -177,21 +172,20 @@
 					dataType: 'json',
 					cache: false,
 					data: {
-						id:this.agent_id,
+						token:this.token,
 						time1:this.date1+' 00:00:00',
 						time2:this.date2+' 23:59:59',
 						pagenum:this.pageNum,
 						pageSize:this.pageSize,
 					},
 					success: res => {
-						console.log(res);
 						let lists = res;
 						let data = lists.data
-						if (data.isSuccess == 200) {
+						if (data.code == 200) {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							
@@ -202,9 +196,9 @@
 							
 						} else {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
@@ -257,39 +251,38 @@
 					dataType: 'json',
 					cache: false,
 					data: {
-						id:this.agent_id,
+						token:this.token,
 						time1:this.date1+' 00:00:00',
 						time2:this.date2+' 23:59:59',
 						pagenum:this.pageNum,
 						pageSize:this.pageSize,
 					},
 					success: res => {
-						console.log(res);
 						let lists = res;
 						let data = lists.data
-						if (data.isSuccess == 200) {
+						if (data.code == 200) {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							
 							// // 接口返回的总数据量(比如列表有26个数据,每页10条,共3页; 则totalSize值为26)
-							// let totalSize = data.result.totalSize; 
+							// let totalSize = data.data.totalSize; 
 							// // 接口返回的是否有下一页 (true/false)
-							// let hasNext = data.result.hasNext; 
+							// let hasNext = data.data.hasNext; 
 							mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
 						} else {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							
 							// // 接口返回的总数据量(比如列表有26个数据,每页10条,共3页; 则totalSize值为26)
-							// let totalSize = data.result.totalSize; 
+							// let totalSize = data.data.totalSize; 
 							// // 接口返回的是否有下一页 (true/false)
-							// let hasNext = data.result.hasNext; 
+							// let hasNext = data.data.hasNext; 
 							mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据

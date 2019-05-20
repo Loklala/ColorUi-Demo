@@ -182,6 +182,56 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _mescrollUni = _interopRequireDefault(__webpack_require__(/*! mescroll-uni/mescroll-uni.vue */ "../../../ColorUi-Demo/node_modules/mescroll-uni/mescroll-uni.vue"));
 
 var _pdlist = _interopRequireDefault(__webpack_require__(/*! ../../common/pdlist.js */ "../../../ColorUi-Demo/common/pdlist.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 自定义的mescroll-meituan.vue
@@ -197,6 +247,12 @@ function getDate(type) {
     year = year - 60;
   } else if (type === 'end') {
     year = year;
+  } else if (type == '7day') {
+    day = day - 7;
+  } else if (type == '1month') {
+    month = month - 1;
+  } else if (type == '3month') {
+    month = month - 3;
   }
   month = month > 9 ? month : '0' + month;;
   day = day > 9 ? day : '0' + day;
@@ -223,11 +279,9 @@ function getDate(type) {
       pageSize: 20,
 
       curPageData: [],
-      totalPage: 0
-      // 
-      // allnum:0,
-      // weeknum:0,
-    };
+      totalPage: 0 };
+
+
   },
   onLoad: function onLoad() {
     var agentInfo = uni.getStorageSync('agentInfo');
@@ -246,15 +300,40 @@ function getDate(type) {
   methods: {
     navTo: function navTo() {
       uni.redirectTo({
-        url: '../index/index' });
+        url: '../tabbar/tabbar' });
 
     },
-    onclickbtn: function onclickbtn() {
-
+    ontoday: function ontoday() {
+      var time2 = getDate({ format: true });
+      var time1 = getDate({ format: true });
+      this.date1 = time1;
+      this.date2 = time2;
+      this.loadlist();
+    },
+    onseven: function onseven() {
+      var time2 = getDate({ format: true });
+      var time1 = getDate('7day');
+      this.date1 = time1;
+      this.date2 = time2;
+      this.loadlist();
+    },
+    ononemonth: function ononemonth() {
+      var time2 = getDate({ format: true });
+      var time1 = getDate('1month');
+      this.date1 = time1;
+      this.date2 = time2;
+      this.loadlist();
+    },
+    onthreemonth: function onthreemonth() {
+      var time2 = getDate({ format: true });
+      var time1 = getDate('3month');
+      this.date1 = time1;
+      this.date2 = time2;
+      this.loadlist();
     },
     loadlist: function loadlist() {var _this = this;
       uni.request({
-        url: 'http://192.168.0.199:8080/agent/tuiguang/ajax-has-player',
+        url: 'http://192.168.0.199:8080/agent/earnings/ajax-result-earns',
         header: {
           'content-type': 'application/x-www-form-urlencoded' },
 
@@ -263,20 +342,66 @@ function getDate(type) {
         cache: false,
         data: {
           id: this.agent_id,
+          earnType: 2,
           time1: this.date1 + ' 00:00:00',
           time2: this.date2 + ' 23:59:59',
-          pagenum: this.pageNum,
+          pageNum: this.pageNum,
           pageSize: this.pageSize },
 
         success: function success(res) {
-          console.log(res);
           var lists = res;
           var data = lists.data;
-          if (data.isSuccess == 200) {
+          if (data.code == 200) {
             // 接口返回的当前页数据列表 (数组)
-            _this.curPageData = data.result.list;
+            _this.curPageData = data.data.list;
+            for (var i = 0; i < _this.curPageData.length; i++) {
+              var playerList = _this.curPageData[i].players;
+              if (playerList && playerList != "") {
+                playerList = JSON.parse(playerList);
+                var players = "";
+                for (var j = 0; j < playerList.length; j++) {
+                  players += playerList[j].nickName + "	 /     ";
+                }
+                _this.curPageData[i].players = players;
+              }
+              var gametype = _this.curPageData[i].gametype;
+              if (gametype && gametype == "shiss") {
+                gametype = '宁海罗松';
+                _this.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "xdmj") {
+                gametype = '西店麻将';
+                _this.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "ddz") {
+                gametype = '斗地主';
+                _this.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "niuniu") {
+                gametype = '牛牛';
+                _this.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "nhmj") {
+                gametype = '宁海麻将';
+                _this.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "jielong") {
+                gametype = '接龙';
+                _this.curPageData[i].gametype = gametype;
+              }
+              var pay_mode = _this.curPageData[i].pay_mode;
+              if (pay_mode == "1") {
+                _this.curPageData[i].pay_mode = "房主支付";
+              } else if (pay_mode == "0") {
+                _this.curPageData[i].pay_mode = "AA支付";
+              }
+              var room_money_mode = _this.curPageData[i].room_money_mode;
+              if (room_money_mode == "1") {
+                _this.curPageData[i].room_money_mode = "钻石";
+              } else if (room_money_mode == "0") {
+                _this.curPageData[i].room_money_mode = "金币";
+              }
+              var profit_fee_ratio = _this.curPageData[i].profit_fee_ratio * 100;
+              _this.curPageData[i].profit_fee_ratio = profit_fee_ratio + '%';
+
+            }
             // 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-            _this.totalPage = data.result.totalPage;
+            _this.totalPage = data.data.totalPage;
             _this.mescroll.endByPage(_this.curPageData.length, _this.totalPage);
             if (_this.mescroll.num == 1) _this.dataList = []; //如果是第一页需手动置空列表
 
@@ -287,9 +412,9 @@ function getDate(type) {
 
           } else {
             // 接口返回的当前页数据列表 (数组)
-            _this.curPageData = data.result.list;
+            _this.curPageData = data.data.list;
             // 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-            _this.totalPage = data.result.totalPage;
+            _this.totalPage = data.data.totalPage;
             _this.mescroll.endByPage(_this.curPageData.length, _this.totalPage);
             if (_this.mescroll.num == 1) _this.dataList = []; //如果是第一页需手动置空列表
             _this.dataList = _this.dataList.concat(_this.curPageData); //追加新数据
@@ -334,7 +459,7 @@ function getDate(type) {
       this.pageNum = mescroll.num; // 页码, 默认从1开始
       this.pageSize = mescroll.size; // 页长, 默认每页10条
       uni.request({
-        url: 'http://192.168.0.199:8080/agent/tuiguang/ajax-has-player',
+        url: 'http://192.168.0.199:8080/agent/earnings/ajax-result-earns',
         header: {
           'content-type': 'application/x-www-form-urlencoded' },
 
@@ -343,40 +468,81 @@ function getDate(type) {
         cache: false,
         data: {
           id: this.agent_id,
+          earnType: 2,
           time1: this.date1 + ' 00:00:00',
           time2: this.date2 + ' 23:59:59',
-          pagenum: this.pageNum,
+          pageNum: this.pageNum,
           pageSize: this.pageSize },
 
         success: function success(res) {
-          console.log(res);
           var lists = res;
           var data = lists.data;
-          if (data.isSuccess == 200) {
+          if (data.code == 200) {
             // 接口返回的当前页数据列表 (数组)
-            _this2.curPageData = data.result.list;
-            // 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-            _this2.totalPage = data.result.totalPage;
+            _this2.curPageData = data.data.list;
+            for (var i = 0; i < _this2.curPageData.length; i++) {
+              var playerList = _this2.curPageData[i].players;
+              if (playerList && playerList != "") {
+                playerList = JSON.parse(playerList);
+                var players = "";
+                for (var j = 0; j < playerList.length; j++) {
+                  players += playerList[j].nickName + "	 /     ";
+                }
+                _this2.curPageData[i].players = players;
+              }
+              var gametype = _this2.curPageData[i].gametype;
+              if (gametype && gametype == "shiss") {
+                gametype = '宁海罗松';
+                _this2.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "xdmj") {
+                gametype = '西店麻将';
+                _this2.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "ddz") {
+                gametype = '斗地主';
+                _this2.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "niuniu") {
+                gametype = '牛牛';
+                _this2.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "nhmj") {
+                gametype = '宁海麻将';
+                _this2.curPageData[i].gametype = gametype;
+              } else if (gametype && gametype == "jielong") {
+                gametype = '接龙';
+                _this2.curPageData[i].gametype = gametype;
+              }
+              var pay_mode = _this2.curPageData[i].pay_mode;
+              if (pay_mode == "1") {
+                _this2.curPageData[i].pay_mode = "房主支付";
+              } else if (pay_mode == "0") {
+                _this2.curPageData[i].pay_mode = "AA支付";
+              }
+              var room_money_mode = _this2.curPageData[i].room_money_mode;
+              if (room_money_mode == "1") {
+                _this2.curPageData[i].room_money_mode = "钻石";
+              } else if (room_money_mode == "0") {
+                _this2.curPageData[i].room_money_mode = "金币";
+              }
+              var profit_fee_ratio = _this2.curPageData[i].profit_fee_ratio * 100;
+              _this2.curPageData[i].profit_fee_ratio = profit_fee_ratio + '%';
 
-            // // 接口返回的总数据量(比如列表有26个数据,每页10条,共3页; 则totalSize值为26)
-            // let totalSize = data.result.totalSize; 
-            // // 接口返回的是否有下一页 (true/false)
-            // let hasNext = data.result.hasNext; 
-            mescroll.endByPage(_this2.curPageData.length, _this2.totalPage);
-            if (mescroll.num == 1) _this2.dataList = []; //如果是第一页需手动置空列表
+            }
+            // 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
+            _this2.totalPage = data.data.totalPage;
+            _this2.mescroll.endByPage(_this2.curPageData.length, _this2.totalPage);
+            if (_this2.mescroll.num == 1) _this2.dataList = []; //如果是第一页需手动置空列表
+
             _this2.dataList = _this2.dataList.concat(_this2.curPageData); //追加新数据
+            if (_this2.dataList.length > 0) {
+              _this2.mescroll.endSuccess();
+            }
+
           } else {
             // 接口返回的当前页数据列表 (数组)
-            _this2.curPageData = data.result.list;
+            _this2.curPageData = data.data.list;
             // 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-            _this2.totalPage = data.result.totalPage;
-
-            // // 接口返回的总数据量(比如列表有26个数据,每页10条,共3页; 则totalSize值为26)
-            // let totalSize = data.result.totalSize; 
-            // // 接口返回的是否有下一页 (true/false)
-            // let hasNext = data.result.hasNext; 
-            mescroll.endByPage(_this2.curPageData.length, _this2.totalPage);
-            if (mescroll.num == 1) _this2.dataList = []; //如果是第一页需手动置空列表
+            _this2.totalPage = data.data.totalPage;
+            _this2.mescroll.endByPage(_this2.curPageData.length, _this2.totalPage);
+            if (_this2.mescroll.num == 1) _this2.dataList = []; //如果是第一页需手动置空列表
             _this2.dataList = _this2.dataList.concat(_this2.curPageData); //追加新数据
           }
         },
@@ -457,36 +623,76 @@ var render = function() {
                 _c(
                   "view",
                   [
-                    _c("button", { staticClass: "cu-btn round" }, [
-                      _vm._v("查询今天")
-                    ])
+                    _c(
+                      "button",
+                      {
+                        staticClass: "cu-btn round",
+                        attrs: { eventid: "2d148f74-1" },
+                        on: {
+                          click: function($event) {
+                            _vm.ontoday()
+                          }
+                        }
+                      },
+                      [_vm._v("查询今天")]
+                    )
                   ],
                   1
                 ),
                 _c(
                   "view",
                   [
-                    _c("button", { staticClass: "cu-btn round" }, [
-                      _vm._v("最近7天")
-                    ])
+                    _c(
+                      "button",
+                      {
+                        staticClass: "cu-btn round",
+                        attrs: { eventid: "2d148f74-2" },
+                        on: {
+                          click: function($event) {
+                            _vm.onseven()
+                          }
+                        }
+                      },
+                      [_vm._v("最近7天")]
+                    )
                   ],
                   1
                 ),
                 _c(
                   "view",
                   [
-                    _c("button", { staticClass: "cu-btn round" }, [
-                      _vm._v("近1个月")
-                    ])
+                    _c(
+                      "button",
+                      {
+                        staticClass: "cu-btn round",
+                        attrs: { eventid: "2d148f74-3" },
+                        on: {
+                          click: function($event) {
+                            _vm.ononemonth()
+                          }
+                        }
+                      },
+                      [_vm._v("近1个月")]
+                    )
                   ],
                   1
                 ),
                 _c(
                   "view",
                   [
-                    _c("button", { staticClass: "cu-btn round" }, [
-                      _vm._v("近3个月")
-                    ])
+                    _c(
+                      "button",
+                      {
+                        staticClass: "cu-btn round",
+                        attrs: { eventid: "2d148f74-4" },
+                        on: {
+                          click: function($event) {
+                            _vm.onthreemonth()
+                          }
+                        }
+                      },
+                      [_vm._v("近3个月")]
+                    )
                   ],
                   1
                 )
@@ -507,7 +713,7 @@ var render = function() {
                       mode: "date",
                       value: _vm.date1,
                       end: _vm.endDate,
-                      eventid: "2d148f74-1"
+                      eventid: "2d148f74-5"
                     },
                     on: { change: _vm.DateChange1 }
                   },
@@ -533,7 +739,7 @@ var render = function() {
                       mode: "date",
                       value: _vm.date2,
                       end: _vm.endDate,
-                      eventid: "2d148f74-2"
+                      eventid: "2d148f74-6"
                     },
                     on: { change: _vm.DateChange2 }
                   },
@@ -554,7 +760,7 @@ var render = function() {
                   "button",
                   {
                     staticClass: "cu-btn bg-gradual-blue shadow-blur round",
-                    attrs: { eventid: "2d148f74-3" },
+                    attrs: { eventid: "2d148f74-7" },
                     on: {
                       click: function($event) {
                         _vm.loadlist()
@@ -573,9 +779,9 @@ var render = function() {
         "mescroll-uni",
         {
           attrs: {
-            top: "280",
+            top: "300",
             bottom: "50",
-            eventid: "2d148f74-5",
+            eventid: "2d148f74-9",
             mpcomid: "2d148f74-0"
           },
           on: {
@@ -590,16 +796,14 @@ var render = function() {
             {
               key: k,
               staticClass:
-                "cu-list menu padding-xl radius shadow-warp bg-white margin-top",
-              class: [0 ? undefined : "", 0 ? undefined : ""]
+                "cu-list menu padding-xl radius shadow-warp bg-white ",
+              class: [0 ? undefined : "", 1 ? "card-menu " : undefined]
             },
             [
               _c(
                 "view",
                 {
-                  staticClass: "cu-item ",
-                  class: pd.isDisplay ? "bg-c bg-grey" : "bg-white",
-                  attrs: { eventid: "2d148f74-4-" + k },
+                  attrs: { eventid: "2d148f74-8-" + k },
                   on: {
                     tap: function($event) {
                       _vm.changeSN(k)
@@ -607,43 +811,165 @@ var render = function() {
                   }
                 },
                 [
-                  _c("text", { staticClass: "list-text1" }, [_vm._v("ID:")]),
-                  _c("text", { staticClass: "list-text2" }, [
-                    _vm._v(_vm._s(pd.userid))
-                  ]),
-                  _c("text", { staticClass: "list-text1" }, [_vm._v("昵称:")]),
-                  _c("text", { staticClass: "list-text5" }, [
-                    _vm._v(_vm._s(pd.nickName))
-                  ]),
-                  _c("text", {
-                    staticClass: "cuIcon-unfold text-blue icon-title",
-                    class: pd.isDisplay ? " hide" : "show"
-                  }),
-                  _c("text", {
-                    staticClass: "cuIcon-fold text-blue icon-title",
-                    class: pd.isDisplay ? "show" : "hide"
-                  })
+                  _c(
+                    "view",
+                    {
+                      staticClass: "cu-item",
+                      class: pd.isDisplay ? "bg-c bg-grey" : "bg-white"
+                    },
+                    [
+                      _c("view", { staticClass: "flex" }, [
+                        _c(
+                          "view",
+                          { staticClass: "flex-sub  padding-sm  radius" },
+                          [
+                            _c("text", { staticClass: "list-text3" }, [
+                              _vm._v("日期:")
+                            ]),
+                            _c("text", { staticClass: "list-text7" }, [
+                              _vm._v(_vm._s(pd.create_time))
+                            ])
+                          ]
+                        ),
+                        _c(
+                          "view",
+                          { staticClass: "flex-sub  padding-sm  radius " },
+                          [
+                            _c("text", { staticClass: "list-text4" }, [
+                              _vm._v("房间号:")
+                            ]),
+                            _c("text", { staticClass: "list-text3" }, [
+                              _vm._v(_vm._s(pd.room_id))
+                            ])
+                          ]
+                        ),
+                        _c("view", { staticClass: "  padding-sm  radius" }, [
+                          _c("text", {
+                            staticClass: "cuIcon-fold text-blue icon-title",
+                            class: pd.isDisplay ? "show" : "hide"
+                          })
+                        ])
+                      ])
+                    ]
+                  ),
+                  _c(
+                    "view",
+                    {
+                      staticClass: "cu-item ",
+                      class: pd.isDisplay ? "bg-c bg-gray" : "bg-white"
+                    },
+                    [
+                      _c("view", { staticClass: "flex" }, [
+                        _c(
+                          "view",
+                          { staticClass: "flex-sub  padding-sm  radius" },
+                          [
+                            _c("text", { staticClass: "list-text3" }, [
+                              _vm._v("收益:")
+                            ]),
+                            _c("text", { staticClass: "list-text3" }, [
+                              _vm._v(_vm._s(pd.profit_money))
+                            ])
+                          ]
+                        ),
+                        _c(
+                          "view",
+                          { staticClass: "flex-sub  padding-sm  radius " },
+                          [
+                            _c("text", { staticClass: "list-text3" }, [
+                              _vm._v("游戏:")
+                            ]),
+                            _c("text", { staticClass: "list-text3" }, [
+                              _vm._v(_vm._s(pd.gametype))
+                            ])
+                          ]
+                        ),
+                        _c("view", { staticClass: "  padding-sm  radius" }, [
+                          _c("text", {
+                            staticClass: "cuIcon-unfold text-blue icon-title",
+                            class: pd.isDisplay ? " hide" : "show"
+                          })
+                        ])
+                      ])
+                    ]
+                  )
                 ]
               ),
               _c(
                 "view",
                 {
                   class: pd.isDisplay
-                    ? "cu-item show bg-c bg-grey"
+                    ? "show bg-c bg-gray solids-top"
                     : "hide bg-white"
                 },
                 [
-                  _c("text", { staticClass: "list-text2" }, [
-                    _vm._v("注册时间:")
+                  _c("view", { staticClass: "flex" }, [
+                    _c(
+                      "view",
+                      { staticClass: "flex-sub  padding-sm  radius" },
+                      [
+                        _c("text", { staticClass: "list-text3" }, [
+                          _vm._v("支付类型:")
+                        ]),
+                        _c("text", { staticClass: "list-text3" }, [
+                          _vm._v(_vm._s(pd.pay_mode))
+                        ])
+                      ]
+                    ),
+                    _c(
+                      "view",
+                      { staticClass: "flex-sub  padding-sm  radius " },
+                      [
+                        _c("text", { staticClass: "list-text3" }, [
+                          _vm._v("房费类型:")
+                        ]),
+                        _c("text", { staticClass: "list-text3" }, [
+                          _vm._v(_vm._s(pd.room_money_mode))
+                        ])
+                      ]
+                    ),
+                    _c("view", { staticClass: "  padding-sm  radius" })
                   ]),
-                  _c("text", { staticClass: "list-text3" }, [
-                    _vm._v(_vm._s(pd.registerTime))
+                  _c("view", { staticClass: "flex" }, [
+                    _c(
+                      "view",
+                      { staticClass: "flex-sub  padding-sm  radius" },
+                      [
+                        _c("text", { staticClass: "list-text3" }, [
+                          _vm._v("消耗数量:")
+                        ]),
+                        _c("text", { staticClass: "list-text3" }, [
+                          _vm._v(_vm._s(pd.room_fee))
+                        ])
+                      ]
+                    ),
+                    _c(
+                      "view",
+                      { staticClass: "flex-sub  padding-sm  radius " },
+                      [
+                        _c("text", { staticClass: "list-text3" }, [
+                          _vm._v("提成比例:")
+                        ]),
+                        _c("text", { staticClass: "list-text3" }, [
+                          _vm._v(_vm._s(pd.profit_fee_ratio))
+                        ])
+                      ]
+                    ),
+                    _c("view", { staticClass: "  padding-sm  radius" })
                   ]),
-                  _c("text", { staticClass: "list-text2" }, [
-                    _vm._v("最后登陆:")
-                  ]),
-                  _c("text", { staticClass: "list-text3" }, [
-                    _vm._v(_vm._s(pd.last_modify_time))
+                  _c("view", { staticClass: "flex" }, [
+                    _c(
+                      "view",
+                      { staticClass: "flex-sub  padding-sm  radius" },
+                      [
+                        _c("text", { staticClass: "list-text2" }, [
+                          _vm._v("玩家:")
+                        ]),
+                        _c("text", { staticClass: "list-text3" }, [
+                          _vm._v(_vm._s(pd.players))
+                        ])
+                      ]
+                    )
                   ])
                 ]
               )

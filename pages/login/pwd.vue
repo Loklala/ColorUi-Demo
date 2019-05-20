@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<view class="cu-bar bg search bg-gradual-blue">
+		<view class="cu-bar bg search bg-gradual-blue" :style="[{height:CustomBar + 'px'}]">
 			<view class="action" @tap="navTo()">
 				<text class="cuIcon-back text-white"></text>
 				返回
@@ -11,6 +11,7 @@
 			<view class="action">
 			</view>
 		</view>
+		
 		<view class="input-group">
 			<view class="cu-form-group l-input">
 				<view class="title">手机号：</view>

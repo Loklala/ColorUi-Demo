@@ -147,13 +147,13 @@
 					
 					curPageData:[],
 					totalPage:0,
-
+					token:'',
 				}
 		},
 		onLoad() {
 			const agentInfo = uni.getStorageSync('agentInfo');
 			if (agentInfo) {
-				this.agent_id=agentInfo.id;
+				this.token=agentInfo.token;
 			}
 		},
 		//注册滚动到底部的事件,用于上拉加载
@@ -218,9 +218,9 @@
 					success: res => {
 						let lists = res;
 						let data = lists.data
-						if (data.isSuccess == 200) {
+						if (data.code == 200) {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							for (let i=0;i < this.curPageData.length;i++) {
 								let czmoney=this.curPageData[i].profit_money/this.curPageData[i].profit_fee_ratio;
 								this.curPageData[i].czmoney=czmoney;
@@ -229,7 +229,7 @@
 								
 							}
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							
@@ -240,9 +240,9 @@
 							
 						} else {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
@@ -305,9 +305,9 @@
 					success: res => {
 						let lists = res;
 						let data = lists.data
-						if (data.isSuccess == 200) {
+						if (data.code == 200) {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							for (let i=0;i < this.curPageData.length;i++) {
 								let czmoney=this.curPageData[i].profit_money/this.curPageData[i].profit_fee_ratio;
 								this.curPageData[i].czmoney=czmoney;
@@ -316,7 +316,7 @@
 								
 							}
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							
@@ -327,9 +327,9 @@
 							
 						} else {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据

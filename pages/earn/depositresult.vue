@@ -171,7 +171,7 @@
 		onLoad() {
 			const agentInfo = uni.getStorageSync('agentInfo');
 			if (agentInfo) {
-				this.agent_id=agentInfo.id;
+				this.token=agentInfo.token;
 			}
 		},
 		//注册滚动到底部的事件,用于上拉加载
@@ -189,7 +189,6 @@
 				});
 			},
 			ontoday(){
-				console.log("今天");
 				let time2=getDate({format: true})
 				let time1=getDate({format: true})
 				this.date1 =time1;
@@ -197,7 +196,6 @@
 				this.loadlist();				
 			},
 			onseven(){
-				console.log("7天");
 				let time2=getDate({format: true})
 				let time1=getDate('7day');
 				this.date1 =time1;
@@ -205,7 +203,6 @@
 				this.loadlist();
 			},
 			ononemonth(){
-				console.log("一个月");
 				let time2=getDate({format: true})
 				let time1=getDate('1month');
 				this.date1 =time1;
@@ -213,11 +210,8 @@
 				this.loadlist();
 			},
 			onthreemonth(){
-				console.log("三个月");
 				let time2=getDate({format: true})
 				let time1=getDate('3month');
-				console.log(time1);
-				console.log(time2);
 				this.date1 =time1;
 				this.date2 =time2;
 				this.loadlist();
@@ -232,7 +226,7 @@
 					dataType: 'json',
 					cache: false,
 					data: {
-						id:this.agent_id,
+						token:this.token,
 						time1:this.date1+' 00:00:00',
 						time2:this.date2+' 23:59:59',
 						pageNum:this.pageNum,
@@ -241,9 +235,9 @@
 					success: res => {
 						let lists = res;
 						let data = lists.data
-						if (data.isSuccess == 200) {
+						if (data.code == 200) {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							for (let i=0;i < this.curPageData.length;i++) {
 								
 								
@@ -266,7 +260,7 @@
 								
 							}
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							
@@ -277,9 +271,9 @@
 							
 						} else {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
@@ -332,7 +326,7 @@
 					dataType: 'json',
 					cache: false,
 					data: {
-						id:this.agent_id,
+						token:this.token,
 						time1:this.date1+' 00:00:00',
 						time2:this.date2+' 23:59:59',
 						pageNum:this.pageNum,
@@ -341,57 +335,19 @@
 					success: res => {
 						let lists = res;
 						let data = lists.data
-						if (data.isSuccess == 200) {
+						if (data.code == 200) {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							for (let i=0;i < this.curPageData.length;i++) {
 								let playerList=this.curPageData[i].players;
-								if(playerList && playerList != ""){
-									playerList = JSON.parse(playerList);
-									let players = "";
-									for(let j = 0; j < playerList.length; j++){
-										players += playerList[j].nickName + "	 /     ";
-									}
-									this.curPageData[i].players= players;
-								}
-								let gametype=this.curPageData[i].gametype;
-								if(gametype && gametype == "shiss"){
-									gametype='宁海罗松'
-									this.curPageData[i].gametype= gametype;
-								}else if(gametype && gametype == "xdmj"){
-									gametype='西店麻将'
-									this.curPageData[i].gametype= gametype;
-								}else if(gametype && gametype == "ddz"){
-									gametype='斗地主'
-									this.curPageData[i].gametype= gametype;
-								}else if(gametype && gametype == "niuniu"){
-									gametype='牛牛'
-									this.curPageData[i].gametype= gametype;
-								}else if(gametype && gametype == "nhmj"){
-									gametype='宁海麻将'
-									this.curPageData[i].gametype= gametype;
-								}else if(gametype && gametype == "jielong"){
-									gametype='接龙'
-									this.curPageData[i].gametype= gametype;
-								}
-								let pay_mode=this.curPageData[i].pay_mode;
-								if(pay_mode=="1"){
-									this.curPageData[i].pay_mode="房主支付"
-								}else if(pay_mode=="0"){
-									this.curPageData[i].pay_mode="AA支付"
-								}
-								let room_money_mode=this.curPageData[i].room_money_mode;
-								if(room_money_mode=="1"){
-									this.curPageData[i].room_money_mode="钻石"
-								}else if(room_money_mode=="0"){
-									this.curPageData[i].room_money_mode="金币"
-								}
+								
+								
 								let profit_fee_ratio=this.curPageData[i].profit_fee_ratio*100
 								this.curPageData[i].profit_fee_ratio=profit_fee_ratio+'%'
 								
 							}
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							
@@ -402,9 +358,9 @@
 							
 						} else {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据

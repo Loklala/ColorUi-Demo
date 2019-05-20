@@ -14651,6 +14651,15 @@ var _area = _interopRequireDefault(__webpack_require__(/*! ./city-data/area.js *
 
 
 
+
+
+
+
+
+
+
+
+
 var _mpvuePicker = _interopRequireDefault(__webpack_require__(/*! ../../components/mpvuePicker.vue */ "../../../ColorUi-Demo/components/mpvuePicker.vue"));
 var _mpvueCityPicker = _interopRequireDefault(__webpack_require__(/*! ../../components/mpvueCityPicker.vue */ "../../../ColorUi-Demo/components/mpvueCityPicker.vue"));
 var _cityData = _interopRequireDefault(__webpack_require__(/*! ../../common/city.data.js */ "../../../ColorUi-Demo/common/city.data.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
@@ -14662,14 +14671,16 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
 
   data: function data() {
     return {
-      address: "某某街某某小区xx号xxx",
-      pickerText: '北京市-市辖区-东城区',
-      email: "1120550982@qq.com",
-      sexPickerText: '男',
-      nickName: "A2A",
-      qq: "123123",
+      address: "",
+      pickerText: '',
+      email: "",
+      sexPickerText: '',
+      sexPickerVal: '',
+      nickName: "",
+      qq: "",
 
-
+      StatusBar: this.StatusBar,
+      CustomBar: this.CustomBar,
       menuBorder: false,
       menuArrow: false,
       menuCard: false,
@@ -14693,10 +14704,55 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
       pickerValueArray: [] };
 
   },
+  onLoad: function onLoad() {var _this = this;
+    var value = uni.getStorageSync('agentInfo');
+    if (value) {
+      this.id = value.id;
+    }
+    uni.request({
+      url: 'http://192.168.0.199:8080/agent/agent/ajax-agent-info',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' },
+
+      method: 'POST',
+      dataType: 'json',
+      cache: false,
+      data: {
+        token: this.token,
+        id: this.id },
+
+      success: function success(res) {
+        _this.list = res;
+        var data = _this.list.data;
+        console.log(data);
+        if (data.isSuccess == 200) {
+          _this.nickName = data.result.nickname;
+          if (data.result.sex == '0') {
+            _this.sexPickerText = '男';
+            _this.sexPickerVal = 0;
+          } else if (data.result.sex == '1') {
+            _this.sexPickerText = '女';
+            _this.sexPickerVal = 1;
+          }
+          _this.email = data.result.email;
+          _this.qq = data.result.qq;
+          _this.pickerText = data.result.area;
+          _this.address = data.result.address;
+        }
+      },
+      fail: function fail() {
+        uni.showToast({
+          icon: 'none',
+          title: '网络异常,请稍后重试' });
+
+      },
+      complete: function complete() {} });
+
+  },
   methods: {
-    NavToPage: function NavToPage() {
+    navTo: function navTo() {
       uni.redirectTo({
-        url: '../login/login' });
+        url: 'info' });
 
     },
     // 单列
@@ -14737,17 +14793,15 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
     onSexConfirm: function onSexConfirm(e) {
       //JSON.stringify(e)
       this.sexPickerText = e.label;
-      // this.sexPickerNum=e.value[0]
+      this.sexPickerVal = e.value[0];
     },
-    // saveInfo(){
-    // 	
-    // },
-    formSubmit: function formSubmit(e) {
+    formSubmit: function formSubmit(e) {var _this2 = this;
       //将下列代码加入到对应的检查位置
       //定义表单规则
       var rule = [
-      { name: "nickName", checkType: "string", checkRule: "0,20", errorMsg: "昵称应为0-20个字符之内" },
+      { name: "nickname", checkType: "string", checkRule: "0,20", errorMsg: "昵称应为0-20个字符之内" },
       { name: "gender", checkType: "in", checkRule: "男,女", errorMsg: "请选择性别" },
+      { name: "sexval", checkType: "in", checkRule: "0,1", errorMsg: '' },
       { name: "email", checkType: "email", checkRule: "", errorMsg: "邮箱格式不正确" },
       { name: "qq", checkType: "reg", checkRule: "^[1-9]{4,11}$", errorMsg: "QQ号码不正确" }];
 
@@ -14756,36 +14810,45 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
       var checkRes = graceChecker.check(formData, rule);
       if (checkRes) {
         console.log(formData);
-        uni.showToast({ title: "修改成功!", icon: "none" });
-        setTimeout(function () {
-          uni.redirectTo({
-            url: '../about/info' });
+        uni.request({
+          url: 'http://192.168.0.199:8080/agent/agent/ajax-up-info',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' },
 
-        }, 2000);
+          method: 'POST',
+          dataType: 'json',
+          cache: false,
+          data: {
+            token: this.token,
+            id: this.id,
+            nickname: formData.nickName,
+            sex: formData.sexval,
+            qq: this.qq,
+            email: this.email,
+            area: this.pickerText,
+            address: this.address },
 
-        // uni.request({
-        // 	url: '',
-        // 	method: 'GET',
-        // 	dataType: 'json',
-        // 	cache: false,
-        // 	data: {
-        // 		address:formData.address,
-        // 		pickerText:formData.pickerText,
-        // 		email:formData.email,
-        // 		sexPickerText:formData.sexPickerText,
-        // 		nickName:formData.nickName,
-        // 		qq: formData.qq,
-        // 	},//收到开发者服务成功返回的回调函数
-        // 	success: res => {
-        // 		
-        // 		
-        // 		
-        // 	},//接口调用失败的回调函数
-        // 	fail: () => {
-        // 		
-        // 	},//接口调用结束的回调函数（调用成功、失败都会执行）
-        // 	complete: () => {}
-        // });
+          success: function success(res) {
+            _this2.list = res;
+            var data = _this2.list.data;
+            console.log(data);
+            if (data.isSuccess == 200) {
+              uni.showToast({ title: "修改成功!", icon: "none" });
+              setTimeout(function () {
+                uni.redirectTo({
+                  url: '../about/info' });
+
+              }, 2000);
+            }
+          },
+          fail: function fail() {
+            uni.showToast({
+              icon: 'none',
+              title: '网络异常,请稍后重试' });
+
+          },
+          complete: function complete() {} });
+
       } else {
         uni.showToast({ title: graceChecker.error, icon: "none" });
       }
@@ -14962,24 +15025,33 @@ var render = function() {
     { staticClass: "content" },
     [
       _c(
-        "cu-custom",
+        "view",
         {
-          attrs: {
-            bgColor: "bg-gradual-blue",
-            isBack: true,
-            mpcomid: "56aed8be-0"
-          }
+          staticClass: "cu-bar bg-gradual-blue search",
+          style: [{ height: _vm.CustomBar + "px" }]
         },
         [
-          _c("block", { slot: "backText" }),
-          _c("block", { slot: "content" }, [_vm._v("修改个人信息")])
-        ],
-        1
+          _c(
+            "view",
+            {
+              staticClass: "action",
+              attrs: { eventid: "56aed8be-0" },
+              on: {
+                click: function($event) {
+                  _vm.navTo()
+                }
+              }
+            },
+            [_c("text", { staticClass: "cuIcon-back" })]
+          ),
+          _c("view", { staticClass: "content" }, [_vm._v("修改个人信息")]),
+          _c("view", { staticClass: "action" })
+        ]
       ),
       _c(
         "form",
         {
-          attrs: { eventid: "56aed8be-2" },
+          attrs: { eventid: "56aed8be-3" },
           on: { submit: _vm.formSubmit, reset: _vm.formReset }
         },
         [
@@ -15003,7 +15075,7 @@ var render = function() {
                       staticClass: "text-black",
                       attrs: {
                         type: "text",
-                        name: "nickName",
+                        name: "nickname",
                         value: _vm.nickName,
                         maxlength: "40"
                       }
@@ -15016,7 +15088,7 @@ var render = function() {
                 {
                   staticClass: "cu-item",
                   class: 1 ? "arrow" : undefined,
-                  attrs: { eventid: "56aed8be-0" },
+                  attrs: { eventid: "56aed8be-1" },
                   on: { click: _vm.PickerChange }
                 },
                 [
@@ -15033,6 +15105,15 @@ var render = function() {
                         type: "text",
                         name: "gender",
                         value: _vm.sexPickerText,
+                        maxlength: "40"
+                      }
+                    }),
+                    _c("input", {
+                      staticClass: "hide",
+                      attrs: {
+                        type: "text",
+                        name: "sexval",
+                        value: _vm.sexPickerVal,
                         maxlength: "40"
                       }
                     })
@@ -15082,7 +15163,7 @@ var render = function() {
                     "text",
                     {
                       staticClass: "text-black",
-                      attrs: { eventid: "56aed8be-1" },
+                      attrs: { eventid: "56aed8be-2" },
                       on: { click: _vm.showMulLinkageThreePicker }
                     },
                     [_vm._v(_vm._s(_vm.pickerText))]
@@ -15144,8 +15225,8 @@ var render = function() {
           deepLength: _vm.deepLength,
           pickerValueDefault: _vm.pickerValueDefault,
           pickerValueArray: _vm.pickerValueArray,
-          eventid: "56aed8be-3",
-          mpcomid: "56aed8be-1"
+          eventid: "56aed8be-4",
+          mpcomid: "56aed8be-0"
         },
         on: { onConfirm: _vm.onSexConfirm, onCancel: _vm.onSexConfirm }
       }),
@@ -15154,8 +15235,8 @@ var render = function() {
         attrs: {
           themeColor: _vm.themeColor,
           pickerValueDefault: _vm.cityPickerValueDefault,
-          eventid: "56aed8be-4",
-          mpcomid: "56aed8be-2"
+          eventid: "56aed8be-5",
+          mpcomid: "56aed8be-1"
         },
         on: { onCancel: _vm.onCancel, onConfirm: _vm.onConfirm }
       })

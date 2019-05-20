@@ -1,4 +1,13 @@
 
+.deposit-btn{
+	width: 100%;
+}
+.show{
+	display: block;
+}
+.hide{
+	display: none;
+}
 .tips{
 	/* text-indent:5upx; */
 	color: red;

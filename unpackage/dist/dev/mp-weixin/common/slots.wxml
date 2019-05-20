@@ -1,212 +1,184 @@
 <import src="/node-modules/mescroll-uni/mescroll-uni.vue.wxml" />
 <import src="/colorui/components/cu-custom.vue.wxml" />
-<import src="/components/mpvuePicker.vue.wxml" />
-<import src="/components/mpvueCityPicker.vue.wxml" />
 <import src="/components/m-input.vue.wxml" />
 
-<template name="60bff4f2-default-60bff4f2-0"><view class="_view 60bff4f2 cu-list menu padding-xl radius shadow-warp bg-white margin-top {{[0 ? 'sm-border' : '', 0 ? 'card-menu margin-top' : '']}}" wx:key="k" key="{{k}}" wx:for="{{curPageData}}" wx:for-index="k" wx:for-item="pd"><view class="_view 60bff4f2 cu-item  {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}" bindtap="handleProxy" data-eventid="{{'60bff4f2-4-'+k}}" data-comkey="{{$k}}"><text class="_text 60bff4f2 list-text1">ID:</text><text class="_text 60bff4f2 list-text2">{{pd.userid}}</text><text class="_text 60bff4f2 list-text1">昵称:</text><text class="_text 60bff4f2 list-text5">{{pd.nickName}}</text><text class="_text 60bff4f2 cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text><text class="_text 60bff4f2 cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view><view class="_view 60bff4f2 {{pd.isDisplay ? 'cu-item show bg-c bg-grey' : 'hide bg-white'}}"><text class="_text 60bff4f2 list-text2">注册时间:</text><text class="_text 60bff4f2 list-text3">{{pd.registerTime}}</text><text class="_text 60bff4f2 list-text2">最后登陆:</text><text class="_text 60bff4f2 list-text3">{{pd.last_modify_time}}</text></view></view></template>
+<template name="M013e69c2-default-013e69c2-0"><view class="_view M013e69c2 cu-list menu padding-xl radius shadow-warp bg-white margin-top {{[0 ? 'sm-border' : '', 0 ? 'card-menu margin-top' : '']}}" wx:key="k" key="{{k}}" wx:for="{{curPageData}}" wx:for-index="k" wx:for-item="pd"><view class="_view M013e69c2 cu-item  {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}" bindtap="handleProxy" data-eventid="{{'013e69c2-4-'+k}}" data-comkey="{{$k}}"><text class="_text M013e69c2 list-text1">ID:</text><text class="_text M013e69c2 list-text2">{{pd.userid}}</text><text class="_text M013e69c2 list-text1">昵称:</text><text class="_text M013e69c2 list-text5">{{pd.nickName}}</text><text class="_text M013e69c2 cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text><text class="_text M013e69c2 cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view><view class="_view M013e69c2 {{pd.isDisplay ? 'cu-item show bg-c bg-grey' : 'hide bg-white'}}"><text class="_text M013e69c2 list-text2">注册时间:</text><text class="_text M013e69c2 list-text3">{{pd.registerTime}}</text><text class="_text M013e69c2 list-text2">最后登陆:</text><text class="_text M013e69c2 list-text3">{{pd.last_modify_time}}</text></view></view></template>
 
-<template name="2d148f74-default-2d148f74-0"><view class="_view 2d148f74 cu-list menu padding-xl radius shadow-warp bg-white margin-top {{[0 ? 'sm-border' : '', 0 ? 'card-menu margin-top' : '']}}" wx:key="k" key="{{k}}" wx:for="{{curPageData}}" wx:for-index="k" wx:for-item="pd"><view class="_view 2d148f74 cu-item  {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}" bindtap="handleProxy" data-eventid="{{'2d148f74-4-'+k}}" data-comkey="{{$k}}"><text class="_text 2d148f74 list-text1">ID:</text><text class="_text 2d148f74 list-text2">{{pd.userid}}</text><text class="_text 2d148f74 list-text1">昵称:</text><text class="_text 2d148f74 list-text5">{{pd.nickName}}</text><text class="_text 2d148f74 cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text><text class="_text 2d148f74 cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view><view class="_view 2d148f74 {{pd.isDisplay ? 'cu-item show bg-c bg-grey' : 'hide bg-white'}}"><text class="_text 2d148f74 list-text2">注册时间:</text><text class="_text 2d148f74 list-text3">{{pd.registerTime}}</text><text class="_text 2d148f74 list-text2">最后登陆:</text><text class="_text 2d148f74 list-text3">{{pd.last_modify_time}}</text></view></view></template>
+<template name="M2d148f74-default-2d148f74-0"><view class="_view M2d148f74 cu-list menu padding-xl radius shadow-warp bg-white  {{[0 ? 'sm-border' : '', 1 ? 'card-menu ' : '']}}" wx:key="k" key="{{k}}" wx:for="{{curPageData}}" wx:for-index="k" wx:for-item="pd"><view class="_view M2d148f74" bindtap="handleProxy" data-eventid="{{'2d148f74-8-'+k}}" data-comkey="{{$k}}"><view class="_view M2d148f74 cu-item {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}"><view class="_view M2d148f74 flex"><view class="_view M2d148f74 flex-sub  padding-sm  radius"><text class="_text M2d148f74 list-text3">日期:</text><text class="_text M2d148f74 list-text7">{{pd.create_time}}</text></view><view class="_view M2d148f74 flex-sub  padding-sm  radius "><text class="_text M2d148f74 list-text4">房间号:</text><text class="_text M2d148f74 list-text3">{{pd.room_id}}</text></view><view class="_view M2d148f74   padding-sm  radius"><text class="_text M2d148f74 cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view></view></view><view class="_view M2d148f74 cu-item  {{pd.isDisplay ? 'bg-c bg-gray' : 'bg-white'}}"><view class="_view M2d148f74 flex"><view class="_view M2d148f74 flex-sub  padding-sm  radius"><text class="_text M2d148f74 list-text3">收益:</text><text class="_text M2d148f74 list-text3">{{pd.profit_money}}</text></view><view class="_view M2d148f74 flex-sub  padding-sm  radius "><text class="_text M2d148f74 list-text3">游戏:</text><text class="_text M2d148f74 list-text3">{{pd.gametype}}</text></view><view class="_view M2d148f74   padding-sm  radius"><text class="_text M2d148f74 cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text></view></view></view></view><view class="_view M2d148f74 {{pd.isDisplay ? 'show bg-c bg-gray solids-top' : 'hide bg-white'}}"><view class="_view M2d148f74 flex"><view class="_view M2d148f74 flex-sub  padding-sm  radius"><text class="_text M2d148f74 list-text3">支付类型:</text><text class="_text M2d148f74 list-text3">{{pd.pay_mode}}</text></view><view class="_view M2d148f74 flex-sub  padding-sm  radius "><text class="_text M2d148f74 list-text3">房费类型:</text><text class="_text M2d148f74 list-text3">{{pd.room_money_mode}}</text></view><view class="_view M2d148f74   padding-sm  radius"></view></view><view class="_view M2d148f74 flex"><view class="_view M2d148f74 flex-sub  padding-sm  radius"><text class="_text M2d148f74 list-text3">消耗数量:</text><text class="_text M2d148f74 list-text3">{{pd.room_fee}}</text></view><view class="_view M2d148f74 flex-sub  padding-sm  radius "><text class="_text M2d148f74 list-text3">提成比例:</text><text class="_text M2d148f74 list-text3">{{pd.profit_fee_ratio}}</text></view><view class="_view M2d148f74   padding-sm  radius"></view></view><view class="_view M2d148f74 flex"><view class="_view M2d148f74 flex-sub  padding-sm  radius"><text class="_text M2d148f74 list-text2">玩家:</text><text class="_text M2d148f74 list-text3">{{pd.players}}</text></view></view></view></view></template>
 
-<template name="78926a7a-default-78926a7a-0"><view class="_view 78926a7a cu-list menu padding-xl radius shadow-warp bg-white margin-top {{[0 ? 'sm-border' : '', 0 ? 'card-menu margin-top' : '']}}" wx:key="k" key="{{k}}" wx:for="{{curPageData}}" wx:for-index="k" wx:for-item="pd"><view class="_view 78926a7a cu-item  {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}" bindtap="handleProxy" data-eventid="{{'78926a7a-4-'+k}}" data-comkey="{{$k}}"><text class="_text 78926a7a list-text1">ID:</text><text class="_text 78926a7a list-text2">{{pd.userid}}</text><text class="_text 78926a7a list-text1">昵称:</text><text class="_text 78926a7a list-text5">{{pd.nickName}}</text><text class="_text 78926a7a cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text><text class="_text 78926a7a cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view><view class="_view 78926a7a {{pd.isDisplay ? 'cu-item show bg-c bg-grey' : 'hide bg-white'}}"><text class="_text 78926a7a list-text2">注册时间:</text><text class="_text 78926a7a list-text3">{{pd.registerTime}}</text><text class="_text 78926a7a list-text2">最后登陆:</text><text class="_text 78926a7a list-text3">{{pd.last_modify_time}}</text></view></view></template>
+<template name="M3e3376a1-default-3e3376a1-0"><view class="_view M3e3376a1 cu-list menu padding-xl radius shadow-warp bg-white  {{[0 ? 'sm-border' : '', 1 ? 'card-menu ' : '']}}" wx:key="k" key="{{k}}" wx:for="{{curPageData}}" wx:for-index="k" wx:for-item="pd"><view class="_view M3e3376a1" bindtap="handleProxy" data-eventid="{{'3e3376a1-8-'+k}}" data-comkey="{{$k}}"><view class="_view M3e3376a1 cu-item {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}"><view class="_view M3e3376a1 flex"><view class="_view M3e3376a1 flex-sub  padding-sm  radius"><text class="_text M3e3376a1 list-text3">日期:</text><text class="_text M3e3376a1 list-text7">{{pd.create_time}}</text></view><view class="_view M3e3376a1 flex-sub  padding-sm  radius "><text class="_text M3e3376a1 list-text4">房间id:</text><text class="_text M3e3376a1 list-text3">{{pd.room_id}}</text></view><view class="_view M3e3376a1   padding-sm  radius"></view></view></view><view class="_view M3e3376a1 cu-item  {{pd.isDisplay ? 'bg-c bg-gray' : 'bg-white'}}"><view class="_view M3e3376a1 flex"><view class="_view M3e3376a1 flex-sub  padding-sm  radius"><text class="_text M3e3376a1 list-text3">收益:</text><text class="_text M3e3376a1 list-text3">{{pd.profit_money}}</text></view><view class="_view M3e3376a1 flex-sub  padding-sm  radius "><text class="_text M3e3376a1 list-text3">游戏:</text><text class="_text M3e3376a1 list-text3">{{pd.gametype}}</text></view><view class="_view M3e3376a1   padding-sm  radius"><text class="_text M3e3376a1 cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text><text class="_text M3e3376a1 cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view></view></view></view><view class="_view M3e3376a1 {{pd.isDisplay ? 'show bg-c bg-gray solids-top' : 'hide bg-white'}}"><view class="_view M3e3376a1 flex"><view class="_view M3e3376a1 flex-sub  padding-sm  radius"><text class="_text M3e3376a1 list-text3">支付类型:</text><text class="_text M3e3376a1 list-text3">{{pd.pay_mode}}</text></view><view class="_view M3e3376a1 flex-sub  padding-sm  radius "><text class="_text M3e3376a1 list-text3">房费类型:</text><text class="_text M3e3376a1 list-text3">{{pd.room_money_mode}}</text></view><view class="_view M3e3376a1   padding-sm  radius"></view></view><view class="_view M3e3376a1 flex"><view class="_view M3e3376a1 flex-sub  padding-sm  radius"><text class="_text M3e3376a1 list-text3">消耗数量:</text><text class="_text M3e3376a1 list-text3">{{pd.room_fee}}</text></view><view class="_view M3e3376a1 flex-sub  padding-sm  radius "><text class="_text M3e3376a1 list-text3">提成比例:</text><text class="_text M3e3376a1 list-text3">{{pd.profit_fee_ratio *100}}%</text></view><view class="_view M3e3376a1   padding-sm  radius"></view></view><view class="_view M3e3376a1 flex"><view class="_view M3e3376a1 flex-sub  padding-sm  radius"><text class="_text M3e3376a1 list-text2">玩家:</text><text class="_text M3e3376a1 list-text3">{{pd.players}}</text></view></view></view></view></template>
 
-<template name="56aed8be-default-56aed8be-0"></template>
+<template name="M78926a7a-default-78926a7a-0"><view class="_view M78926a7a cu-list menu padding-xl radius shadow-warp bg-white  {{[0 ? 'sm-border' : '', 1 ? 'card-menu ' : '']}}" wx:key="k" key="{{k}}" wx:for="{{curPageData}}" wx:for-index="k" wx:for-item="pd"><view class="_view M78926a7a" bindtap="handleProxy" data-eventid="{{'78926a7a-8-'+k}}" data-comkey="{{$k}}"><view class="_view M78926a7a cu-item {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}"><view class="_view M78926a7a flex"><view class="_view M78926a7a flex-sub  padding-sm  radius"><text class="_text M78926a7a list-text3">日期:</text><text class="_text M78926a7a list-text7">{{pd.create_time}}</text></view><view class="_view M78926a7a flex-sub  padding-sm  radius "><text class="_text M78926a7a list-text4">订单号:</text><text class="_text M78926a7a list-text3">{{pd.order_id}}</text></view><view class="_view M78926a7a   padding-sm  radius"></view></view></view><view class="_view M78926a7a cu-item  {{pd.isDisplay ? 'bg-c bg-gray' : 'bg-white'}}"><view class="_view M78926a7a flex"><view class="_view M78926a7a flex-sub  padding-sm  radius"><text class="_text M78926a7a list-text3">充值金额:</text><text class="_text M78926a7a list-text3">{{pd.czmoney}}</text></view><view class="_view M78926a7a flex-sub  padding-sm  radius "><text class="_text M78926a7a list-text3">提成金额:</text><text class="_text M78926a7a list-text3">{{pd.profit_money}}</text></view><view class="_view M78926a7a   padding-sm  radius"><text class="_text M78926a7a cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text><text class="_text M78926a7a cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view></view></view></view><view class="_view M78926a7a {{pd.isDisplay ? 'show bg-c bg-gray solids-top' : 'hide bg-white'}}"><view class="_view M78926a7a flex"><view class="_view M78926a7a flex-sub  padding-sm  radius"><text class="_text M78926a7a list-text3">提成比例:</text><text class="_text M78926a7a list-text3">{{pd.profit_fee_ratio}}</text></view><view class="_view M78926a7a flex-sub  padding-sm  radius "></view><view class="_view M78926a7a   padding-sm  radius"></view></view></view></view></template>
 
-<template name="56aed8be-backText-56aed8be-0"></template>
+<template name="M2159eb08-default-2159eb08-0"><view class="_view M2159eb08 cu-list menu padding-xl radius shadow-warp bg-white  {{[0 ? 'sm-border' : '', 1 ? 'card-menu ' : '']}}" wx:key="k" key="{{k}}" wx:for="{{curPageData}}" wx:for-index="k" wx:for-item="pd"><view class="_view M2159eb08" bindtap="handleProxy" data-eventid="{{'2159eb08-8-'+k}}" data-comkey="{{$k}}"><view class="_view M2159eb08 cu-item {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}"><view class="_view M2159eb08 flex"><view class="_view M2159eb08 flex-sub  padding-sm  radius"><text class="_text M2159eb08 list-text3">日期:</text><text class="_text M2159eb08 list-text7">{{pd.create_time}}</text></view><view class="_view M2159eb08 flex-sub  padding-sm  radius "><text class="_text M2159eb08 list-text4">房间号:</text><text class="_text M2159eb08 list-text3">{{pd.room_id}}</text></view><view class="_view M2159eb08   padding-sm  radius"><text class="_text M2159eb08 cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view></view></view><view class="_view M2159eb08 cu-item  {{pd.isDisplay ? 'bg-c bg-gray' : 'bg-white'}}"><view class="_view M2159eb08 flex"><view class="_view M2159eb08 flex-sub  padding-sm  radius"><text class="_text M2159eb08 list-text3">收益:</text><text class="_text M2159eb08 list-text3">{{pd.profit_money}}</text></view><view class="_view M2159eb08 flex-sub  padding-sm  radius "><text class="_text M2159eb08 list-text3">游戏:</text><text class="_text M2159eb08 list-text3">{{pd.gametype}}</text></view><view class="_view M2159eb08   padding-sm  radius"><text class="_text M2159eb08 cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text></view></view></view></view><view class="_view M2159eb08 {{pd.isDisplay ? 'show bg-c bg-gray solids-top' : 'hide bg-white'}}"><view class="_view M2159eb08 flex"><view class="_view M2159eb08 flex-sub  padding-sm  radius"><text class="_text M2159eb08 list-text3">支付类型:</text><text class="_text M2159eb08 list-text3">{{pd.pay_mode}}</text></view><view class="_view M2159eb08 flex-sub  padding-sm  radius "><text class="_text M2159eb08 list-text3">房费类型:</text><text class="_text M2159eb08 list-text3">{{pd.room_money_mode}}</text></view><view class="_view M2159eb08   padding-sm  radius"></view></view><view class="_view M2159eb08 flex"><view class="_view M2159eb08 flex-sub  padding-sm  radius"><text class="_text M2159eb08 list-text3">消耗数量:</text><text class="_text M2159eb08 list-text3">{{pd.room_fee}}</text></view><view class="_view M2159eb08 flex-sub  padding-sm  radius "><text class="_text M2159eb08 list-text3">提成比例:</text><text class="_text M2159eb08 list-text3">{{pd.profit_fee_ratio}}</text></view><view class="_view M2159eb08   padding-sm  radius"></view></view><view class="_view M2159eb08 flex"><view class="_view M2159eb08 flex-sub  padding-sm  radius"><text class="_text M2159eb08 list-text2">玩家:</text><text class="_text M2159eb08 list-text3">{{pd.players}}</text></view></view></view></view></template>
 
-<template name="56aed8be-content-56aed8be-0">修改个人信息</template>
+<template name="M77e75372-default-77e75372-0"></template>
 
-<template name="ca081a98-default-ca081a98-0"></template>
+<template name="M77e75372-backText-77e75372-0"></template>
 
-<template name="ca081a98-backText-ca081a98-0"></template>
+<template name="M77e75372-content-77e75372-0">关于</template>
 
-<template name="ca081a98-content-ca081a98-0">个人信息</template>
+<template name="M2883f2ea-default-2883f2ea-0"></template>
 
-<template name="ca081a98-right-ca081a98-0"></template>
+<template name="M2883f2ea-backText-2883f2ea-0"></template>
 
-<template name="3e3376a1-default-3e3376a1-0"><view class="_view 3e3376a1 cu-list menu padding-xl radius shadow-warp bg-white margin-top {{[0 ? 'sm-border' : '', 0 ? 'card-menu margin-top' : '']}}" wx:key="k" key="{{k}}" wx:for="{{curPageData}}" wx:for-index="k" wx:for-item="pd"><view class="_view 3e3376a1 cu-item  {{pd.isDisplay ? 'bg-c bg-grey' : 'bg-white'}}" bindtap="handleProxy" data-eventid="{{'3e3376a1-4-'+k}}" data-comkey="{{$k}}"><text class="_text 3e3376a1 list-text1">ID:</text><text class="_text 3e3376a1 list-text2">{{pd.userid}}</text><text class="_text 3e3376a1 list-text1">昵称:</text><text class="_text 3e3376a1 list-text5">{{pd.nickName}}</text><text class="_text 3e3376a1 cuIcon-unfold text-blue icon-title {{pd.isDisplay ? ' hide' : 'show'}}"></text><text class="_text 3e3376a1 cuIcon-fold text-blue icon-title {{pd.isDisplay ? 'show' : 'hide'}}"></text></view><view class="_view 3e3376a1 {{pd.isDisplay ? 'cu-item show bg-c bg-grey' : 'hide bg-white'}}"><text class="_text 3e3376a1 list-text2">注册时间:</text><text class="_text 3e3376a1 list-text3">{{pd.registerTime}}</text><text class="_text 3e3376a1 list-text2">最后登陆:</text><text class="_text 3e3376a1 list-text3">{{pd.last_modify_time}}</text></view></view></template>
+<template name="M2883f2ea-content-2883f2ea-0">反馈</template>
 
-<template name="3fb1d5a1-default-3fb1d5a1-0"></template>
+<template name="M17a9cfaa-default-17a9cfaa-0"></template>
 
-<template name="3fb1d5a1-backText-3fb1d5a1-0"></template>
+<template name="M17a9cfaa-backText-17a9cfaa-0"></template>
 
-<template name="3fb1d5a1-content-3fb1d5a1-0">修改密码</template>
+<template name="M17a9cfaa-content-17a9cfaa-0">注册</template>
 
-<template name="d3a6fa50-default-d3a6fa50-0"></template>
+<template name="M33dcb330-default-33dcb330-0"></template>
 
-<template name="d3a6fa50-backText-d3a6fa50-0"></template>
+<template name="M33dcb330-backText-33dcb330-0">返回</template>
 
-<template name="d3a6fa50-content-d3a6fa50-0">提现账号</template>
+<template name="M33dcb330-content-33dcb330-0">布局</template>
 
-<template name="d3a6fa50-right-d3a6fa50-0"></template>
+<template name="M759b729a-default-759b729a-0"></template>
 
-<template name="4dcc688e-default-4dcc688e-0"></template>
+<template name="M759b729a-backText-759b729a-0">返回</template>
 
-<template name="4dcc688e-backText-4dcc688e-0"></template>
+<template name="M759b729a-content-759b729a-0">文本</template>
 
-<template name="4dcc688e-content-4dcc688e-0">编辑账号信息</template>
+<template name="M5f529a34-default-5f529a34-0"></template>
 
-<template name="77e75372-default-77e75372-0"></template>
+<template name="M5f529a34-backText-5f529a34-0">返回</template>
 
-<template name="77e75372-backText-77e75372-0"></template>
+<template name="M5f529a34-content-5f529a34-0">背景</template>
 
-<template name="77e75372-content-77e75372-0">关于</template>
+<template name="M75a58402-default-75a58402-0"></template>
 
-<template name="2883f2ea-default-2883f2ea-0"></template>
+<template name="M75a58402-backText-75a58402-0">返回</template>
 
-<template name="2883f2ea-backText-2883f2ea-0"></template>
+<template name="M75a58402-content-75a58402-0">图标</template>
 
-<template name="2883f2ea-content-2883f2ea-0">反馈</template>
+<template name="M23e3df38-default-23e3df38-0"></template>
 
-<template name="5f529a34-default-5f529a34-0"></template>
+<template name="M23e3df38-backText-23e3df38-0">返回</template>
 
-<template name="5f529a34-backText-5f529a34-0">返回</template>
+<template name="M23e3df38-content-23e3df38-0">按钮</template>
 
-<template name="5f529a34-content-5f529a34-0">背景</template>
+<template name="M266b79c4-default-266b79c4-0"></template>
 
-<template name="33dcb330-default-33dcb330-0"></template>
+<template name="M266b79c4-backText-266b79c4-0">返回</template>
 
-<template name="33dcb330-backText-33dcb330-0">返回</template>
+<template name="M266b79c4-content-266b79c4-0">按钮 / 设计</template>
 
-<template name="33dcb330-content-33dcb330-0">布局</template>
+<template name="M065c7554-default-065c7554-0"></template>
 
-<template name="759b729a-default-759b729a-0"></template>
+<template name="M065c7554-backText-065c7554-0">返回</template>
 
-<template name="759b729a-backText-759b729a-0">返回</template>
+<template name="M065c7554-content-065c7554-0">标签</template>
 
-<template name="759b729a-content-759b729a-0">文本</template>
+<template name="M2234795f-default-2234795f-0"></template>
 
-<template name="75a58402-default-75a58402-0"></template>
+<template name="M2234795f-backText-2234795f-0">返回</template>
 
-<template name="75a58402-backText-75a58402-0">返回</template>
+<template name="M2234795f-content-2234795f-0">头像</template>
 
-<template name="75a58402-content-75a58402-0">图标</template>
+<template name="M7e6ede9a-default-7e6ede9a-0"></template>
 
-<template name="23e3df38-default-23e3df38-0"></template>
+<template name="M7e6ede9a-backText-7e6ede9a-0">返回</template>
 
-<template name="23e3df38-backText-23e3df38-0">返回</template>
+<template name="M7e6ede9a-content-7e6ede9a-0">进度条</template>
 
-<template name="23e3df38-content-23e3df38-0">按钮</template>
+<template name="M40263126-default-40263126-0"></template>
 
-<template name="266b79c4-default-266b79c4-0"></template>
+<template name="M40263126-backText-40263126-0">返回</template>
 
-<template name="266b79c4-backText-266b79c4-0">返回</template>
+<template name="M40263126-content-40263126-0">边框阴影</template>
 
-<template name="266b79c4-content-266b79c4-0">按钮 / 设计</template>
+<template name="M5e4629f6-default-5e4629f6-0"></template>
 
-<template name="065c7554-default-065c7554-0"></template>
+<template name="M5e4629f6-backText-5e4629f6-0">返回</template>
 
-<template name="065c7554-backText-065c7554-0">返回</template>
+<template name="M5e4629f6-content-5e4629f6-0">加载</template>
 
-<template name="065c7554-content-065c7554-0">标签</template>
+<template name="M5e4629f6-right-5e4629f6-0"><view class="_view M5e4629f6 action"><view class="_view M5e4629f6 cu-load load-icon {{!isLoad ? 'loading' : 'over'}}"></view></view></template>
 
-<template name="40263126-default-40263126-0"></template>
+<template name="Me4996c56-default-e4996c56-0"></template>
 
-<template name="40263126-backText-40263126-0">返回</template>
+<template name="Me4996c56-backText-e4996c56-0">返回</template>
 
-<template name="40263126-content-40263126-0">边框阴影</template>
+<template name="Me4996c56-content-e4996c56-0">垂直导航</template>
 
-<template name="5e4629f6-default-5e4629f6-0"></template>
+<template name="M3a526409-default-3a526409-0"></template>
 
-<template name="5e4629f6-backText-5e4629f6-0">返回</template>
+<template name="M3a526409-backText-3a526409-0">返回</template>
 
-<template name="5e4629f6-content-5e4629f6-0">加载</template>
+<template name="M3a526409-content-3a526409-0">全屏抽屉</template>
 
-<template name="5e4629f6-right-5e4629f6-0"><view class="_view 5e4629f6 action"><view class="_view 5e4629f6 cu-load load-icon {{!isLoad ? 'loading' : 'over'}}"></view></view></template>
+<template name="M3380b96c-default-3380b96c-0"></template>
 
-<template name="2234795f-default-2234795f-0"></template>
+<template name="M3380b96c-backText-3380b96c-0">返回</template>
 
-<template name="2234795f-backText-2234795f-0">返回</template>
+<template name="M3380b96c-content-3380b96c-0">微动画</template>
 
-<template name="2234795f-content-2234795f-0">头像</template>
+<template name="M11c840e8-default-11c840e8-0"></template>
 
-<template name="511f7466-default-511f7466-0"></template>
+<template name="M11c840e8-backText-11c840e8-0">返回</template>
 
-<template name="511f7466-backText-511f7466-0">返回</template>
+<template name="M11c840e8-content-11c840e8-0">索引</template>
 
-<template name="511f7466-content-511f7466-0">导航栏</template>
+<template name="M8676255e-default-8676255e-0"></template>
 
-<template name="511fce86-default-511fce86-0"></template>
+<template name="M8676255e-backText-8676255e-0">返回</template>
 
-<template name="511fce86-backText-511fce86-0">返回</template>
+<template name="M8676255e-content-8676255e-0">步骤条</template>
 
-<template name="511fce86-content-511fce86-0">操作条</template>
+<template name="M8723d652-default-8723d652-0"></template>
 
-<template name="8676255e-default-8676255e-0"></template>
+<template name="M8723d652-backText-8723d652-0">返回</template>
 
-<template name="8676255e-backText-8676255e-0">返回</template>
+<template name="M8723d652-content-8723d652-0">模态窗口</template>
 
-<template name="8676255e-content-8676255e-0">步骤条</template>
+<template name="M47f658e4-default-47f658e4-0"></template>
 
-<template name="1697a934-default-1697a934-0"></template>
+<template name="M47f658e4-backText-47f658e4-0">返回</template>
 
-<template name="1697a934-backText-1697a934-0">返回</template>
+<template name="M47f658e4-content-47f658e4-0">轮播图</template>
 
-<template name="1697a934-content-1697a934-0">列表</template>
+<template name="M16938bee-default-16938bee-0"></template>
 
-<template name="169373a6-default-169373a6-0"></template>
+<template name="M16938bee-backText-16938bee-0">返回</template>
 
-<template name="169373a6-backText-169373a6-0">返回</template>
+<template name="M16938bee-content-16938bee-0">聊天</template>
 
-<template name="169373a6-content-169373a6-0">卡片</template>
+<template name="M77a391d7-default-77a391d7-0"></template>
 
-<template name="8723d652-default-8723d652-0"></template>
+<template name="M77a391d7-backText-77a391d7-0">返回</template>
 
-<template name="8723d652-backText-8723d652-0">返回</template>
+<template name="M77a391d7-content-77a391d7-0">时间轴</template>
 
-<template name="8723d652-content-8723d652-0">模态窗口</template>
+<template name="M1695055a-default-1695055a-0"></template>
 
-<template name="47f658e4-default-47f658e4-0"></template>
+<template name="M1695055a-backText-1695055a-0">返回</template>
 
-<template name="47f658e4-backText-47f658e4-0">返回</template>
+<template name="M1695055a-content-1695055a-0">表单</template>
 
-<template name="47f658e4-content-47f658e4-0">轮播图</template>
+<template name="M169373a6-default-169373a6-0"></template>
 
-<template name="77a391d7-default-77a391d7-0"></template>
+<template name="M169373a6-backText-169373a6-0">返回</template>
 
-<template name="77a391d7-backText-77a391d7-0">返回</template>
+<template name="M169373a6-content-169373a6-0">卡片</template>
 
-<template name="77a391d7-content-77a391d7-0">时间轴</template>
+<template name="M1697a934-default-1697a934-0"></template>
 
-<template name="16938bee-default-16938bee-0"></template>
+<template name="M1697a934-backText-1697a934-0">返回</template>
 
-<template name="16938bee-backText-16938bee-0">返回</template>
+<template name="M1697a934-content-1697a934-0">列表</template>
 
-<template name="16938bee-content-16938bee-0">聊天</template>
+<template name="M511f7466-default-511f7466-0"></template>
 
-<template name="1695055a-default-1695055a-0"></template>
+<template name="M511f7466-backText-511f7466-0">返回</template>
 
-<template name="1695055a-backText-1695055a-0">返回</template>
+<template name="M511f7466-content-511f7466-0">导航栏</template>
 
-<template name="1695055a-content-1695055a-0">表单</template>
+<template name="M511fce86-default-511fce86-0"></template>
 
-<template name="e4996c56-default-e4996c56-0"></template>
+<template name="M511fce86-backText-511fce86-0">返回</template>
 
-<template name="e4996c56-backText-e4996c56-0">返回</template>
-
-<template name="e4996c56-content-e4996c56-0">垂直导航</template>
-
-<template name="3a526409-default-3a526409-0"></template>
-
-<template name="3a526409-backText-3a526409-0">返回</template>
-
-<template name="3a526409-content-3a526409-0">全屏抽屉</template>
-
-<template name="3380b96c-default-3380b96c-0"></template>
-
-<template name="3380b96c-backText-3380b96c-0">返回</template>
-
-<template name="3380b96c-content-3380b96c-0">微动画</template>
-
-<template name="7e6ede9a-default-7e6ede9a-0"></template>
-
-<template name="7e6ede9a-backText-7e6ede9a-0">返回</template>
-
-<template name="7e6ede9a-content-7e6ede9a-0">进度条</template>
-
-<template name="11c840e8-default-11c840e8-0"></template>
-
-<template name="11c840e8-backText-11c840e8-0">返回</template>
-
-<template name="11c840e8-content-11c840e8-0">索引</template>
+<template name="M511fce86-content-511fce86-0">操作条</template>
 

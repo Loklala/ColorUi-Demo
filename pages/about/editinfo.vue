@@ -1,15 +1,23 @@
 <template>
 	<view  class="content">
-		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
+<!-- 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
 			<block slot="backText"></block>
 			<block slot="content">修改个人信息</block>
-		</cu-custom>
+		</cu-custom> -->
+		<view class="cu-bar bg-gradual-blue search" :style="[{height:CustomBar + 'px'}]">
+			<view class="action" @click="navTo()"><text class="cuIcon-back"></text></view>
+			<view class="content">
+				修改个人信息
+			</view>
+			<view class="action">
+			</view>
+		</view>
 		<form @submit="formSubmit" @reset="formReset">
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']">
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<text class="title">昵 称：</text>
 				<text class=" content" >
-					<input type="text" class="text-black" name="nickName" :value="nickName" maxlength="40"/>
+					<input type="text" class="text-black" name="nickname" :value="nickName" maxlength="40"/>
 				</text>
 			</view>
 			<view class="cu-item" :class="1?'arrow':''" @click="PickerChange">
@@ -17,6 +25,7 @@
 					<text class=" content" >
 						<text class="text-black"  name='gender'>{{sexPickerText}}</text>
 						<input type="text" class="hide" name="gender" :value="sexPickerText" maxlength="40"/>
+						<input type="text" class="hide" name="sexval" :value="sexPickerVal" maxlength="40"/>
 					</text>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
@@ -70,14 +79,16 @@ export default {
 	},
 		data() {
 			return {
-				address: "某某街某某小区xx号xxx",
-				pickerText: '北京市-市辖区-东城区',
-				email: "1120550982@qq.com",
-				sexPickerText:'男',
-				nickName: "A2A",
-				qq: "123123",
+				address: "",
+				pickerText: '',
+				email: "",
+				sexPickerText:'',
+				sexPickerVal:'',
+				nickName: "",
+				qq: "",
 				
-				
+				StatusBar: this.StatusBar,
+				CustomBar: this.CustomBar,
 				menuBorder: false,
 				menuArrow: false,
 				menuCard: false,
@@ -101,10 +112,55 @@ export default {
 				pickerValueArray:[]
 			};
 		},
+		onLoad() {
+			const value = uni.getStorageSync('agentInfo');
+			if (value) {
+				this.id=value.id;
+			}
+			uni.request({
+				url: 'http://192.168.0.199:8080/agent/agent/ajax-agent-info',
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				method: 'POST',
+				dataType: 'json',
+				cache: false,
+				data: {
+					token:this.token,
+					id:this.id,
+				},
+				success: res => {
+					this.list=res;
+					let data=this.list.data;
+					console.log(data);
+					if(data.isSuccess==200){
+						this.nickName=data.result.nickname;
+						if(data.result.sex=='0'){
+							this.sexPickerText='男';
+							this.sexPickerVal=0;
+						}else if(data.result.sex=='1'){
+							this.sexPickerText='女';
+							this.sexPickerVal=1;
+						}
+						this.email=data.result.email;
+						this.qq=data.result.qq;
+						this.pickerText=data.result.area;
+						this.address=data.result.address;
+					}
+				},
+				fail: () => {
+					uni.showToast({
+						icon: 'none',
+						title: '网络异常,请稍后重试'
+					});
+				},
+				complete: () => {}
+				});
+		},
 		methods: {
-			NavToPage: function() {
+			navTo: function() {
 					uni.redirectTo({
-						url: '../login/login'
+						url: 'info'
 					});
 			},
 			// 单列
@@ -145,17 +201,15 @@ export default {
 			onSexConfirm(e) {
 				//JSON.stringify(e)
 				this.sexPickerText = e.label;
-				// this.sexPickerNum=e.value[0]
+				this.sexPickerVal=e.value[0]
 			},
-			// saveInfo(){
-			// 	
-			// },
 			formSubmit: function (e) {
 				//将下列代码加入到对应的检查位置
 				//定义表单规则
 				var rule = [
-					{name:"nickName", checkType : "string", checkRule:"0,20",  errorMsg:"昵称应为0-20个字符之内"},
+					{name:"nickname", checkType : "string", checkRule:"0,20",  errorMsg:"昵称应为0-20个字符之内"},
 					{name:"gender", checkType : "in", checkRule:"男,女",  errorMsg:"请选择性别"},
+					{name:"sexval", checkType : "in", checkRule:"0,1",  errorMsg:''},
 					{name:"email", checkType : "email", checkRule:"",  errorMsg:"邮箱格式不正确"},
 					{name:"qq",checkType:"reg",checkRule:"^[1-9]{4,11}$",errorMsg:"QQ号码不正确"}
 				];
@@ -164,36 +218,45 @@ export default {
 				var checkRes = graceChecker.check(formData, rule);
 				if(checkRes){
 					console.log(formData);
-					uni.showToast({title:"修改成功!", icon:"none"});
-					setTimeout(function() {
-						uni.redirectTo({
-							url: '../about/info'
+					uni.request({
+						url: 'http://192.168.0.199:8080/agent/agent/ajax-up-info',
+						header: {
+							'content-type': 'application/x-www-form-urlencoded'
+						},
+						method: 'POST',
+						dataType: 'json',
+						cache: false,
+						data: {
+							token:this.token,
+							id:this.id,
+							nickname:formData.nickName,
+							sex:formData.sexval,
+							qq:this.qq,
+							email:this.email,
+							area:this.pickerText,
+							address:this.address,
+						},
+						success: res => {
+							this.list=res;
+							let data=this.list.data;
+							console.log(data);
+							if(data.isSuccess==200){
+								uni.showToast({title:"修改成功!", icon:"none"});
+								setTimeout(function() {
+									uni.redirectTo({
+										url: '../about/info'
+									});
+								}, 2000);
+							}
+						},
+						fail: () => {
+							uni.showToast({
+								icon: 'none',
+								title: '网络异常,请稍后重试'
+							});
+						},
+						complete: () => {}
 						});
-					}, 2000);
-					
-					// uni.request({
-					// 	url: '',
-					// 	method: 'GET',
-					// 	dataType: 'json',
-					// 	cache: false,
-					// 	data: {
-					// 		address:formData.address,
-					// 		pickerText:formData.pickerText,
-					// 		email:formData.email,
-					// 		sexPickerText:formData.sexPickerText,
-					// 		nickName:formData.nickName,
-					// 		qq: formData.qq,
-					// 	},//收到开发者服务成功返回的回调函数
-					// 	success: res => {
-					// 		
-					// 		
-					// 		
-					// 	},//接口调用失败的回调函数
-					// 	fail: () => {
-					// 		
-					// 	},//接口调用结束的回调函数（调用成功、失败都会执行）
-					// 	complete: () => {}
-					// });
 				}else{
 					uni.showToast({ title: graceChecker.error, icon: "none" });
 				}

@@ -186,18 +186,83 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
 {
   data: function data() {
     return {
+      StatusBar: this.StatusBar,
+      CustomBar: this.CustomBar,
       menuBorder: false,
       menuArrow: false,
-      menuCard: false };
+      menuCard: false,
+      id: '',
+      name: '李白',
+      tel: '17777777777',
+      nackName: '111',
+      sex: '男',
+      email: '123@qq.com',
+      qq: '17777777',
+      area: '北京市-市辖区-东城区',
+      address: '北京市-市辖区-东城区',
+      list: [] };
+
+  },
+  onLoad: function onLoad() {var _this = this;
+    var value = uni.getStorageSync('agentInfo');
+    if (value) {
+      this.id = value.id;
+    }
+    uni.request({
+      url: 'http://192.168.0.199:8080/agent/agent/ajax-agent-info',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' },
+
+      method: 'POST',
+      dataType: 'json',
+      cache: false,
+      data: {
+        token: this.token,
+        id: this.id },
+
+      success: function success(res) {
+        _this.list = res;
+        var data = _this.list.data;
+        console.log(data);
+        if (data.isSuccess == 200) {
+          _this.name = data.result.agent_name;
+          _this.tel = data.result.agent_tel;
+          _this.nackName = data.result.nickname;
+          if (data.result.sex == '0') {
+            _this.sex = '男';
+          } else if (data.result.sex == '1') {
+            _this.sex = '女';
+          }
+          _this.email = data.result.email;
+          _this.qq = data.result.qq;
+          _this.area = data.result.area;
+          _this.address = data.result.address;
+        }
+      },
+      fail: function fail() {
+        uni.showToast({
+          icon: 'none',
+          title: '网络异常,请稍后重试' });
+
+      },
+      complete: function complete() {} });
 
   },
   methods: {
     ToPage: function ToPage() {
-      uni.navigateTo({
+      uni.redirectTo({
         url: '../about/editinfo' });
+
+    },
+    navTo: function navTo() {
+      uni.redirectTo({
+        url: '../tabbar/tabbar' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -230,201 +295,160 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "view",
-    { staticClass: "content" },
-    [
-      _c(
-        "cu-custom",
-        {
-          attrs: {
-            bgColor: "bg-gradual-blue",
-            isBack: true,
-            mpcomid: "ca081a98-0"
-          }
-        },
-        [
-          _c("block", { slot: "backText" }),
-          _c("block", { slot: "content" }, [_vm._v("个人信息")]),
-          _c("block", { slot: "right" })
-        ],
-        1
-      ),
-      _c(
-        "view",
-        {
-          staticClass: "cu-list menu",
-          class: [
-            _vm.menuBorder ? "sm-border" : "",
-            _vm.menuCard ? "card-menu margin-top" : ""
-          ]
-        },
-        [
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "title" }, [_vm._v("姓 名：")]),
-              _vm._m(0)
-            ]
-          ),
-          _c("view", { staticClass: "cu-item", class: 0 ? undefined : "" }, [
-            _c("text", { staticClass: "title" }, [_vm._v("手机号：")]),
-            _vm._m(1),
-            _c(
-              "text",
-              { staticClass: " btn-bg shadow", attrs: { type: "text" } },
-              [_vm._v("修改")]
-            )
-          ]),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "title" }, [_vm._v("I D ：")]),
-              _vm._m(2)
-            ]
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "title" }, [_vm._v("昵 称：")]),
-              _vm._m(3)
-            ]
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "title" }, [_vm._v("姓 别：")]),
-              _vm._m(4)
-            ]
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "title" }, [_vm._v("邮 箱：")]),
-              _vm._m(5)
-            ]
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "title" }, [_vm._v("Q Q ：")]),
-              _vm._m(6)
-            ]
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "title" }, [_vm._v("地 区：")]),
-              _vm._m(7)
-            ]
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "title" }, [_vm._v("地 址：")]),
-              _vm._m(8)
-            ]
-          ),
-          _c(
-            "view",
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "cu-btn bg-blue margin-tb-sm lg btn",
-                  attrs: { type: "button", eventid: "ca081a98-0" },
-                  on: { click: _vm.ToPage }
-                },
-                [_vm._v("编辑")]
-              )
-            ],
-            1
-          )
+  return _c("view", { staticClass: "content" }, [
+    _c(
+      "view",
+      {
+        staticClass: "cu-bar bg-gradual-blue search",
+        style: [{ height: _vm.CustomBar + "px" }]
+      },
+      [
+        _c(
+          "view",
+          {
+            staticClass: "action",
+            attrs: { eventid: "ca081a98-0" },
+            on: {
+              click: function($event) {
+                _vm.navTo()
+              }
+            }
+          },
+          [_c("text", { staticClass: "cuIcon-back" })]
+        ),
+        _c("view", { staticClass: "content" }, [_vm._v("个人信息")]),
+        _c("view", { staticClass: "action" })
+      ]
+    ),
+    _c(
+      "view",
+      {
+        staticClass: "cu-list menu",
+        class: [
+          _vm.menuBorder ? "sm-border" : "",
+          _vm.menuCard ? "card-menu margin-top" : ""
         ]
-      )
-    ],
-    1
-  )
+      },
+      [
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [
+            _c("text", { staticClass: "title" }, [_vm._v("姓 名：")]),
+            _c("text", { staticClass: "content" }, [
+              _c("text", { staticClass: "text-grey" }, [
+                _vm._v(_vm._s(_vm.name))
+              ])
+            ])
+          ]
+        ),
+        _c("view", { staticClass: "cu-item", class: 0 ? undefined : "" }, [
+          _c("text", { staticClass: "title" }, [_vm._v("手机号：")]),
+          _c("text", { staticClass: " content" }, [
+            _c("text", { staticClass: "text-grey" }, [_vm._v(_vm._s(_vm.tel))])
+          ])
+        ]),
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [_c("text", { staticClass: "title" }, [_vm._v("I D ：")]), _vm._m(0)]
+        ),
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [
+            _c("text", { staticClass: "title" }, [_vm._v("昵 称：")]),
+            _c("text", { staticClass: " content" }, [
+              _c("text", { staticClass: "text-grey" }, [
+                _vm._v(_vm._s(_vm.nackName))
+              ])
+            ])
+          ]
+        ),
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [
+            _c("text", { staticClass: "title" }, [_vm._v("姓 别：")]),
+            _c("text", { staticClass: " content" }, [
+              _c("text", { staticClass: "text-grey" }, [
+                _vm._v(_vm._s(_vm.sex))
+              ])
+            ])
+          ]
+        ),
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [
+            _c("text", { staticClass: "title" }, [_vm._v("邮 箱：")]),
+            _c("text", { staticClass: " content" }, [
+              _c("text", { staticClass: "text-grey" }, [
+                _vm._v(_vm._s(_vm.email) + ".cn")
+              ])
+            ])
+          ]
+        ),
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [
+            _c("text", { staticClass: "title" }, [_vm._v("Q Q ：")]),
+            _c("text", { staticClass: " content" }, [
+              _c("text", { staticClass: "text-grey" }, [_vm._v(_vm._s(_vm.qq))])
+            ])
+          ]
+        ),
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [
+            _c("text", { staticClass: "title" }, [_vm._v("地 区：")]),
+            _c("text", { staticClass: " content" }, [
+              _c("text", { staticClass: "text-grey" }, [
+                _vm._v(_vm._s(_vm.area))
+              ])
+            ])
+          ]
+        ),
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [
+            _c("text", { staticClass: "title" }, [_vm._v("地 址：")]),
+            _c("text", { staticClass: " content" }, [
+              _c("text", { staticClass: "text-grey" }, [
+                _vm._v(_vm._s(_vm.address))
+              ])
+            ])
+          ]
+        ),
+        _c(
+          "view",
+          [
+            _c(
+              "button",
+              {
+                staticClass: "cu-btn bg-blue margin-tb-sm lg btn",
+                attrs: { type: "button", eventid: "ca081a98-1" },
+                on: { click: _vm.ToPage }
+              },
+              [_vm._v("编辑")]
+            )
+          ],
+          1
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("text", { staticClass: "content" }, [
-      _c("text", { staticClass: "text-grey" }, [_vm._v("李白")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("text", { staticClass: " content" }, [
-      _c("text", { staticClass: "text-grey" }, [_vm._v("17777777777")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("text", { staticClass: " content" }, [
       _c("text", { staticClass: "text-grey" }, [_vm._v("1231")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("text", { staticClass: " content" }, [
-      _c("text", { staticClass: "text-grey" }, [_vm._v("AAAAAA")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("text", { staticClass: " content" }, [
-      _c("text", { staticClass: "text-grey" }, [_vm._v("男")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("text", { staticClass: " content" }, [
-      _c("text", { staticClass: "text-grey" }, [_vm._v("AAAAAA@qq.cn")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("text", { staticClass: " content" }, [
-      _c("text", { staticClass: "text-grey" }, [_vm._v("17777777")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("text", { staticClass: " content" }, [
-      _c("text", { staticClass: "text-grey" }, [_vm._v("北京市-市辖区-东城区")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("text", { staticClass: " content" }, [
-      _c("text", { staticClass: "text-grey" }, [_vm._v("北京市-市辖区-东城区")])
     ])
   }
 ]

@@ -12,7 +12,8 @@
 	<view class="banner ">
 		<view class="ths"></view>
 		<view class="img">
-			<image src="../../static/img/ewm.jpg" mode=""></image>
+			<!-- ../../static/img/ewm.jpg -->
+			<image src="../../static/img/1000.png" mode=""></image>
 		</view>
 		<view class="tgtit">推广链接：<text class="tugurl">http://sishuquan.com?id=3228969</text></view>
 		<view class="sharbuttn">
@@ -294,10 +295,11 @@
 	}
 	.img{
 		width: 300upx;
-		height: 300upx;
+		height: 400upx;
 		background-color: red;
 		margin: 0 auto;
 		margin-top: 50upx;
+		margin-bottom: 50upx;
 	}
 	.img image{
 		width: 100%;

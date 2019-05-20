@@ -1,11 +1,15 @@
 <template>
 	<view>
-		<scroll-view :scroll-y="modalName==null" class="page" :class="modalName!=null?'show':''">
-			<cu-custom bgColor="" class="bg title-text" :isBack="true" @click='navTo()'>
-				<block slot="backText"></block>
-				<block slot="content">钱包</block>
-			</cu-custom>
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" style="margin-top: 10upx;">
+		<view class="cu-bar bg search bg-gradual-blue fixed">
+			<view class="action" @tap="navTo()" :style="[{height:CustomBar + 'px'}]">
+				<text class="cuIcon-back text-white"></text>
+			</view>
+			<view class="content title-text">钱包</view>
+			<view class="action">
+			</view>
+		</view>
+	
+		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',1?'card-menu margin-top':'']" :style="[{marginTop:CustomBar +10+ 'px'}]">
 			<view class="cu-list grid bg" :class="['col-' + 2,gridBorder?'':'no-border']">
 				<view class="cu-item">
 					<view class="money-title"></view><view class="text-white text-xl">累计提现</view>
@@ -26,9 +30,6 @@
 					<view class="money-title"></view><view class="text-white text-bold text-xxl">{{ktmoney}}</view>
 				</view>
 			</view>
-<!-- 			<view class=" grid bg text-center ye" :class="['col-' + 1,gridBorder?'':'no-border']">
-				
-			</view> -->
 		</view>	
 		<view class="cu-list menu  " :class="[menuBorder?'sm-border':'',menuCard?'card-menu ':'']" style="margin-top: 15upx;">
 			<view class="cu-item " :class="0?'arrow':''">
@@ -38,35 +39,29 @@
 					</text>
 			</view>
 			<view class="cu-item" :class="0?'arrow':''">
-					<text class=" content text-gray ">
+					<view class=" content text-gray ">
 						<view>{{text1}}</view>
 						<view>{{text2}}</view>
 						<view>{{text3}}</view>
-<!-- 						<view>每天单次提现金额＞{{minmoney}}每天单次提现金额＜{{maxmoney}}</view>
-						<view>每天单次提现金额＞{{minmoney}}每天单次提现金额＜{{maxmoney}}</view> -->
 						<view>审核通过后将对您所提交提现订单的账户转账汇款，请耐心等待！</view>
-					</text>
+					</view>
 			</view>
 		</view>
 		<view class="cu-list menu  " :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']" style="margin-top: 15upx;">
 			<view class="cu-item " :class="0?'arrow':''">
 					<text class="title">金额：</text>
-					<text class=" content" >
 						<m-input class="m-input" type="digit" clearable focus v-model="money" placeholder="输入金额"></m-input>
-					</text>
 			</view>
 			<view class="cu-item " :class="0?'arrow':''">
 					<text class="title">密码：</text>
-					<text class=" content" >
 						<m-input class="m-input" type="password" displayable v-model="password" placeholder="输入密码"></m-input>
-					</text>
 			</view>
 		</view>
 		<view class="cu-item" :class="0?'arrow':''">
-				<button type="default" class="primary bg" @click="ontsmoney()">申请提现</button>
+				<button class="cu-btn bg-white margin-tb-sm lg deposit" @click="ontsmoney()">申请提现</button>
 		</view>
 		
-		</scroll-view>
+	
 	</view>
 </template>
 
@@ -77,47 +72,12 @@
 			mInput
 		},
 		//加载金额
-		beforeCreate:function(){//beforeCreate
-			const value = uni.getStorageSync('agentInfo');
-			if (value) {
-				var id=value.id;
-			uni.request({
-				url: 'http://192.168.0.199:8080/agent/earnings/ajax-burse-money',
-					header: {
-						'content-type': 'application/x-www-form-urlencoded'
-					},
-					method: 'POST',
-					dataType: 'json',
-					cache: false,
-					data: {
-						id:id,
-					},
-					success: res => {
-						console.log(res.data.isSuccess);
-						if(res.data.isSuccess==200){
-							let data=res.data.result;
-							this.ztsmoney=data.alltsMoney;
-							this.thismoney=data.thisMoney;
-							this.ktmoney=data.ktMoney;
-							let configval=JSON.parse(data.configval);
-								if(configval[0].status==0){
-									let minPrice=configval[0].minPrice
-									this.text1="每次提现范围:"+configval[0].minPrice+"<金额<"+configval[0].maxPrice+"，最多可提现"+configval[0].num+"次，2~24小时到账";
-								}else if(configval[1].status==0){
-									let minPrice=configval[1].minPrice
-									this.text2="每次提现范围:"+configval[1].minPrice+"<金额<"+configval[1].maxPrice+"，最多可提现"+configval[1].num+"次，每周五24:00前提交的提现申请将在下周一前17:00结算";
-								}else if(configval[2].status==0){
-									let minPrice=configval[2].minPrice
-									this.text3="每次提现范围:"+configval[2].minPrice+"<金额<"+configval[2].maxPrice+"，最多可提现"+configval[2].num+"次，每月最后一天24:00前提交的提现申请将在下月第一个工作日17:00结算";
-								}
-						}else{
-							console.log('请设置提现密码再提现')
-						}
-					},
-					fail: () => {},
-					complete: () => {}
-				});
+		onLoad() {
+			const agentInfo = uni.getStorageSync('agentInfo');
+			if (agentInfo) {
+				this.token=agentInfo.token;
 			}
+			this.getMoney()
 		},
 		data() {
 			return {
@@ -130,6 +90,7 @@
 				text2:"",
 				text3:"",
 				
+				id:0,
 				money:'',
 				password:'',
 				
@@ -140,10 +101,12 @@
 				menuBorder: true,
 				menuArrow: true,
 				menuCard: true,
-				
+				StatusBar: this.StatusBar,
+				CustomBar: this.CustomBar,
 				skin: false,
 				listTouchStart: 0,
 				listTouchDirection: null,
+				token:'',
 			};
 		},
 		methods: {
@@ -157,26 +120,79 @@
 			},
 			// 点击提现
 			ontsmoney(){
-				console.log("提现")
 				uni.request({
-					url: '',
-					method: 'GET',
-					dataType: 'json',
-					cache: false,
-					data: {
-						id:id,
-						money:this.money,
-						password:this.password,
-					},
-					success: res => {
-						
-						
-						
-						
-					},
-					fail: () => {},
-					complete: () => {}
-				});
+					url: 'http://192.168.0.199:8080/agent/earnings/ajax-apply-deposit',
+						header: {
+							'content-type': 'application/x-www-form-urlencoded'
+						},
+						method: 'POST',
+						dataType: 'json',
+						cache: false,
+						data: {
+							token:this.token,
+							money:this.money,
+							password:this.password,
+						},
+						success: res => {
+							let list=res;
+							if(list.data.code==200){
+								let data=list.data;
+								console.log(data);
+								uni.showToast({
+									icon: 'none',
+									title: '提现成功'
+								});
+								
+								this.getMoney()
+							}else{
+								let data=list.data;
+								console.log(data);
+								uni.showToast({
+									icon: 'none',
+									title: data.msg
+								});
+							}
+						},
+						fail: () => {},
+						complete: () => {}
+					});
+			},
+			getMoney(){
+				uni.request({
+					url: 'http://192.168.0.199:8080/agent/earnings/ajax-burse-money',
+						header: {
+							'content-type': 'application/x-www-form-urlencoded'
+						},
+						method: 'POST',
+						dataType: 'json',
+						cache: false,
+						data: {
+							token:this.token,
+						},
+						success: res => {
+							if(res.data.code==200){
+								let data=res.data.data;
+								this.ztsmoney=data.alltsMoney;
+								this.thismoney=data.thisMoney;
+								this.ktmoney=data.ktMoney;
+								let configval=JSON.parse(data.configval);
+									if(configval[0].status==0){
+										let minPrice=configval[0].minPrice
+										this.text1="每次提现范围:"+configval[0].minPrice+"<金额<"+configval[0].maxPrice+"，最多可提现"+configval[0].num+"次，2~24小时到账";
+									}else if(configval[1].status==0){
+										let minPrice=configval[1].minPrice
+										this.text2="每次提现范围:"+configval[1].minPrice+"<金额<"+configval[1].maxPrice+"，最多可提现"+configval[1].num+"次，每周五24:00前提交的提现申请将在下周一前17:00结算";
+									}else if(configval[2].status==0){
+										let minPrice=configval[2].minPrice
+										this.text3="每次提现范围:"+configval[2].minPrice+"<金额<"+configval[2].maxPrice+"，最多可提现"+configval[2].num+"次，每月最后一天24:00前提交的提现申请将在下月第一个工作日17:00结算";
+									}
+							}else{
+								console.log('请设置提现密码再提现')
+							}
+						},
+						fail: () => {},
+						complete: () => {}
+					});
 			},
 			showModal(e) {
 				this.modalName = e.currentTarget.dataset.target
@@ -230,6 +246,12 @@
 </script>
 
 <style>
+	.deposit{
+		margin-left:5%;
+		width: 90%;
+		margin-top: 100upx;
+		color: #007AFF;
+	}
 	.ye{
 		min-height: 130upx;
 	}
@@ -237,7 +259,7 @@
 		color: #fff;
 	}
 	.bg{
-		background: linear-gradient(to right,#3396a6,#33966a);
+		background: linear-gradient(to right,#319ee9,#1bb9b7);
 	}
 	.primary{
 		margin-top: 50upx;

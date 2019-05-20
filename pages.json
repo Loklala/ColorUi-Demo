@@ -43,7 +43,13 @@
             }
         },
         {
-            "path" : "pages/about/password",
+            "path" : "pages/about/login-password",
+            "style" : {
+                "navigationBarTitleText" : ""
+            }
+        },
+        {
+            "path" : "pages/about/deposit-password",
             "style" : {
                 "navigationBarTitleText" : ""
             }

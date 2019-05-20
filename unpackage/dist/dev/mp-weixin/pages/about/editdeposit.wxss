@@ -20,9 +20,9 @@
 	margin-top: 30rpx;
 }
 .btn{
-	background: -webkit-gradient(linear,left top, right top,from(#4dbf92),to(#1cbbb4));
-	background: -o-linear-gradient(left,#4dbf92,#1cbbb4);
-	background: linear-gradient(to right,#4dbf92,#1cbbb4);
+	background: -webkit-gradient(linear,left top, right top,from(#0286f7),to(#19b5ba));
+	background: -o-linear-gradient(left,#0286f7,#19b5ba);
+	background: linear-gradient(to right,#0286f7,#19b5ba);
 	width: 94%;
 	margin-left: 3%;
 	margin-top: 50rpx;

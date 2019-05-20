@@ -2,9 +2,8 @@
 	<view class="">
 
 		<scroll-view scroll-y class="page">
-			<view class="cu-bar bg-gradual-blue search">
-				<!-- <view class="cu-avatar round"></view> -->
-				<view class="content">
+			<view class="cu-bar bg-gradual-blue search" :style="[{height:CustomBar + 'px'}]">
+				<view class="content" >
 					首页
 				</view>
 				<view class="action">
@@ -38,7 +37,7 @@
 						<text class="text-grey">邀请列表</text>
 					</view>
 				</view>
-				<view class="cu-item arrow " data-cur=""  @click="PageChange">
+				<view class="cu-item arrow margin-top-sm" data-cur=""  @click="PageChange">
 					<view class="content">
 						<text class="cuIcon-crown text-grey"></text>
 						<text class="text-grey">俱乐部中心</text>

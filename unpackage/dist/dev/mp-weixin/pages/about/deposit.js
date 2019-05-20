@@ -179,22 +179,76 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
 {
   data: function data() {
     return {
-      name: "李白",
-      payname: "微信",
-      payaccount: "LIBAI001WEIXIN",
+      name: " ",
+      payname: " ",
+      payaccount: " ",
 
-      menuBorder: true,
+      id: 0,
+      StatusBar: this.StatusBar,
+      CustomBar: this.CustomBar,
+      menuBorder: false,
       menuArrow: false,
-      menuCard: true };
+      menuCard: true,
 
+      isaccount: true };
+
+  },
+  onLoad: function onLoad() {var _this = this;
+    var value = uni.getStorageSync('agentInfo');
+    if (value) {
+      this.id = value.id;
+      uni.request({
+        url: 'http://192.168.0.199:8080/agent/agent/ajax-get-info',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' },
+
+        method: 'POST',
+        dataType: 'json',
+        cache: false,
+        data: {
+          id: this.id },
+
+        success: function success(res) {
+          console.log(res.data.isSuccess);
+          var data = res.data.result;
+          if (data) {
+            _this.name = data.current_payname;
+            if (data.current_paytype == '0') {
+              _this.payname = '微信';
+              _this.payaccount = data.wechat_num;
+            } else if (data.current_paytype == '1') {
+              _this.payname = '支付宝';
+              _this.payaccount = data.alipay_num;
+            } else if (data.current_paytype == '2') {
+              _this.payname = '银行卡';
+              _this.payaccount = data.bank_num;
+            } else if (data.current_paytype == '') {
+              _this.isaccount = false;
+            }
+          }
+        },
+        fail: function fail() {},
+        complete: function complete() {} });
+
+    }
   },
   methods: {
     editdeposit: function editdeposit() {
-      uni.navigateTo({
+      uni.redirectTo({
         url: '../about/editdeposit' });
+
+    },
+    navTo: function navTo() {
+      uni.redirectTo({
+        url: '../tabbar/tabbar' });
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
@@ -227,122 +281,154 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "view",
-    { staticClass: "content" },
-    [
-      _c(
-        "cu-custom",
-        {
-          attrs: {
-            bgColor: "bg-gradual-blue",
-            isBack: true,
-            mpcomid: "d3a6fa50-0"
-          }
-        },
-        [
-          _c("block", { slot: "backText" }),
-          _c("block", { slot: "content" }, [_vm._v("提现账号")]),
-          _c("block", { slot: "right" })
-        ],
-        1
-      ),
-      _c(
-        "view",
-        {
-          staticClass: "cu-list menu",
-          class: [
-            _vm.menuBorder ? "sm-border" : "",
-            _vm.menuCard ? "card-menu margin-top" : ""
-          ]
-        },
-        [
-          _c("view", { staticClass: "cu-bar bg-white solid-bottom bg" }, [
-            _vm._m(0),
-            _c(
-              "view",
-              [
-                _c(
-                  "button",
-                  {
-                    staticClass: "edit-btn",
-                    attrs: { type: "default", eventid: "d3a6fa50-0" },
-                    on: { click: _vm.editdeposit }
-                  },
-                  [_vm._v("编辑")]
-                )
-              ],
-              1
-            )
-          ]),
-          _c("view", { staticClass: "cu-item", class: 0 ? undefined : "" }, [
-            _c("text", {
-              staticClass: "cuIcon-peoplelist text-blue icon-title"
-            }),
-            _c("text", { staticClass: "title" }, [_vm._v("姓名：")]),
-            _c("text", { staticClass: " content" }, [
+  return _c("view", { staticClass: "content" }, [
+    _c(
+      "view",
+      {
+        staticClass: "cu-bar bg-gradual-blue search",
+        style: [{ height: _vm.CustomBar + "px" }]
+      },
+      [
+        _c(
+          "view",
+          {
+            staticClass: "action",
+            attrs: { eventid: "d3a6fa50-0" },
+            on: {
+              click: function($event) {
+                _vm.navTo()
+              }
+            }
+          },
+          [_c("text", { staticClass: "cuIcon-back" })]
+        ),
+        _c("view", { staticClass: "content" }, [_vm._v("提现账号")]),
+        _c("view", { staticClass: "action" })
+      ]
+    ),
+    _c(
+      "view",
+      {
+        staticClass: "cu-list menu",
+        class: [
+          _vm.menuBorder ? "sm-border" : "",
+          _vm.menuCard ? "card-menu " : "",
+          _vm.isaccount ? "show" : "hide"
+        ]
+      },
+      [
+        _c("view", { staticClass: "cu-bar bg-white solid-bottom bg-grey" }, [
+          _vm._m(0),
+          _c(
+            "view",
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "edit-btn ",
+                  attrs: { type: "default", eventid: "d3a6fa50-1" },
+                  on: { click: _vm.editdeposit }
+                },
+                [_vm._v("编辑")]
+              )
+            ],
+            1
+          )
+        ]),
+        _c("view", { staticClass: "cu-item", class: 0 ? undefined : "" }, [
+          _c("text", { staticClass: "cuIcon-peoplelist text-blue icon-title" }),
+          _c("text", { staticClass: "title" }, [_vm._v("姓名：")]),
+          _c("text", { staticClass: " content" }, [
+            _c("text", { staticClass: "text-grey" }, [_vm._v(_vm._s(_vm.name))])
+          ])
+        ]),
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [
+            _c("text", { staticClass: "cuIcon-shake text-blue icon-title" }),
+            _c("text", { staticClass: "title" }, [_vm._v("类型：")]),
+            _c("text", { staticClass: "content" }, [
               _c("text", { staticClass: "text-grey" }, [
-                _vm._v(_vm._s(_vm.name))
+                _vm._v(_vm._s(_vm.payname))
               ])
             ])
-          ]),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "cuIcon-shake text-blue icon-title" }),
-              _c("text", { staticClass: "title" }, [_vm._v("类型：")]),
-              _c("text", { staticClass: "content" }, [
-                _c("text", { staticClass: "text-grey" }, [
-                  _vm._v(_vm._s(_vm.payname))
-                ])
-              ])
-            ]
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "cuIcon-brand text-blue icon-title" }),
-              _c("text", { staticClass: "title" }, [_vm._v("账号：")]),
-              _c("text", { staticClass: " content" }, [
-                _c("text", { staticClass: "text-grey" }, [
-                  _vm._v(_vm._s(_vm.payaccount))
-                ])
-              ])
-            ]
-          )
-        ]
-      ),
-      _c(
-        "view",
-        {
-          staticClass: "cu-list menu",
-          class: [
-            _vm.menuBorder ? "sm-border" : "",
-            _vm.menuCard ? "card-menu margin-top" : ""
           ]
-        },
-        [
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c("text", { staticClass: "cuIcon-notice text-blue icon-title" }),
-              _c("text", { staticClass: "title" }, [_vm._v("温馨提示：")]),
-              _c("text", { staticClass: " content" })
-            ]
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [_vm._m(1)]
-          )
+        ),
+        _c(
+          "view",
+          { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+          [
+            _c("text", { staticClass: "cuIcon-brand text-blue icon-title" }),
+            _c("text", { staticClass: "title" }, [_vm._v("账号：")]),
+            _c("text", { staticClass: " content" }, [
+              _c("text", { staticClass: "text-grey" }, [
+                _vm._v(_vm._s(_vm.payaccount))
+              ])
+            ])
+          ]
+        )
+      ]
+    ),
+    _c(
+      "view",
+      {
+        staticClass: "cu-list menu",
+        class: [
+          _vm.menuBorder ? "sm-border" : "",
+          _vm.menuCard ? "card-menu " : "",
+          _vm.isaccount ? "hide" : "show"
         ]
-      )
-    ],
-    1
-  )
+      },
+      [
+        _vm._m(1),
+        _c(
+          "view",
+          { staticClass: "cu-item text-xxl", class: 0 ? undefined : "" },
+          [
+            _c("text", {
+              staticClass: "content cuIcon-emoji text-center text-xxl emoji",
+              staticStyle: {
+                height: "300rpx",
+                "font-size": "200rpx",
+                width: "100%"
+              }
+            })
+          ]
+        ),
+        _c(
+          "view",
+          { staticClass: "cu-item text-xxl", class: 0 ? undefined : "" },
+          [
+            _c("text", { staticClass: "content  text-center text-xxl emoji" }, [
+              _vm._v("暂无账号信息请先添加账号")
+            ])
+          ]
+        ),
+        _c(
+          "view",
+          { staticClass: " margin-top-xl bg-gray", class: 0 ? undefined : "" },
+          [
+            _c(
+              "button",
+              {
+                staticClass:
+                  "cu-btn bg-gradual-blue margin-tb-sm lg deposit-btn",
+                attrs: { eventid: "d3a6fa50-2" },
+                on: {
+                  click: function($event) {
+                    _vm.editdeposit()
+                  }
+                }
+              },
+              [_vm._v("添加提现账号")]
+            )
+          ],
+          1
+        )
+      ]
+    )
+  ])
 }
 var staticRenderFns = [
   function() {
@@ -358,16 +444,12 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("text", { staticClass: " content " }, [
-      _c("text", { staticClass: "tip-text" }, [
-        _vm._v("1.确保姓名为本人真实姓名。")
+    return _c("view", { staticClass: "cu-bar bg-white solid-bottom bg-grey" }, [
+      _c("view", { staticClass: "action" }, [
+        _c("text", { staticClass: "cuIcon-newsfill text-blue icon-title " }),
+        _vm._v("账号信息")
       ]),
-      _c("text", { staticClass: "tip-text" }, [
-        _vm._v("2.确保账号为可转账账号。")
-      ]),
-      _c("text", { staticClass: "tip-text" }, [
-        _vm._v("3.确保账户类型和账号一致。")
-      ])
+      _c("view")
     ])
   }
 ]

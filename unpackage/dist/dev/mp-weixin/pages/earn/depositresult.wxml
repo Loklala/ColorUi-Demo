@@ -1,0 +1,2 @@
+<import src="./depositresult.vue.wxml" />
+    <template is="2159eb08" data="{{ ...$root['0'], $root }}"/>

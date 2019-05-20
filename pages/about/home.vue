@@ -16,19 +16,6 @@
 					<text class="flex"> ID:{{id}}</text>
 				</view>
 			</view>
-<view class="cu-list menu " :class="[0?'sm-border':'',0?'margin-top':'']" >
-				<view class="cu-list grid bg" :class="['col-' + 3,1?'':'no-border']">
-					<view class="cu-item ">
-						<view class="money-title text-white">房卡总收益&yen;</view><view class="money-css text-white text-xxl">{{fkmoney}}</view>
-					</view>
-					<view class="cu-item">
-						<view class="money-title text-white">充值总收益&yen;</view><view class="money-css text-white text-xxl">{{czmoney}}</view>
-					</view>
-					<view class="cu-item">
-						<view class="money-title text-white">俱乐部总收益&yen;</view><view class="money-css text-white text-xxl">{{jlbmoney}}</view>
-					</view>
-				</view>
-</view>	
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu margin-top':'']">
 			
 			<view class="cu-item" :class="menuArrow?'arrow':''">
@@ -40,19 +27,25 @@
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<button class="cu-btn content"  @click="PageChange" data-cur="../about/deposit">
 					<text class="cuIcon-circlefill text-grey"></text>
-					<text class="text-grey">提现设置</text>
+					<text class="text-grey">提现账号设置</text>
 				</button>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<button class="cu-btn content"  @click="PageChange" data-cur="../about/password">
+				<button class="cu-btn content"  @click="PageChange" data-cur="../about/login-password">
 					<text class="cuIcon-circlefill text-grey"></text>
-					<text class="text-grey">密码设置</text>
+					<text class="text-grey">修改登录密码</text>
+				</button>
+			</view>
+			<view class="cu-item" :class="menuArrow?'arrow':''">
+				<button class="cu-btn content"  @click="PageChange" data-cur="../about/deposit-password">
+					<text class="cuIcon-circlefill text-grey"></text>
+					<text class="text-grey">修改提现密码</text>
 				</button>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<button class="cu-btn content"  @click="PageChange" data-cur="../about/feedback">
 					<text class="cuIcon-circlefill text-grey"></text>
-					<text class="text-grey">反馈</text>
+					<text class="text-grey">建议反馈</text>
 				</button>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">

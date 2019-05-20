@@ -155,6 +155,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _service = _interopRequireDefault(__webpack_require__(/*! ../../service.js */ "../../../ColorUi-Demo/service.js"));
 var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-input.vue */ "../../../ColorUi-Demo/components/m-input.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
 
@@ -459,23 +460,33 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("view", { staticClass: "content" }, [
-    _c("view", { staticClass: "cu-bar bg search bg-gradual-blue" }, [
-      _c(
-        "view",
-        {
-          staticClass: "action",
-          attrs: { eventid: "17a9ca53-0" },
-          on: {
-            tap: function($event) {
-              _vm.navTo()
+    _c(
+      "view",
+      {
+        staticClass: "cu-bar bg search bg-gradual-blue",
+        style: [{ height: _vm.CustomBar + "px" }]
+      },
+      [
+        _c(
+          "view",
+          {
+            staticClass: "action",
+            attrs: { eventid: "17a9ca53-0" },
+            on: {
+              tap: function($event) {
+                _vm.navTo()
+              }
             }
-          }
-        },
-        [_c("text", { staticClass: "cuIcon-back text-white" }), _vm._v("返回")]
-      ),
-      _c("view", { staticClass: "content title-text" }, [_vm._v("找回密码")]),
-      _c("view", { staticClass: "action" })
-    ]),
+          },
+          [
+            _c("text", { staticClass: "cuIcon-back text-white" }),
+            _vm._v("返回")
+          ]
+        ),
+        _c("view", { staticClass: "content title-text" }, [_vm._v("找回密码")]),
+        _c("view", { staticClass: "action" })
+      ]
+    ),
     _c("view", { staticClass: "input-group" }, [
       _c(
         "view",

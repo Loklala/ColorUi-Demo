@@ -165,7 +165,7 @@ var _App = _interopRequireDefault(__webpack_require__(/*! ./App */ "../../../Col
 
 
 
-var _home = _interopRequireDefault(__webpack_require__(/*! ./pages/share/home.vue */ "../../../ColorUi-Demo/pages/share/home.vue"));
+var _home = _interopRequireDefault(__webpack_require__(/*! ./pages/mains/home.vue */ "../../../ColorUi-Demo/pages/mains/home.vue"));
 
 
 var _home2 = _interopRequireDefault(__webpack_require__(/*! ./pages/earn/home.vue */ "../../../ColorUi-Demo/pages/earn/home.vue"));
@@ -174,7 +174,7 @@ var _home2 = _interopRequireDefault(__webpack_require__(/*! ./pages/earn/home.vu
 var _home3 = _interopRequireDefault(__webpack_require__(/*! ./pages/about/home.vue */ "../../../ColorUi-Demo/pages/about/home.vue"));
 
 
-var _home4 = _interopRequireDefault(__webpack_require__(/*! ./pages/burse/home.vue */ "../../../ColorUi-Demo/pages/burse/home.vue"));
+
 
 
 
@@ -183,9 +183,9 @@ var _home4 = _interopRequireDefault(__webpack_require__(/*! ./pages/burse/home.v
 var _IdCard = _interopRequireDefault(__webpack_require__(/*! ./static/js/IdCard.js */ "../../../ColorUi-Demo/static/js/IdCard.js"));
 
 
-var _cuCustom = _interopRequireDefault(__webpack_require__(/*! ./colorui/components/cu-custom.vue */ "../../../ColorUi-Demo/colorui/components/cu-custom.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.component('share', _home.default);_vue.default.component('earn', _home2.default);_vue.default.component('about', _home3.default);_vue.default.component('burse', _home4.default);_vue.default.prototype.validid = _IdCard.default;
-_vue.default.component('cu-custom', _cuCustom.default);
-
+var _cuCustom = _interopRequireDefault(__webpack_require__(/*! ./colorui/components/cu-custom.vue */ "../../../ColorUi-Demo/colorui/components/cu-custom.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};var ownKeys = Object.keys(source);if (typeof Object.getOwnPropertySymbols === 'function') {ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {return Object.getOwnPropertyDescriptor(source, sym).enumerable;}));}ownKeys.forEach(function (key) {_defineProperty(target, key, source[key]);});}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}_vue.default.component('mains', _home.default);_vue.default.component('earn', _home2.default);_vue.default.component('about', _home3.default); // import burse from './pages/burse/home.vue'
+// Vue.component('burse',burse)
+_vue.default.prototype.validid = _IdCard.default;_vue.default.component('cu-custom', _cuCustom.default);
 _vue.default.config.productionTip = false;
 
 _App.default.mpType = 'app';
@@ -287,96 +287,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../ColorUi-Demo/pages/burse/home.vue":
-/*!*****************************************************!*\
-  !*** D:/HBulider/ColorUi-Demo/pages/burse/home.vue ***!
-  \*****************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _home_vue_vue_type_template_id_22a3a320___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.vue?vue&type=template&id=22a3a320& */ "../../../ColorUi-Demo/pages/burse/home.vue?vue&type=template&id=22a3a320&");
-/* harmony import */ var _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.vue?vue&type=script&lang=js& */ "../../../ColorUi-Demo/pages/burse/home.vue?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home.vue?vue&type=style&index=0&lang=css& */ "../../../ColorUi-Demo/pages/burse/home.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _home_vue_vue_type_template_id_22a3a320___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _home_vue_vue_type_template_id_22a3a320___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "ColorUi-Demo/pages/burse/home.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "../../../ColorUi-Demo/pages/burse/home.vue?vue&type=script&lang=js&":
-/*!******************************************************************************!*\
-  !*** D:/HBulider/ColorUi-Demo/pages/burse/home.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../HBuilderX/plugins/uniapp-cli/node_modules/babel-loader/lib!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--18-0!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/burse/home.vue?vue&type=script&lang=js&");
-/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "../../../ColorUi-Demo/pages/burse/home.vue?vue&type=style&index=0&lang=css&":
-/*!**************************************************************************************!*\
-  !*** D:/HBulider/ColorUi-Demo/pages/burse/home.vue?vue&type=style&index=0&lang=css& ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../HBuilderX/plugins/uniapp-cli/node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-1!../../../HBuilderX/plugins/uniapp-cli/node_modules/css-loader??ref--6-oneOf-1-2!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../HBuilderX/plugins/uniapp-cli/node_modules/postcss-loader/src??ref--6-oneOf-1-3!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=style&index=0&lang=css& */ "./node_modules/mini-css-extract-plugin/dist/loader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/burse/home.vue?vue&type=style&index=0&lang=css&");
-/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "../../../ColorUi-Demo/pages/burse/home.vue?vue&type=template&id=22a3a320&":
-/*!************************************************************************************!*\
-  !*** D:/HBulider/ColorUi-Demo/pages/burse/home.vue?vue&type=template&id=22a3a320& ***!
-  \************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_22a3a320___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=template&id=22a3a320& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/burse/home.vue?vue&type=template&id=22a3a320&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_22a3a320___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_22a3a320___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-
-
-/***/ }),
-
 /***/ "../../../ColorUi-Demo/pages/earn/home.vue":
 /*!****************************************************!*\
   !*** D:/HBulider/ColorUi-Demo/pages/earn/home.vue ***!
@@ -467,19 +377,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "../../../ColorUi-Demo/pages/share/home.vue":
+/***/ "../../../ColorUi-Demo/pages/mains/home.vue":
 /*!*****************************************************!*\
-  !*** D:/HBulider/ColorUi-Demo/pages/share/home.vue ***!
+  !*** D:/HBulider/ColorUi-Demo/pages/mains/home.vue ***!
   \*****************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _home_vue_vue_type_template_id_23f3f7dc_name_components___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.vue?vue&type=template&id=23f3f7dc&name=components& */ "../../../ColorUi-Demo/pages/share/home.vue?vue&type=template&id=23f3f7dc&name=components&");
-/* harmony import */ var _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.vue?vue&type=script&lang=js& */ "../../../ColorUi-Demo/pages/share/home.vue?vue&type=script&lang=js&");
+/* harmony import */ var _home_vue_vue_type_template_id_633cac77_name_components___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./home.vue?vue&type=template&id=633cac77&name=components& */ "../../../ColorUi-Demo/pages/mains/home.vue?vue&type=template&id=633cac77&name=components&");
+/* harmony import */ var _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./home.vue?vue&type=script&lang=js& */ "../../../ColorUi-Demo/pages/mains/home.vue?vue&type=script&lang=js&");
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home.vue?vue&type=style&index=0&lang=css& */ "../../../ColorUi-Demo/pages/share/home.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./home.vue?vue&type=style&index=0&lang=css& */ "../../../ColorUi-Demo/pages/mains/home.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -491,8 +401,8 @@ __webpack_require__.r(__webpack_exports__);
 
 var component = Object(_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _home_vue_vue_type_template_id_23f3f7dc_name_components___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _home_vue_vue_type_template_id_23f3f7dc_name_components___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _home_vue_vue_type_template_id_633cac77_name_components___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _home_vue_vue_type_template_id_633cac77_name_components___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -502,56 +412,56 @@ var component = Object(_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "ColorUi-Demo/pages/share/home.vue"
+component.options.__file = "ColorUi-Demo/pages/mains/home.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "../../../ColorUi-Demo/pages/share/home.vue?vue&type=script&lang=js&":
+/***/ "../../../ColorUi-Demo/pages/mains/home.vue?vue&type=script&lang=js&":
 /*!******************************************************************************!*\
-  !*** D:/HBulider/ColorUi-Demo/pages/share/home.vue?vue&type=script&lang=js& ***!
+  !*** D:/HBulider/ColorUi-Demo/pages/mains/home.vue?vue&type=script&lang=js& ***!
   \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../HBuilderX/plugins/uniapp-cli/node_modules/babel-loader/lib!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--18-0!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/share/home.vue?vue&type=script&lang=js&");
+/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../HBuilderX/plugins/uniapp-cli/node_modules/babel-loader/lib!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--18-0!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/mains/home.vue?vue&type=script&lang=js&");
 /* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_HBuilderX_plugins_uniapp_cli_node_modules_babel_loader_lib_index_js_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_12_1_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_18_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_script_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "../../../ColorUi-Demo/pages/share/home.vue?vue&type=style&index=0&lang=css&":
+/***/ "../../../ColorUi-Demo/pages/mains/home.vue?vue&type=style&index=0&lang=css&":
 /*!**************************************************************************************!*\
-  !*** D:/HBulider/ColorUi-Demo/pages/share/home.vue?vue&type=style&index=0&lang=css& ***!
+  !*** D:/HBulider/ColorUi-Demo/pages/mains/home.vue?vue&type=style&index=0&lang=css& ***!
   \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../HBuilderX/plugins/uniapp-cli/node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-1!../../../HBuilderX/plugins/uniapp-cli/node_modules/css-loader??ref--6-oneOf-1-2!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../HBuilderX/plugins/uniapp-cli/node_modules/postcss-loader/src??ref--6-oneOf-1-3!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=style&index=0&lang=css& */ "./node_modules/mini-css-extract-plugin/dist/loader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/share/home.vue?vue&type=style&index=0&lang=css&");
+/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../HBuilderX/plugins/uniapp-cli/node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-1!../../../HBuilderX/plugins/uniapp-cli/node_modules/css-loader??ref--6-oneOf-1-2!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../HBuilderX/plugins/uniapp-cli/node_modules/postcss-loader/src??ref--6-oneOf-1-3!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=style&index=0&lang=css& */ "./node_modules/mini-css-extract-plugin/dist/loader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/mains/home.vue?vue&type=style&index=0&lang=css&");
 /* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_HBuilderX_plugins_uniapp_cli_node_modules_mini_css_extract_plugin_dist_loader_js_ref_6_oneOf_1_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_6_oneOf_1_1_HBuilderX_plugins_uniapp_cli_node_modules_css_loader_index_js_ref_6_oneOf_1_2_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_stylePostLoader_js_HBuilderX_plugins_uniapp_cli_node_modules_postcss_loader_src_index_js_ref_6_oneOf_1_3_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_style_index_0_lang_css___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
-/***/ "../../../ColorUi-Demo/pages/share/home.vue?vue&type=template&id=23f3f7dc&name=components&":
+/***/ "../../../ColorUi-Demo/pages/mains/home.vue?vue&type=template&id=633cac77&name=components&":
 /*!****************************************************************************************************!*\
-  !*** D:/HBulider/ColorUi-Demo/pages/share/home.vue?vue&type=template&id=23f3f7dc&name=components& ***!
+  !*** D:/HBulider/ColorUi-Demo/pages/mains/home.vue?vue&type=template&id=633cac77&name=components& ***!
   \****************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_23f3f7dc_name_components___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=template&id=23f3f7dc&name=components& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/share/home.vue?vue&type=template&id=23f3f7dc&name=components&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_23f3f7dc_name_components___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_633cac77_name_components___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!../../../HBuilderX/plugins/uniapp-cli/node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!../../../HBuilderX/plugins/uniapp-cli/node_modules/vue-loader/lib??vue-loader-options!./home.vue?vue&type=template&id=633cac77&name=components& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/mains/home.vue?vue&type=template&id=633cac77&name=components&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_633cac77_name_components___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_23f3f7dc_name_components___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_17_0_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_HBuilderX_plugins_uniapp_cli_node_modules_vue_loader_lib_index_js_vue_loader_options_home_vue_vue_type_template_id_633cac77_name_components___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -1082,6 +992,11 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules
 
 
 
+
+
+
+
+
 var self;var _default =
 {
   data: function data() {
@@ -1161,238 +1076,10 @@ var self;var _default =
     },
     //页面跳转
     PageChange: function PageChange(e) {
-      uni.navigateTo({
+      uni.redirectTo({
         url: e.currentTarget.dataset.cur });
 
     } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
-
-/***/ }),
-
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/burse/home.vue?vue&type=script&lang=js&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--18-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/burse/home.vue?vue&type=script&lang=js& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-input.vue */ "../../../ColorUi-Demo/components/m-input.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}var _default =
-{
-  components: {
-    mInput: _mInput.default },
-
-  //加载金额
-  beforeCreate: function beforeCreate() {var _this = this; //beforeCreate
-    var value = uni.getStorageSync('agentInfo');
-    if (value) {
-      var id = value.id;
-      uni.request({
-        url: 'http://192.168.0.199:8080/agent/earnings/ajax-burse-money',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' },
-
-        method: 'POST',
-        dataType: 'json',
-        cache: false,
-        data: {
-          id: id },
-
-        success: function success(res) {
-          console.log(res.data.isSuccess);
-          if (res.data.isSuccess == 200) {
-            var data = res.data.result;
-            console.log(data);
-            _this.ztsmoney = data.alltsMoney;
-            _this.thismoney = data.thisMoney;
-            _this.ktmoney = data.ktMoney;
-          } else {
-            console.log('请设置提现密码再提现');
-          }
-        },
-        fail: function fail() {},
-        complete: function complete() {} });
-
-    }
-  },
-  data: function data() {
-    return {
-      ztsmoney: '0.00',
-      thismoney: '0.00',
-      ktmoney: '0.00',
-
-      money: '',
-      password: '',
-
-      modalName: null,
-      gridCol: 3,
-      gridBorder: true,
-
-      menuBorder: true,
-      menuArrow: true,
-      menuCard: true,
-
-      skin: false,
-      listTouchStart: 0,
-      listTouchDirection: null };
-
-  },
-  methods: {
-    initPosition: function initPosition() {
-      this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
-    },
-    // 点击提现
-    ontsmoney: function ontsmoney() {
-      console.log("提现");
-      uni.request({
-        url: '',
-        method: 'GET',
-        dataType: 'json',
-        cache: false,
-        data: {
-          id: id,
-          money: this.money,
-          password: this.password },
-
-        success: function success(res) {
-
-
-
-
-        },
-        fail: function fail() {},
-        complete: function complete() {} });
-
-    },
-    showModal: function showModal(e) {
-      this.modalName = e.currentTarget.dataset.target;
-    },
-    hideModal: function hideModal(e) {
-      this.modalName = null;
-    },
-    Gridchange: function Gridchange(e) {
-      this.gridCol = e.detail.value;
-    },
-    Gridswitch: function Gridswitch(e) {
-      this.gridBorder = e.detail.value;
-    },
-    MenuBorder: function MenuBorder(e) {
-      this.menuBorder = e.detail.value;
-    },
-    MenuArrow: function MenuArrow(e) {
-      this.menuArrow = e.detail.value;
-    },
-    MenuCard: function MenuCard(e) {
-      this.menuCard = e.detail.value;
-    },
-    SwitchSex: function SwitchSex(e) {
-      this.skin = e.detail.value;
-    },
-
-    // ListTouch触摸开始
-    ListTouchStart: function ListTouchStart(e) {
-      this.listTouchStart = e.touches[0].pageX;
-    },
-
-    // ListTouch计算方向
-    ListTouchMove: function ListTouchMove(e) {
-      this.listTouchDirection = e.touches[0].pageX - this.listTouchStart > 0 ? 'right' : 'left';
-    },
-
-    // ListTouch计算滚动
-    ListTouchEnd: function ListTouchEnd(e) {
-      if (this.listTouchDirection == 'left') {
-        this.modalName = e.currentTarget.dataset.target;
-      } else {
-        this.modalName = null;
-      }
-      this.listTouchDirection = null;
-    } },
-
-  onReady: function onReady() {
-    this.initPosition();
-  } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
 /***/ }),
@@ -1467,17 +1154,6 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 {
   name: "components",
   data: function data() {
@@ -1489,14 +1165,6 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
       StatusBar: this.StatusBar,
       CustomBar: this.CustomBar,
       src: '',
-      title: "滚动公告",
-      msg: [
-      '皮蛋游戏大厅推广系统正式上线啦！',
-      '代理通过多种方式邀请玩家均会获得收益',
-      '邀请好友！绑定代理账户就可以获得收益！',
-      '随时随地查看当前收益金额，随时随地提现到账',
-      '收益到达一定额度，即可提交提现申请'],
-
 
       modalName: null,
       gridCol: 3,
@@ -1507,72 +1175,41 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
       menuCard: true,
 
       cardCur: 0,
-      swiperList: [{
-        id: 0,
-        type: 'image',
-        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg' },
-      {
-        id: 1,
-        type: 'image',
-        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big37006.jpg' },
-      {
-        id: 2,
-        type: 'image',
-        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg' },
-      {
-        id: 3,
-        type: 'image',
-        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg' },
-      {
-        id: 4,
-        type: 'image',
-        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg' },
-      {
-        id: 5,
-        type: 'image',
-        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg' },
-      {
-        id: 6,
-        type: 'image',
-        url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg' }],
-
       dotStyle: true,
       towerStart: 0,
-      direction: '' };
+      direction: '',
+      token: '' };
 
   },
   //加载金额
-  beforeCreate: function beforeCreate() {var _this = this; //beforeCreate
-    var value = uni.getStorageSync('agentInfo');
-    if (value) {
-      var id = value.id;
-      uni.request({
-        url: 'http://192.168.0.199:8080/agent/earnings/ajax-earn',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' },
-
-        method: 'POST',
-        dataType: 'json',
-        cache: false,
-        data: {
-          id: id },
-
-        success: function success(res) {
-          console.log(res.data.isSuccess);
-          if (res.data.isSuccess == 200) {
-            var data = res.data.result;
-            console.log(data);
-            _this.fkmoney = data.fkmoney;
-            _this.zcmoney = data.zcmoney;
-            _this.jlbmoney = data.jlbmoney;
-          } else {
-            console.log('请设置提现密码再提现');
-          }
-        },
-        fail: function fail() {},
-        complete: function complete() {} });
-
+  created: function created() {var _this = this;
+    var agentInfo = uni.getStorageSync('agentInfo');
+    if (agentInfo) {
+      this.token = agentInfo.token;
     }
+    uni.request({
+      url: 'http://192.168.0.199:8080/agent/earnings/ajax-earn',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' },
+
+      method: 'POST',
+      dataType: 'json',
+      cache: false,
+      data: {
+        token: this.token },
+
+      success: function success(res) {
+        var data = res.data;
+        if (data.code == 200) {
+          _this.fkmoney = data.data.fkmoney;
+          _this.zcmoney = data.data.zcmoney;
+          _this.jlbmoney = data.data.jlbmoney;
+        }
+      },
+      fail: function fail() {},
+      complete: function complete() {} });
+
+
   },
   methods: {
     // cardSwiper
@@ -1583,13 +1220,11 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
     PageChange: function PageChange(e) {
       if (e.currentTarget.dataset.cur == "") {
         uni.showToast({
-          icon: 'loading',
-          title: '暂未开放' });
-
+          icon: 'none',
+          title: '暂未开放' },
+        1000);
       } else {
-        console.log(e.currentTarget.dataset.cur);
         uni.redirectTo({
-
           url: e.currentTarget.dataset.cur });
 
       }
@@ -1598,9 +1233,9 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/share/home.vue?vue&type=script&lang=js&":
+/***/ "./node_modules/babel-loader/lib/index.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/mains/home.vue?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--18-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/share/home.vue?vue&type=script&lang=js& ***!
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--18-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/mains/home.vue?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1647,6 +1282,29 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 {
   name: "components",
   data: function data() {
@@ -1655,6 +1313,13 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
       CustomBar: this.CustomBar,
       src: '',
       title: "滚动公告",
+      msg: [
+      '皮蛋游戏大厅推广系统正式上线啦！',
+      '代理通过多种方式邀请玩家均会获得收益',
+      '邀请好友！绑定代理账户就可以获得收益！',
+      '随时随地查看当前收益金额，随时随地提现到账',
+      '收益到达一定额度，即可提交提现申请'],
+
       elements: [{
         title: '推广方式',
         name: '推广',
@@ -1758,17 +1423,6 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
 
 /***/ }),
 
-/***/ "./node_modules/mini-css-extract-plugin/dist/loader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/burse/home.vue?vue&type=style&index=0&lang=css&":
-/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-1!./node_modules/css-loader??ref--6-oneOf-1-2!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/burse/home.vue?vue&type=style&index=0&lang=css& ***!
-  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-
-/***/ }),
-
 /***/ "./node_modules/mini-css-extract-plugin/dist/loader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/earn/home.vue?vue&type=style&index=0&lang=css&":
 /*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-1!./node_modules/css-loader??ref--6-oneOf-1-2!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/earn/home.vue?vue&type=style&index=0&lang=css& ***!
@@ -1780,9 +1434,9 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
 
 /***/ }),
 
-/***/ "./node_modules/mini-css-extract-plugin/dist/loader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/share/home.vue?vue&type=style&index=0&lang=css&":
+/***/ "./node_modules/mini-css-extract-plugin/dist/loader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/css-loader/index.js?!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/mains/home.vue?vue&type=style&index=0&lang=css&":
 /*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-1!./node_modules/css-loader??ref--6-oneOf-1-2!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/share/home.vue?vue&type=style&index=0&lang=css& ***!
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-1!./node_modules/css-loader??ref--6-oneOf-1-2!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/mains/home.vue?vue&type=style&index=0&lang=css& ***!
   \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1969,7 +1623,9 @@ var render = function() {
                 },
                 [
                   _c("text", { staticClass: "cuIcon-circlefill text-grey" }),
-                  _c("text", { staticClass: "text-grey" }, [_vm._v("提现设置")])
+                  _c("text", { staticClass: "text-grey" }, [
+                    _vm._v("提现账号设置")
+                  ])
                 ]
               )
             ],
@@ -1984,14 +1640,40 @@ var render = function() {
                 {
                   staticClass: "cu-btn content",
                   attrs: {
-                    "data-cur": "../about/password",
+                    "data-cur": "../about/login-password",
                     eventid: "ca08fa36-4"
                   },
                   on: { click: _vm.PageChange }
                 },
                 [
                   _c("text", { staticClass: "cuIcon-circlefill text-grey" }),
-                  _c("text", { staticClass: "text-grey" }, [_vm._v("密码设置")])
+                  _c("text", { staticClass: "text-grey" }, [
+                    _vm._v("修改登录密码")
+                  ])
+                ]
+              )
+            ],
+            1
+          ),
+          _c(
+            "view",
+            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+            [
+              _c(
+                "button",
+                {
+                  staticClass: "cu-btn content",
+                  attrs: {
+                    "data-cur": "../about/deposit-password",
+                    eventid: "ca08fa36-5"
+                  },
+                  on: { click: _vm.PageChange }
+                },
+                [
+                  _c("text", { staticClass: "cuIcon-circlefill text-grey" }),
+                  _c("text", { staticClass: "text-grey" }, [
+                    _vm._v("修改提现密码")
+                  ])
                 ]
               )
             ],
@@ -2007,13 +1689,13 @@ var render = function() {
                   staticClass: "cu-btn content",
                   attrs: {
                     "data-cur": "../about/feedback",
-                    eventid: "ca08fa36-5"
+                    eventid: "ca08fa36-6"
                   },
                   on: { click: _vm.PageChange }
                 },
                 [
                   _c("text", { staticClass: "cuIcon-circlefill text-grey" }),
-                  _c("text", { staticClass: "text-grey" }, [_vm._v("反馈")])
+                  _c("text", { staticClass: "text-grey" }, [_vm._v("建议反馈")])
                 ]
               )
             ],
@@ -2029,7 +1711,7 @@ var render = function() {
                   staticClass: "cu-btn content",
                   attrs: {
                     "data-cur": "../about/about",
-                    eventid: "ca08fa36-6"
+                    eventid: "ca08fa36-7"
                   },
                   on: { click: _vm.PageChange }
                 },
@@ -2047,237 +1729,10 @@ var render = function() {
         "button",
         {
           staticClass: "cu-btn bg-white margin-tb-sm lg logout",
-          attrs: { "data-cur": "../login/login", eventid: "ca08fa36-7" },
+          attrs: { "data-cur": "../login/login", eventid: "ca08fa36-8" },
           on: { click: _vm.PageChange }
         },
         [_vm._v("退出")]
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/burse/home.vue?vue&type=template&id=22a3a320&":
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/burse/home.vue?vue&type=template&id=22a3a320& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "view",
-    [
-      _c(
-        "scroll-view",
-        {
-          staticClass: "page",
-          class: _vm.modalName != null ? "show" : "",
-          attrs: { "scroll-y": _vm.modalName == null }
-        },
-        [
-          _c("view", { staticClass: "cu-bar bg search" }, [
-            _c("view", { staticClass: "content title-text" }, [_vm._v("钱包")]),
-            _c("view", { staticClass: "action" })
-          ]),
-          _c(
-            "view",
-            {
-              staticClass: "cu-list menu",
-              class: [
-                _vm.menuBorder ? "sm-border" : "",
-                1 ? "card-menu margin-top" : undefined
-              ],
-              staticStyle: { "margin-top": "10rpx" }
-            },
-            [
-              _c(
-                "view",
-                {
-                  staticClass: "cu-list grid bg",
-                  class: ["col-" + 2, _vm.gridBorder ? "" : "no-border"]
-                },
-                [
-                  _c("view", { staticClass: "cu-item" }, [
-                    _c("view", { staticClass: "money-title" }),
-                    _c("view", { staticClass: "text-white text-xl" }, [
-                      _vm._v("总提现")
-                    ])
-                  ]),
-                  _c("view", { staticClass: "cu-item" }, [
-                    _c("view", { staticClass: "money-title" }),
-                    _c(
-                      "view",
-                      { staticClass: "text-white text-bold text-xxl" },
-                      [_vm._v(_vm._s(_vm.ztsmoney))]
-                    )
-                  ]),
-                  _c("view", { staticClass: "cu-item" }, [
-                    _c("view", { staticClass: "money-title" }),
-                    _c("view", { staticClass: "text-white text-xl" }, [
-                      _vm._v("当前余额")
-                    ])
-                  ]),
-                  _c("view", { staticClass: "cu-item" }, [
-                    _c("view", { staticClass: "money-title" }),
-                    _c(
-                      "view",
-                      { staticClass: "text-white text-bold text-xxl" },
-                      [_vm._v(_vm._s(_vm.thismoney))]
-                    )
-                  ]),
-                  _c("view", { staticClass: "cu-item" }, [
-                    _c("view", { staticClass: "money-title" }),
-                    _c("view", { staticClass: "text-white  text-xl" }, [
-                      _vm._v("可提金额")
-                    ])
-                  ]),
-                  _c("view", { staticClass: "cu-item" }, [
-                    _c("view", { staticClass: "money-title" }),
-                    _c(
-                      "view",
-                      { staticClass: "text-white text-bold text-xxl" },
-                      [_vm._v(_vm._s(_vm.ktmoney))]
-                    )
-                  ])
-                ]
-              )
-            ]
-          ),
-          _c(
-            "view",
-            {
-              staticClass: "cu-list menu  ",
-              class: [
-                _vm.menuBorder ? "sm-border" : "",
-                _vm.menuCard ? "card-menu " : ""
-              ],
-              staticStyle: { "margin-top": "15rpx" }
-            },
-            [
-              _c("view", { staticClass: "cu-item ", class: 0 ? undefined : "" }, [
-                _c("text", { staticClass: "title text-gray" }, [
-                  _vm._v("tips：")
-                ]),
-                _c("text", { staticClass: " content text-gray" }, [
-                  _vm._v("温馨提示")
-                ])
-              ]),
-              _c("view", { staticClass: "cu-item", class: 0 ? undefined : "" }, [
-                _c("text", { staticClass: " content text-gray " }, [
-                  _c("text", [_vm._v("每天单次提现金额＞100")]),
-                  _c("text", [_vm._v("每天单次提现金额＜1000")]),
-                  _c("text", [
-                    _vm._v(
-                      "审核通过后将对您所提交提现订单的账户转账汇款，请耐心等待！"
-                    )
-                  ])
-                ])
-              ])
-            ]
-          ),
-          _c(
-            "view",
-            {
-              staticClass: "cu-list menu  ",
-              class: [
-                _vm.menuBorder ? "sm-border" : "",
-                _vm.menuCard ? "card-menu margin-top" : ""
-              ],
-              staticStyle: { "margin-top": "15rpx" }
-            },
-            [
-              _c("view", { staticClass: "cu-item ", class: 0 ? undefined : "" }, [
-                _c("text", { staticClass: "title" }, [_vm._v("金额：")]),
-                _c(
-                  "text",
-                  { staticClass: " content" },
-                  [
-                    _c("m-input", {
-                      staticClass: "m-input",
-                      attrs: {
-                        type: "digit",
-                        clearable: "",
-                        focus: "",
-                        placeholder: "输入金额",
-                        eventid: "44978fe1-0",
-                        mpcomid: "44978fe1-0"
-                      },
-                      model: {
-                        value: _vm.money,
-                        callback: function($$v) {
-                          _vm.money = $$v
-                        },
-                        expression: "money"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ]),
-              _c("view", { staticClass: "cu-item ", class: 0 ? undefined : "" }, [
-                _c("text", { staticClass: "title" }, [_vm._v("密码：")]),
-                _c(
-                  "text",
-                  { staticClass: " content" },
-                  [
-                    _c("m-input", {
-                      staticClass: "m-input",
-                      attrs: {
-                        type: "password",
-                        displayable: "",
-                        placeholder: "输入密码",
-                        eventid: "44978fe1-1",
-                        mpcomid: "44978fe1-1"
-                      },
-                      model: {
-                        value: _vm.password,
-                        callback: function($$v) {
-                          _vm.password = $$v
-                        },
-                        expression: "password"
-                      }
-                    })
-                  ],
-                  1
-                )
-              ])
-            ]
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: 0 ? undefined : "" },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "primary bg",
-                  attrs: { type: "default", eventid: "44978fe1-2" },
-                  on: {
-                    click: function($event) {
-                      _vm.ontsmoney()
-                    }
-                  }
-                },
-                [_vm._v("申请提现")]
-              )
-            ],
-            1
-          )
-        ]
       )
     ],
     1
@@ -2309,10 +1764,220 @@ var render = function() {
     "view",
     [
       _c("scroll-view", { staticClass: "page", attrs: { "scroll-y": "" } }, [
-        _c("view", { staticClass: "cu-bar bg search " }, [
-          _c("view", { staticClass: "content title-text" }, [_vm._v("收益")]),
-          _c("view", { staticClass: "action" })
-        ]),
+        _c(
+          "view",
+          {
+            staticClass: "cu-bar bg-gradual-blue search",
+            style: [{ height: _vm.CustomBar + "px" }]
+          },
+          [
+            _c("view", { staticClass: "action" }),
+            _c("view", { staticClass: "content" }, [_vm._v("收益")]),
+            _c("view", { staticClass: "action" })
+          ]
+        ),
+        _c(
+          "view",
+          {
+            staticClass: "cu-list menu solid-top ",
+            class: [1 ? "sm-border" : undefined, 0 ? undefined : ""]
+          },
+          [
+            _c(
+              "view",
+              {
+                staticClass: "cu-list grid bg-cyan",
+                class: ["col-" + 3, _vm.gridBorder ? "" : "no-border"]
+              },
+              [
+                _c("view", { staticClass: "cu-item " }, [
+                  _c("view", { staticClass: "money-title text-black" }, [
+                    _vm._v("房卡总收益¥")
+                  ]),
+                  _c("view", { staticClass: "money-css text-black text-xxl" }, [
+                    _vm._v(_vm._s(_vm.fkmoney))
+                  ])
+                ]),
+                _c("view", { staticClass: "cu-item" }, [
+                  _c("view", { staticClass: "money-title text-black" }, [
+                    _vm._v("充值总收益¥")
+                  ]),
+                  _c("view", { staticClass: "money-css text-black text-xxl" }, [
+                    _vm._v(_vm._s(_vm.czmoney))
+                  ])
+                ]),
+                _c("view", { staticClass: "cu-item" }, [
+                  _c("view", { staticClass: "money-title text-black" }, [
+                    _vm._v("俱乐部总收益¥")
+                  ]),
+                  _c("view", { staticClass: "money-css text-black text-xxl" }, [
+                    _vm._v(_vm._s(_vm.jlbmoney))
+                  ])
+                ])
+              ]
+            )
+          ]
+        ),
+        _c(
+          "view",
+          { staticClass: "bg-gray" },
+          [
+            _c(
+              "view",
+              {
+                staticClass: "cu-list menu",
+                class: [
+                  _vm.menuBorder ? "sm-border" : "",
+                  0 ? undefined : ""
+                ]
+              },
+              [
+                _c(
+                  "view",
+                  { staticClass: "cu-list menu   margin-bottom-sm shadow-lg" },
+                  [
+                    _c("view", { staticClass: "cu-item arrow" }, [
+                      _c(
+                        "view",
+                        {
+                          staticClass: "content",
+                          attrs: {
+                            "data-cur": "../earn/roomearn",
+                            eventid: "b2eda11c-0"
+                          },
+                          on: { click: _vm.PageChange }
+                        },
+                        [
+                          _c("text", { staticClass: "cuIcon-card text-grey" }),
+                          _c("text", { staticClass: "text-grey" }, [
+                            _vm._v("房卡收益记录")
+                          ])
+                        ]
+                      )
+                    ]),
+                    _c(
+                      "view",
+                      {
+                        staticClass: "cu-item arrow ",
+                        attrs: {
+                          "data-cur": "../earn/rechearn",
+                          eventid: "b2eda11c-1"
+                        },
+                        on: { click: _vm.PageChange }
+                      },
+                      [
+                        _c("view", { staticClass: "content" }, [
+                          _c("text", {
+                            staticClass: "cuIcon-rechargefill text-grey"
+                          }),
+                          _c("text", { staticClass: "text-grey" }, [
+                            _vm._v("充值收益记录")
+                          ])
+                        ])
+                      ]
+                    ),
+                    _c(
+                      "view",
+                      {
+                        staticClass: "cu-item arrow ",
+                        attrs: {
+                          "data-cur": "../earn/clubearn",
+                          eventid: "b2eda11c-2"
+                        },
+                        on: { click: _vm.PageChange }
+                      },
+                      [
+                        _c("view", { staticClass: "content" }, [
+                          _c("text", {
+                            staticClass: "cuIcon-moneybagfill text-grey"
+                          }),
+                          _c("text", { staticClass: "text-grey" }, [
+                            _vm._v("俱乐部收益记录")
+                          ])
+                        ])
+                      ]
+                    ),
+                    _c(
+                      "view",
+                      {
+                        staticClass: "cu-item arrow  ",
+                        attrs: {
+                          "data-cur": "../earn/depositresult",
+                          eventid: "b2eda11c-3"
+                        },
+                        on: { click: _vm.PageChange }
+                      },
+                      [
+                        _c("view", { staticClass: "content" }, [
+                          _c("text", {
+                            staticClass: "cuIcon-sponsorfill text-grey"
+                          }),
+                          _c("text", { staticClass: "text-grey" }, [
+                            _vm._v("提现记录")
+                          ])
+                        ])
+                      ]
+                    )
+                  ]
+                )
+              ]
+            ),
+            _c(
+              "button",
+              {
+                staticClass: "cu-btn bg-white margin-tb-sm lg deposit",
+                attrs: { "data-cur": "../earn/burse", eventid: "b2eda11c-4" },
+                on: { click: _vm.PageChange }
+              },
+              [_vm._v("提现")]
+            )
+          ],
+          1
+        ),
+        _c("view", { staticClass: "cu-tabbar-height" })
+      ])
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/mains/home.vue?vue&type=template&id=633cac77&name=components&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/mains/home.vue?vue&type=template&id=633cac77&name=components& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "view",
+    {},
+    [
+      _c("scroll-view", { staticClass: "page", attrs: { "scroll-y": "" } }, [
+        _c(
+          "view",
+          {
+            staticClass: "cu-bar bg-gradual-blue search",
+            style: [{ height: _vm.CustomBar + "px" }]
+          },
+          [
+            _c("view", { staticClass: "content" }, [_vm._v("首页")]),
+            _c("view", { staticClass: "action" })
+          ]
+        ),
         _c(
           "view",
           {
@@ -2341,7 +2006,7 @@ var render = function() {
                   _vm._l(_vm.msg, function(item, index) {
                     return _c(
                       "swiper-item",
-                      { key: index, attrs: { mpcomid: "b2eda11c-0-" + index } },
+                      { key: index, attrs: { mpcomid: "d23e4690-0-" + index } },
                       [
                         _c("navigator", { staticClass: "text-white" }, [
                           _vm._v(_vm._s(item))
@@ -2356,295 +2021,99 @@ var render = function() {
             )
           ]
         ),
+        _c("view", {
+          staticStyle: {
+            "background-image": "url('../../static/img/login-logo.jpg')",
+            height: "350rpx",
+            "background-size": "100%"
+          }
+        }),
         _c(
           "view",
-          {
-            staticClass: "cu-list menu",
-            class: [
-              _vm.menuBorder ? "sm-border" : "",
-              0 ? undefined : ""
-            ],
-            staticStyle: { "margin-top": "30rpx" }
-          },
+          { staticClass: "cu-list menu   margin-bottom-sm shadow-lg" },
           [
+            _c("view", { staticClass: "cu-item arrow" }, [
+              _c(
+                "view",
+                {
+                  staticClass: "content",
+                  attrs: {
+                    "data-cur": "../mains/shareway",
+                    eventid: "d23e4690-0"
+                  },
+                  on: { click: _vm.PageChange }
+                },
+                [
+                  _c("text", { staticClass: "cuIcon-share text-grey" }),
+                  _c("text", { staticClass: "text-grey" }, [_vm._v("分享中心")])
+                ]
+              )
+            ]),
             _c(
               "view",
               {
-                staticClass: "cu-list grid bg",
-                class: ["col-" + 3, _vm.gridBorder ? "" : "no-border"]
+                staticClass: "cu-item arrow ",
+                attrs: {
+                  "data-cur": "../mains/hasplayer",
+                  eventid: "d23e4690-1"
+                },
+                on: { click: _vm.PageChange }
               },
               [
-                _c("view", { staticClass: "cu-item " }, [
-                  _c("view", { staticClass: "money-title text-white" }, [
-                    _vm._v("房卡总收益¥")
-                  ]),
-                  _c("view", { staticClass: "money-css text-white text-xxl" }, [
-                    _vm._v(_vm._s(_vm.fkmoney))
+                _c("view", { staticClass: "content" }, [
+                  _c("text", { staticClass: "cuIcon-group_fill text-grey" }),
+                  _c("text", { staticClass: "text-grey" }, [_vm._v("邀请列表")])
+                ])
+              ]
+            ),
+            _c(
+              "view",
+              {
+                staticClass: "cu-item arrow margin-top-sm",
+                attrs: { "data-cur": "", eventid: "d23e4690-2" },
+                on: { click: _vm.PageChange }
+              },
+              [
+                _c("view", { staticClass: "content" }, [
+                  _c("text", { staticClass: "cuIcon-crown text-grey" }),
+                  _c("text", { staticClass: "text-grey" }, [
+                    _vm._v("俱乐部中心")
                   ])
-                ]),
-                _c("view", { staticClass: "cu-item" }, [
-                  _c("view", { staticClass: "money-title text-white" }, [
-                    _vm._v("充值总收益¥")
-                  ]),
-                  _c("view", { staticClass: "money-css text-white text-xxl" }, [
-                    _vm._v(_vm._s(_vm.czmoney))
+                ])
+              ]
+            ),
+            _c(
+              "view",
+              {
+                staticClass: "cu-item arrow ",
+                attrs: { "data-cur": "", eventid: "d23e4690-3" },
+                on: { click: _vm.PageChange }
+              },
+              [
+                _c("view", { staticClass: "content" }, [
+                  _c("text", { staticClass: "cuIcon-crownfill text-grey" }),
+                  _c("text", { staticClass: "text-grey" }, [
+                    _vm._v("我的俱乐部")
                   ])
-                ]),
-                _c("view", { staticClass: "cu-item" }, [
-                  _c("view", { staticClass: "money-title text-white" }, [
-                    _vm._v("俱乐部总收益¥")
-                  ]),
-                  _c("view", { staticClass: "money-css text-white text-xxl" }, [
-                    _vm._v(_vm._s(_vm.jlbmoney))
-                  ])
+                ])
+              ]
+            ),
+            _c(
+              "view",
+              {
+                staticClass: "cu-item arrow ",
+                attrs: { "data-cur": "", eventid: "d23e4690-4" },
+                on: { click: _vm.PageChange }
+              },
+              [
+                _c("view", { staticClass: "content" }, [
+                  _c("text", { staticClass: "cuIcon-noticefill text-grey" }),
+                  _c("text", { staticClass: "text-grey" }, [_vm._v("公告")])
                 ])
               ]
             )
           ]
         ),
-        _c("view", { staticClass: "bg-gray" }, [
-          _c(
-            "view",
-            {
-              staticClass: "cu-list menu uni-badge-warning top bg-gray",
-              class: [0 ? undefined : "", 0 ? undefined : ""]
-            },
-            [
-              _c(
-                "view",
-                {
-                  staticClass: "nav-list top",
-                  staticStyle: { "margin-top": "50rpx" }
-                },
-                [
-                  _c(
-                    "navigator",
-                    {
-                      staticClass: "nav-li",
-                      class: "bg-olive",
-                      style: [
-                        { animation: "show " + ((0 + 1) * 0.2 + 0.1) + "s 1" }
-                      ],
-                      attrs: {
-                        "hover-class": "none",
-                        navigateTo: "",
-                        "data-cur": "../earn/roomearn",
-                        eventid: "b2eda11c-0"
-                      },
-                      on: { click: _vm.PageChange }
-                    },
-                    [
-                      _c("view", { staticClass: "nav-title" }, [
-                        _vm._v("房卡收益")
-                      ]),
-                      _c("view", { staticClass: "nav-name" }, [_vm._v("_")]),
-                      _c("text", { class: "cuIcon-share" })
-                    ]
-                  ),
-                  _c(
-                    "navigator",
-                    {
-                      staticClass: "nav-li",
-                      class: "bg-green",
-                      style: [{ animation: "show " + 0.4 + "s 1" }],
-                      attrs: {
-                        "hover-class": "none",
-                        navigateTo: "",
-                        "data-cur": "../earn/rechearn",
-                        eventid: "b2eda11c-1"
-                      },
-                      on: { click: _vm.PageChange }
-                    },
-                    [
-                      _c("view", { staticClass: "nav-title" }, [
-                        _vm._v("充值收益")
-                      ]),
-                      _c("view", { staticClass: "nav-name" }, [_vm._v("_")]),
-                      _c("text", { class: "cuIcon-addressbook" })
-                    ]
-                  ),
-                  _c(
-                    "navigator",
-                    {
-                      staticClass: "nav-li",
-                      class: "bg-cyan",
-                      style: [{ animation: "show " + 0.4 + "s 1" }],
-                      attrs: {
-                        "hover-class": "none",
-                        navigateTo: "",
-                        "data-cur": "../earn/clubearn",
-                        eventid: "b2eda11c-2"
-                      },
-                      on: { click: _vm.PageChange }
-                    },
-                    [
-                      _c("view", { staticClass: "nav-title" }, [
-                        _vm._v("俱乐部收益")
-                      ]),
-                      _c("view", { staticClass: "nav-name" }, [_vm._v("_")]),
-                      _c("text", { class: "cuIcon-addressbook" })
-                    ]
-                  ),
-                  _c(
-                    "navigator",
-                    {
-                      staticClass: "nav-li",
-                      class: "bg-brown",
-                      style: [{ animation: "show " + 0.4 + "s 1" }],
-                      attrs: {
-                        "hover-class": "none",
-                        navigateTo: "",
-                        "data-cur": "",
-                        eventid: "b2eda11c-3"
-                      },
-                      on: { click: _vm.PageChange }
-                    },
-                    [
-                      _c("view", { staticClass: "nav-title" }, [
-                        _vm._v("充值记录")
-                      ]),
-                      _c("view", { staticClass: "nav-name" }, [_vm._v("_")]),
-                      _c("text", { class: "cuIcon-addressbook" })
-                    ]
-                  )
-                ],
-                1
-              )
-            ]
-          )
-        ]),
-        _c("view", { staticClass: "cu-tabbar-height" })
-      ])
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js?!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/vue-loader/lib/index.js?!../../../ColorUi-Demo/pages/share/home.vue?vue&type=template&id=23f3f7dc&name=components&":
-/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--17-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/vue-loader/lib??vue-loader-options!D:/HBulider/ColorUi-Demo/pages/share/home.vue?vue&type=template&id=23f3f7dc&name=components& ***!
-  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "view",
-    { staticClass: "bg-white" },
-    [
-      _c("scroll-view", { staticClass: "page", attrs: { "scroll-y": "" } }, [
-        _c("image", {
-          staticClass: "response",
-          attrs: { src: "../../static/img/login-logo.jpg", mode: "widthFix" }
-        }),
-        _c("view", { staticClass: "bg-gray" }, [
-          _c(
-            "view",
-            {
-              staticClass: "cu-list menu uni-badge-warning top bg-white",
-              class: [0 ? undefined : "", 0 ? undefined : ""]
-            },
-            [
-              _c(
-                "view",
-                {
-                  staticClass: "nav-list top",
-                  staticStyle: { "margin-top": "50rpx" }
-                },
-                [
-                  _c(
-                    "navigator",
-                    {
-                      staticClass: "nav-li",
-                      class: "bg-olive",
-                      style: [
-                        { animation: "show " + ((0 + 1) * 0.2 + 0.1) + "s 1" }
-                      ],
-                      attrs: {
-                        "hover-class": "none",
-                        url: "../share/shareway",
-                        redirectTo: ""
-                      }
-                    },
-                    [
-                      _c("view", { staticClass: "nav-title" }, [
-                        _vm._v("推广中心")
-                      ]),
-                      _c("view", { staticClass: "nav-name" }, [_vm._v("_")]),
-                      _c("text", { class: "cuIcon-share" })
-                    ]
-                  ),
-                  _c(
-                    "navigator",
-                    {
-                      staticClass: "nav-li",
-                      class: "bg-cyan",
-                      style: [{ animation: "show " + 0.4 + "s 1" }],
-                      attrs: {
-                        "hover-class": "none",
-                        url: "../share/hasplayer",
-                        redirectTo: ""
-                      }
-                    },
-                    [
-                      _c("view", { staticClass: "nav-title" }, [
-                        _vm._v("已邀请玩家")
-                      ]),
-                      _c("view", { staticClass: "nav-name" }, [_vm._v("_")]),
-                      _c("text", { class: "cuIcon-addressbook" })
-                    ]
-                  ),
-                  _c(
-                    "navigator",
-                    {
-                      staticClass: "nav-li",
-                      class: "bg-green",
-                      style: [{ animation: "show " + 0.4 + "s 1" }],
-                      attrs: { "hover-class": "none", url: "", redirectTo: "" }
-                    },
-                    [
-                      _c("view", { staticClass: "nav-title" }, [
-                        _vm._v("俱乐部")
-                      ]),
-                      _c("view", { staticClass: "nav-name" }, [_vm._v("_")]),
-                      _c("text", { class: "cuIcon-addressbook" })
-                    ]
-                  ),
-                  _c(
-                    "navigator",
-                    {
-                      staticClass: "nav-li",
-                      class: "bg-brown",
-                      style: [{ animation: "show " + 0.4 + "s 1" }],
-                      attrs: { "hover-class": "none", url: "", redirectTo: "" }
-                    },
-                    [
-                      _c("view", { staticClass: "nav-title" }, [
-                        _vm._v("我的俱乐部")
-                      ]),
-                      _c("view", { staticClass: "nav-name" }, [_vm._v("_")]),
-                      _c("text", { class: "cuIcon-addressbook" })
-                    ]
-                  )
-                ],
-                1
-              )
-            ]
-          )
-        ]),
         _c("view", { staticClass: "cu-tabbar-height" })
       ])
     ],

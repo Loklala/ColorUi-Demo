@@ -177,11 +177,27 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _mpvuePicker = _interopRequireDefault(__webpack_require__(/*! ../../components/mpvuePicker.vue */ "../../../ColorUi-Demo/components/mpvuePicker.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _mpvuePicker = _interopRequireDefault(__webpack_require__(/*! ../../components/mpvuePicker.vue */ "../../../ColorUi-Demo/components/mpvuePicker.vue"));
+var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-input.vue */ "../../../ColorUi-Demo/components/m-input.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../../../ColorUi-Demo/common/graceChecker.js");var _default =
 {
   components: {
-    mpvuePicker: _mpvuePicker.default },
+    mpvuePicker: _mpvuePicker.default,
+    mInput: _mInput.default },
 
   data: function data() {
     return {
@@ -189,11 +205,17 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
       payname: "微信",
       payType: 1,
       payaccount: "LIBAI001WEIXIN",
+      code: '',
+      tel: '17700000000',
 
+      btntxt: '获取验证码',
+
+      disabled: false,
       menuBorder: true,
       menuArrow: false,
       menuCard: true,
-
+      StatusBar: this.StatusBar,
+      CustomBar: this.CustomBar,
       themeColor: '#007AFF',
       mode: '',
       deepLength: 1,
@@ -201,23 +223,73 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
       pickerValueArray: [],
       pickerSingleArray: [{
         label: '微信',
-        value: 1 },
+        value: 0 },
 
       {
         label: '支付宝',
-        value: 2 },
+        value: 1 },
 
       {
         label: '银行卡',
-        value: 3 }] };
+        value: 2 }],
+
+
+      list: [],
+      token: '' };
+
+  },
+  onLoad: function onLoad() {var _this = this;
+    var value = uni.getStorageSync('agentInfo');
+    if (value) {
+      console.log(value);
+      this.token = value.token;
+      this.tel = value.agent_tel;
+    }
+    var last_tel = uni.getStorageSync('last_tel');
+    if (last_tel) {
+      console.log(last_tel);
+    }
+    uni.request({
+      url: 'http://192.168.0.199:8080/agent/agent/last-sms-time',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' },
+
+      method: 'POST',
+      dataType: 'json',
+      cache: false,
+      data: {
+        last_tel: last_tel,
+        sms_type: 1 },
+
+      success: function success(res) {
+        var lists = res;
+        var data = lists.data;
+        if (data.isSuccess == 200) {
+          _this.time = 60 - parseInt(data.result);
+          console.log(_this.time);
+          _this.disabled = true;
+          _this.timer();
+        } else {
+          _this.time = 0;
+          _this.disabled = false;
+        }
+      },
+      fail: function fail() {
+        uni.showToast({
+          icon: 'none',
+          title: '网络异常,请稍后重试' });
+
+      },
+      complete: function complete() {} });
+
 
 
 
   },
   methods: {
-    editdeposit: function editdeposit() {
+    navTo: function navTo() {
       uni.navigateTo({
-        url: '../about/editdeposit' });
+        url: 'deposit' });
 
     },
     // 单列
@@ -247,52 +319,130 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
       this.payaccount = "";
       console.log(this.payType);
     },
-    formSubmit: function formSubmit(e) {
-      console.log("666");
+    formSubmit: function formSubmit(e) {var _this2 = this;
       //将下列代码加入到对应的检查位置
       //定义表单规则
       var rule = [
       { name: "name", checkType: "string", checkRule: "0,20", errorMsg: "姓名应为0-20个字符之内" },
       { name: "payname", checkType: "in", checkRule: "微信,支付宝，银行卡", errorMsg: "请选择账号类型" },
-      { name: "payaccount", checkType: "string", checkRule: "0,20", errorMsg: "请正确填写账号" }];
+      { name: "payaccount", checkType: "string", checkRule: "0,30", errorMsg: "请正确填写账号" }];
 
       //进行表单检查
       var formData = e.detail.value;
       var checkRes = graceChecker.check(formData, rule);
       if (checkRes) {
-        console.log(formData);
-        uni.showToast({ title: "修改成功!", icon: "none" });
-        // setTimeout(function() {
-        // 	uni.redirectTo({
-        // 		url: '../about/deposit'
-        // 	});
-        // }, 2000);
 
-        // uni.request({
-        // 	url: '',
-        // 	method: 'GET',
-        // 	dataType: 'json',
-        // 	cache: false,
-        // 	data: {
-        // 		address:formData.address,
-        // 		pickerText:formData.pickerText,
-        // 		email:formData.email,
-        // 		sexPickerText:formData.sexPickerText,
-        // 		nickName:formData.nickName,
-        // 		qq: formData.qq,
-        // 	},//收到开发者服务成功返回的回调函数
-        // 	success: res => {
-        // 		
-        // 		
-        // 		
-        // 	},//接口调用失败的回调函数
-        // 	fail: () => {
-        // 		
-        // 	},//接口调用结束的回调函数（调用成功、失败都会执行）
-        // 	complete: () => {}
-        // });
+        uni.request({
+          url: 'http://192.168.0.199:8080/agent/agent/ajax-edit-deposit',
+          header: {
+            'content-type': 'application/x-www-form-urlencoded' },
+
+          method: 'POST',
+          dataType: 'json',
+          cache: false,
+          data: {
+            token: this.token,
+            name: formData['name'],
+            payType: formData['payType'],
+            payaccount: formData['payaccount'] },
+
+          success: function success(res) {
+            _this2.list = res;
+            var data = _this2.list.data;
+            var msg = data.result;
+            if (data.isSuccess == 200) {
+              uni.showToast({ title: "修改成功!", icon: "none" });
+              setTimeout(function () {
+                uni.redirectTo({
+                  url: '../about/deposit' });
+
+              }, 2000);
+            }
+          },
+          fail: function fail() {},
+          complete: function complete() {} });
+
+      }
+    },
+    //获取验证码
+    sendcode: function sendcode() {var _this3 = this;
+      var reg =  true && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
+      if (this.tel == '') {
+        uni.showToast({
+          icon: 'none',
+          title: '请输入手机号码' },
+        2000);
+        return;
+      } else if (!reg.test(this.tel)) {
+        uni.showToast({
+          icon: 'none',
+          title: '手机格式不正确' },
+        2000);
+        return;
+      }
+      uni.request({
+        url: 'http://192.168.0.199:8080/agent/agent/ajax-send-sms',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' },
+
+        method: 'POST',
+        dataType: 'json',
+        cache: false,
+        data: {
+          tel: this.tel,
+          sms_type: 2 },
+
+        success: function success(res) {
+          _this3.list = res;
+          var data = _this3.list.data;
+          var msg = data.result;
+          if (data.isSuccess == 200) {
+            _this3.time = 60;
+            _this3.disabled = true;
+            uni.showToast({
+              icon: 'none',
+              title: msg },
+            2000);
+            var self = _this3;
+            //记录成功发送验证码手机号
+            uni.setStorage({
+              key: 'last_tel',
+              data: _this3.tel,
+              success: function success() {
+                self.timer();
+              } });
+
+
+          }
+          if (data.isSuccess == 400) {
+            uni.showToast({
+              icon: 'none',
+              title: "请稍候再试" },
+            2000);
+            _this3.time = 0;
+            setTimeout(_this3.timer, 1000);
+            _this3.disabled = false;
+          }
+        },
+        fail: function fail() {
+          uni.showToast({
+            icon: 'none',
+            title: '网络异常,请稍后重试' });
+
+        },
+        complete: function complete() {} });
+
+    },
+    //倒计时
+    timer: function timer() {
+      if (this.time > 0) {
+        this.time--;
+        this.btntxt = this.time + 's后获取';
+        setTimeout(this.timer, 1000);
       } else {
-        uni.showToast({ title: graceChecker.error, icon: "none" });
+        this.time = 0;
+        this.btntxt = '获取验证码';
+        this.disabled = false;
       }
     },
     formReset: function formReset(e) {
@@ -334,24 +484,33 @@ var render = function() {
     { staticClass: "content" },
     [
       _c(
-        "cu-custom",
+        "view",
         {
-          attrs: {
-            bgColor: "bg-gradual-blue",
-            isBack: true,
-            mpcomid: "4dcc688e-0"
-          }
+          staticClass: "cu-bar bg-gradual-blue search",
+          style: [{ height: _vm.CustomBar + "px" }]
         },
         [
-          _c("block", { slot: "backText" }),
-          _c("block", { slot: "content" }, [_vm._v("编辑账号信息")])
-        ],
-        1
+          _c(
+            "view",
+            {
+              staticClass: "action",
+              attrs: { eventid: "4dcc688e-0" },
+              on: {
+                click: function($event) {
+                  _vm.navTo()
+                }
+              }
+            },
+            [_c("text", { staticClass: "cuIcon-back" })]
+          ),
+          _c("view", { staticClass: "content" }, [_vm._v("编辑提现账号")]),
+          _c("view", { staticClass: "action" })
+        ]
       ),
       _c(
         "form",
         {
-          attrs: { eventid: "4dcc688e-1" },
+          attrs: { eventid: "4dcc688e-6" },
           on: { submit: _vm.formSubmit, reset: _vm.formReset }
         },
         [
@@ -365,15 +524,19 @@ var render = function() {
               ]
             },
             [
-              _c("view", { staticClass: "cu-bar bg-white solid-bottom bg" }, [
-                _c("view", { staticClass: "action" }, [
-                  _c("text", {
-                    staticClass: "cuIcon-newsfill text-blue icon-title"
-                  }),
-                  _vm._v("账号信息")
-                ]),
-                _c("view")
-              ]),
+              _c(
+                "view",
+                { staticClass: "cu-bar bg-white solid-bottom bg-white" },
+                [
+                  _c("view", { staticClass: "action" }, [
+                    _c("text", {
+                      staticClass: "cuIcon-newsfill text-blue icon-title"
+                    }),
+                    _vm._v("账号信息")
+                  ]),
+                  _c("view")
+                ]
+              ),
               _c("view", { staticClass: "cu-item", class: 0 ? undefined : "" }, [
                 _c("text", {
                   staticClass: "cuIcon-peoplelist text-blue icon-title"
@@ -397,7 +560,7 @@ var render = function() {
                 {
                   staticClass: "cu-item",
                   class: _vm.menuArrow ? "arrow" : "",
-                  attrs: { eventid: "4dcc688e-0" },
+                  attrs: { eventid: "4dcc688e-1" },
                   on: { click: _vm.PickerChange }
                 },
                 [
@@ -453,6 +616,74 @@ var render = function() {
                     })
                   ])
                 ]
+              ),
+              _c("view", { staticClass: "cu-form-group l-input" }, [
+                _c("view", { staticClass: "title" }, [_vm._v("手机号：")]),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.tel,
+                      expression: "tel"
+                    }
+                  ],
+                  staticClass: "input",
+                  attrs: {
+                    type: "number",
+                    disabled: "true",
+                    value: _vm.tel,
+                    eventid: "4dcc688e-2"
+                  },
+                  domProps: { value: _vm.tel },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.tel = $event.target.value
+                    }
+                  }
+                })
+              ]),
+              _c(
+                "view",
+                { staticClass: "cu-form-group l-input" },
+                [
+                  _c("view", { staticClass: "title" }, [_vm._v("验证码：")]),
+                  _c("m-input", {
+                    staticClass: "m-input",
+                    attrs: {
+                      placeholder: "输入验证码",
+                      type: "number",
+                      clearable: "",
+                      focus: "",
+                      eventid: "4dcc688e-3",
+                      mpcomid: "4dcc688e-0"
+                    },
+                    model: {
+                      value: _vm.code,
+                      callback: function($$v) {
+                        _vm.code = $$v
+                      },
+                      expression: "code"
+                    }
+                  }),
+                  _c(
+                    "button",
+                    {
+                      staticClass: "cu-btn bg-gradual-blue shadow",
+                      attrs: {
+                        type: "button",
+                        disabled: _vm.disabled,
+                        eventid: "4dcc688e-4"
+                      },
+                      on: { click: _vm.sendcode }
+                    },
+                    [_vm._v(_vm._s(_vm.btntxt))]
+                  )
+                ],
+                1
               )
             ]
           ),
@@ -497,7 +728,16 @@ var render = function() {
                 "button",
                 {
                   staticClass: "cu-btn bg-blue margin-tb-sm lg btn",
-                  attrs: { formType: "submit", type: "primary" }
+                  attrs: {
+                    formType: "submit",
+                    type: "primary",
+                    eventid: "4dcc688e-5"
+                  },
+                  on: {
+                    click: function($event) {
+                      _vm.saveDeposit()
+                    }
+                  }
                 },
                 [_vm._v("保存")]
               )
@@ -514,7 +754,7 @@ var render = function() {
           deepLength: _vm.deepLength,
           pickerValueDefault: _vm.pickerValueDefault,
           pickerValueArray: _vm.pickerValueArray,
-          eventid: "4dcc688e-2",
+          eventid: "4dcc688e-7",
           mpcomid: "4dcc688e-1"
         },
         on: { onConfirm: _vm.onConfirm, onCancel: _vm.onConfirm }

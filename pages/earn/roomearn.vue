@@ -43,7 +43,7 @@
 			</view>
 		</view>
 		
-		<mescroll-uni top="280" bottom="50" @down="downCallback" @up="upCallback" @init="mescrollInit">
+		<mescroll-uni top="300" bottom="50" @down="downCallback" @up="upCallback" @init="mescrollInit">
 			<!-- 分页的数据列表 -->
 		<view class="cu-list menu padding-xl radius shadow-warp bg-white " :class="[0?'sm-border':'',1?'card-menu ':'']" v-for="(pd,k) in curPageData" :key="k">
 			<view class=""  @tap="changeSN(k)">
@@ -189,7 +189,6 @@
 				});
 			},
 			ontoday(){
-				console.log("今天");
 				let time2=getDate({format: true})
 				let time1=getDate({format: true})
 				this.date1 =time1;
@@ -197,7 +196,6 @@
 				this.loadlist();				
 			},
 			onseven(){
-				console.log("7天");
 				let time2=getDate({format: true})
 				let time1=getDate('7day');
 				this.date1 =time1;
@@ -205,7 +203,6 @@
 				this.loadlist();
 			},
 			ononemonth(){
-				console.log("一个月");
 				let time2=getDate({format: true})
 				let time1=getDate('1month');
 				this.date1 =time1;
@@ -213,11 +210,8 @@
 				this.loadlist();
 			},
 			onthreemonth(){
-				console.log("三个月");
 				let time2=getDate({format: true})
 				let time1=getDate('3month');
-				console.log(time1);
-				console.log(time2);
 				this.date1 =time1;
 				this.date2 =time2;
 				this.loadlist();
@@ -241,10 +235,10 @@
 					},
 					success: res => {
 						let lists = res;
-						let data = lists.data
-						if (data.isSuccess == 200) {
+						let data = lists.data;
+						if (data.code == 200) {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							for (let i=0;i < this.curPageData.length;i++) {
 								let playerList=this.curPageData[i].players;
 								if(playerList && playerList != ""){
@@ -292,7 +286,7 @@
 								
 							}
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							
@@ -303,9 +297,9 @@
 							
 						} else {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
@@ -368,9 +362,9 @@
 					success: res => {
 						let lists = res;
 						let data = lists.data
-						if (data.isSuccess == 200) {
+						if (data.code == 200) {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							for (let i=0;i < this.curPageData.length;i++) {
 								let playerList=this.curPageData[i].players;
 								if(playerList && playerList != ""){
@@ -418,7 +412,7 @@
 								
 							}
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							
@@ -429,9 +423,9 @@
 							
 						} else {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.result.list;
+							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
-							this.totalPage = data.result.totalPage; 
+							this.totalPage = data.data.totalPage; 
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
