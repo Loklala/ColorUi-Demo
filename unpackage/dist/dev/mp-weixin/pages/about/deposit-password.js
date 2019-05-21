@@ -163,7 +163,7 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
       scrollLeft: 0,
       btntxt: '获取验证码',
 
-      tel: "17607126635",
+      tel: "",
       code: "",
       npassword: "",
       repassword: "",
@@ -175,14 +175,66 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
       menuArrow: false,
       menuCard: false,
       disabled: false,
-      isdisabled: true };
+      isdisabled: true,
+      last_tel: '' };
 
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad() {var _this = this;
     var agentInfo = uni.getStorageSync('agentInfo');
     if (agentInfo) {
       this.token = agentInfo.token;
+      this.tel = agentInfo.agent_tel;
     }
+    var last_tel = uni.getStorageSync('last_tel');
+    if (last_tel) {
+      this.last_tel = last_tel;
+      console.log(last_tel);
+    }
+    uni.request({
+      url: 'http://192.168.0.199:8080/agent/agent/last-sms-time',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' },
+
+      method: 'POST',
+      dataType: 'json',
+      cache: false,
+      data: {
+        token: this.token,
+        last_tel: this.last_tel,
+        sms_type: 3 },
+
+      success: function success(res) {
+        var lists = res;
+        var data = lists.data;
+        if (data.code == 200) {
+          _this.time = 60 - parseInt(data.data);
+          _this.disabled = true;
+          _this.timer();
+        } else if (data.code == 400) {
+          _this.time = 0;
+          _this.disabled = false;
+        } else if (data.code = -200) {
+          uni.showModal({
+            showCancel: false,
+            content: '用户信息已失效，请重新登陆',
+            success: function success(res) {
+              if (res.confirm) {
+                uni.redirectTo({
+                  url: '../login/login' });
+
+              }
+            } });
+
+        }
+      },
+      fail: function fail() {
+        uni.showToast({
+          icon: 'none',
+          title: '网络异常,请稍后重试' });
+
+      },
+      complete: function complete() {} });
+
   },
   methods: {
     navTo: function navTo() {
@@ -194,8 +246,14 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
       this.TabCur = e.currentTarget.dataset.id;
       this.scrollLeft = (e.currentTarget.dataset.id - 1) * 80;
     },
-    changerDeposit: function changerDeposit() {
-      if (this.npassword == '') {
+    changerDeposit: function changerDeposit() {var _this2 = this;
+      if (this.code == '') {
+        uni.showToast({
+          icon: 'none',
+          title: '请输入验证码' });
+
+        return;
+      } else if (this.npassword == '') {
         uni.showToast({
           icon: 'none',
           title: '请输入新密码' });
@@ -215,7 +273,7 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
         return;
       }
       uni.request({
-        url: 'http://192.168.0.199:8080/agent/***/***',
+        url: 'http://192.168.0.199:8080/agent/agent/ajax-deposit-pwd',
         header: {
           'content-type': 'application/x-www-form-urlencoded' },
 
@@ -226,10 +284,37 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
           token: this.token,
           npassword: this.npassword,
           repassword: this.repassword,
-          code: this.code },
+          code: this.code,
+          tel: this.last_tel,
+          sms_type: 3 },
 
         success: function success(res) {
+          _this2.list = res;
+          var data = _this2.list.data;
+          console.log(data);
+          if (data.code == 200) {
+            uni.showToast({
+              icon: 'none',
+              title: data.data });
 
+          } else if (data.code == 400) {
+            uni.showToast({
+              icon: 'none',
+              title: data.data });
+
+          } else if (data.code == -200) {
+            uni.showModal({
+              showCancel: false,
+              content: '用户信息已失效，请重新登陆',
+              success: function success(res) {
+                if (res.confirm) {
+                  uni.redirectTo({
+                    url: '../login/login' });
+
+                }
+              } });
+
+          }
         },
         fail: function fail() {
           uni.showToast({
@@ -240,42 +325,64 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
         complete: function complete() {} });
 
     },
-    //验证手机号码部分
-    sendcode: function sendcode() {
-      var reg =  true && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
-      //var url="/nptOfficialWebsite/apply/sendSms?mobile="+this.ruleForm.phone;
+    //获取验证码
+    sendcode: function sendcode() {var _this3 = this;
       if (this.tel == '') {
         uni.showToast({
           icon: 'none',
-          title: '请输入手机号码' });
-
-      } else if (!reg.test(this.tel)) {
-        uni.showToast({
-          icon: 'none',
-          title: '手机格式不正确' });
-
-      } else {
-        this.time = 60;
-        this.disabled = true;
-        this.timer();
-        uni.showToast({
-          icon: 'none',
-          title: '验证码已发出，请注意查收' });
-
-        uni.request({
-          url: '',
-          method: 'GET',
-          data: {},
-
-
-          success: function success(res) {
-
-          },
-          fail: function fail() {},
-          complete: function complete() {} });
-
+          title: '手机号码为空' },
+        2000);
+        return;
       }
+      uni.request({
+        url: 'http://192.168.0.199:8080/agent/agent/ajax-send-sms',
+        header: {
+          'content-type': 'application/x-www-form-urlencoded' },
+
+        method: 'POST',
+        dataType: 'json',
+        cache: false,
+        data: {
+          token: this.token,
+          tel: this.tel,
+          sms_type: 3 },
+
+        success: function success(res) {
+          _this3.list = res;
+          var data = _this3.list.data;
+          var msg = data.data;
+          if (data.code == 200) {
+            _this3.time = 60;
+            _this3.disabled = true;
+            uni.showToast({
+              icon: 'none',
+              title: msg },
+            2000);
+            var self = _this3;
+            //记录,成功发送验证码手机号
+            uni.setStorageSync('last_tel', _this3.tel);
+            _this3.timer();
+          }
+          if (data.code == 400) {
+            uni.showToast({
+              icon: 'none',
+              title: "请稍候再试" },
+            2000);
+            _this3.time = 0;
+            setTimeout(_this3.timer, 1000);
+            _this3.disabled = false;
+          }
+        },
+        fail: function fail() {
+          uni.showToast({
+            icon: 'none',
+            title: '网络异常,请稍后重试' });
+
+        },
+        complete: function complete() {} });
+
     },
+    //倒计时
     timer: function timer() {
       if (this.time > 0) {
         this.time--;

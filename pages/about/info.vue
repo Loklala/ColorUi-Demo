@@ -25,7 +25,7 @@
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<text class="title">I D ：</text>
 				<text class=" content" >
-					<text class="text-grey">1231</text>
+					<text class="text-grey">{{agent_id}}</text>
 				</text>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
@@ -43,7 +43,7 @@
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<text class="title">邮 箱：</text>
 				<text class=" content" >
-					<text class="text-grey">{{email}}.cn</text>
+					<text class="text-grey">{{email}}</text>
 				</text>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
@@ -82,25 +82,27 @@ export default {
 				menuBorder: false,
 				menuArrow: false,
 				menuCard: false,
-				id:'',
-				name:'李白',
-				tel:'17777777777',
-				nackName:'111',
-				sex:'男',
-				email:'123@qq.com',
-				qq:'17777777',
-				area:'北京市-市辖区-东城区',
-				address:'北京市-市辖区-东城区',
+				
+				agent_id:'',
+				token:'',
+				name:'',
+				tel:'',
+				nackName:'',
+				sex:'',
+				email:'',
+				qq:'',
+				area:'',
+				address:'',
 				list:[],
 			};
 		},
 		onLoad() {
 			const value = uni.getStorageSync('agentInfo');
 			if (value) {
-				this.id=value.id;
+				this.token=value.token;
 			}
 			uni.request({
-				url: 'http://192.168.0.199:8080/agent/agent/ajax-agent-info',
+				url:this.COMMON.httpUrl+'/agent/agent/ajax-agent-info',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -109,25 +111,36 @@ export default {
 				cache: false,
 				data: {
 					token:this.token,
-					id:this.id,
 				},
 				success: res => {
 					this.list=res;
 					let data=this.list.data;
-					console.log(data);
-					if(data.isSuccess==200){
-						this.name=data.result.agent_name;
-						this.tel=data.result.agent_tel;
-						this.nackName=data.result.nickname;
-						if(data.result.sex=='0'){
+					if(data.code==200){
+						this.name=data.data.agent_name;
+						this.tel=data.data.agent_tel;
+						this.nackName=data.data.nickname;
+						if(data.data.sex=='0'){
 							this.sex='男';
-						}else if(data.result.sex=='1'){
+						}else if(data.data.sex=='1'){
 							this.sex='女';
 						}
-						this.email=data.result.email;
-						this.qq=data.result.qq;
-						this.area=data.result.area;
-						this.address=data.result.address;
+						this.agent_id=data.data.agent_id;
+						this.email=data.data.email;
+						this.qq=data.data.qq;
+						this.area=data.data.area;
+						this.address=data.data.address;
+					}else if(data.code==-200){
+						uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 					}
 				},
 				fail: () => {
@@ -147,7 +160,7 @@ export default {
 			},
 			navTo:function(){
 				uni.redirectTo({
-					url: '../tabbar/tabbar'
+					url: '../tabbar/tabbar?page=about'
 				});
 			}
 		}

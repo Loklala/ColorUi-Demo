@@ -54,8 +54,8 @@
 							<text class="list-text7">{{pd.create_time}}</text>
 						</view>
 						<view class="flex-sub  padding-sm  radius ">
-							<text class="list-text4">房间号:</text>
-							<text class="list-text3">{{pd.room_id}}</text>
+							<text class="list-text4">金额:</text>
+							<text class="list-text3">{{pd.apply_money}}</text>
 						</view>
 						<view class="  padding-sm  radius">
 							<text class='cuIcon-fold text-blue icon-title' :class="pd.isDisplay?'show':'hide'"></text>
@@ -65,12 +65,12 @@
 				<view class="cu-item " :class="pd.isDisplay?'bg-c bg-gray':'bg-white'" >
 					<view class="flex">
 						<view class="flex-sub  padding-sm  radius">
-							<text class="list-text3">收益:</text>
-							<text class="list-text3">{{pd.profit_money}}</text>
+							<text class="list-text3">渠道:</text>
+							<text class="list-text3">{{pd.deposit_type}}</text>
 						</view>
 						<view class="flex-sub  padding-sm  radius ">
-							<text class="list-text3">游戏:</text>
-							<text class="list-text3">{{pd.gametype}}</text>
+							<text class="list-text3">状态:</text>
+							<text class="list-text3">{{pd.status}}</text>
 						</view>
 						<view class="  padding-sm  radius">
 							<text class='cuIcon-unfold text-blue icon-title' :class="pd.isDisplay?' hide':'show'"></text>
@@ -83,30 +83,15 @@
 			<view :class="pd.isDisplay?'show bg-c bg-gray solids-top':'hide bg-white'">
 				<view class="flex">
 					<view class="flex-sub  padding-sm  radius">
-						<text class="list-text3">支付类型:</text>
-						<text class="list-text3">{{pd.pay_mode}}</text>
+						<text class="list-text2">订单号:</text>
+						<text class="list-text3">{{pd.orderid}}</text>
 					</view>
-					<view class="flex-sub  padding-sm  radius ">
-						<text class="list-text3">房费类型:</text>
-						<text class="list-text3">{{pd.room_money_mode}}</text>
-					</view>
-					<view class="  padding-sm  radius"></view>
 				</view>
+
 				<view class="flex">
 					<view class="flex-sub  padding-sm  radius">
-						<text class="list-text3">消耗数量:</text>
-						<text class="list-text3">{{pd.room_fee}}</text>
-					</view>
-					<view class="flex-sub  padding-sm  radius ">
-						<text class="list-text3">提成比例:</text>
-						<text class="list-text3">{{pd.profit_fee_ratio}}</text>
-					</view>
-					<view class="  padding-sm  radius"></view>
-				</view>
-				<view class="flex">
-					<view class="flex-sub  padding-sm  radius">
-						<text class="list-text2">玩家:</text>
-						<text class="list-text3">{{pd.players}}</text>
+						<text class="list-text2">备注:</text>
+						<text class="list-text3">{{pd.remark}}</text>
 					</view>
 				</view>
 			</view>
@@ -185,7 +170,7 @@
 		methods: {
 			navTo() {
 				uni.redirectTo({
-					url: '../tabbar/tabbar'
+					url: '../tabbar/tabbar?page=earn'
 				});
 			},
 			ontoday(){
@@ -218,7 +203,7 @@
 			},
 			loadlist(){
 				uni.request({
-				url: 'http://192.168.0.199:8080/agent/earnings/ajax-deposit-recod',
+				url:this.COMMON.httpUrl+'/agent/earnings/ajax-deposit-recod',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -239,25 +224,24 @@
 							// 接口返回的当前页数据列表 (数组)
 							this.curPageData =data.data.list;
 							for (let i=0;i < this.curPageData.length;i++) {
-								
-								
 								let deposit_type=this.curPageData[i].deposit_type;
 								if(deposit_type=="0"){
 									this.curPageData[i].deposit_type="微信"
 								}else if(deposit_type=="1"){
 									this.curPageData[i].deposit_type="支付宝"
-								}else if(deposit_type=="1"){
+								}else if(deposit_type=="2"){
 									this.curPageData[i].deposit_type="银行卡"
 								}
-								let status=this.curPageData[i].status;
-								if(status=="1"){
-									this.curPageData[i].status="钻石"
-								}else if(status=="0"){
-									this.curPageData[i].status="金币"
-								}
-								let profit_fee_ratio=this.curPageData[i].profit_fee_ratio*100
-								this.curPageData[i].profit_fee_ratio=profit_fee_ratio+'%'
 								
+								let status=this.curPageData[i].status;
+								if(status=="0"){
+									this.curPageData[i].status="待审核"
+								}else if(status=="5"){
+									this.curPageData[i].status="通过"
+								}
+								else if(status=="6"){
+									this.curPageData[i].status="驳回"
+								}
 							}
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
 							this.totalPage = data.data.totalPage; 
@@ -318,7 +302,7 @@
 					this.pageNum = mescroll.num; // 页码, 默认从1开始
 					this.pageSize = mescroll.size; // 页长, 默认每页10条
 				uni.request({
-				url: 'http://192.168.0.199:8080/agent/earnings/ajax-deposit-recod',
+				url:this.COMMON.httpUrl+'/agent/earnings/ajax-deposit-recod',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},

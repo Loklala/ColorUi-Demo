@@ -323,7 +323,7 @@ function getDate(type) {
         dataType: 'json',
         cache: false,
         data: {
-          id: this.agent_id,
+          token: this.token,
           earnType: 1,
           time1: this.date1 + ' 00:00:00',
           time2: this.date2 + ' 23:59:59',
@@ -410,7 +410,7 @@ function getDate(type) {
         dataType: 'json',
         cache: false,
         data: {
-          id: this.agent_id,
+          token: this.token,
           earnType: 1,
           time1: this.date1 + ' 00:00:00',
           time2: this.date2 + ' 23:59:59',

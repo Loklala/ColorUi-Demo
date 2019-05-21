@@ -231,13 +231,13 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
 
         return;
       }
-      if (this.password.length < 4) {
-        uni.showToast({
-          icon: 'none',
-          title: '密码最短为 4 个字符' });
-
-        return;
-      }
+      // if (this.password.length < 4) {
+      //     uni.showToast({
+      //         icon: 'none',
+      //         title: '密码最短为 4 个字符'
+      //     });
+      //     return;
+      // }
       uni.request({
         url: 'http://192.168.0.199:8080/agent/login/ajax-login', //
         header: {

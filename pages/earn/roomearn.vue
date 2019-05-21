@@ -159,19 +159,20 @@
 						format: true
 					}),
 					endDate:getDate('end'),
-					agent_id:null,
+					token:'',
 					pageNum:1,
 					pageSize:20,
 					
 					curPageData:[],
 					totalPage:0,
+					
 
 				}
 		},
 		onLoad() {
 			const agentInfo = uni.getStorageSync('agentInfo');
 			if (agentInfo) {
-				this.agent_id=agentInfo.id;
+				this.token=agentInfo.token;
 			}
 		},
 		//注册滚动到底部的事件,用于上拉加载
@@ -185,7 +186,7 @@
 		methods: {
 			navTo() {
 				uni.redirectTo({
-					url: '../tabbar/tabbar'
+					url: '../tabbar/tabbar?page=earn'
 				});
 			},
 			ontoday(){
@@ -218,7 +219,7 @@
 			},
 			loadlist(){
 				uni.request({
-				url: 'http://192.168.0.199:8080/agent/earnings/ajax-result-earns',
+				url:this.COMMON.httpUrl+'/agent/earnings/ajax-result-earns',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -226,7 +227,7 @@
 					dataType: 'json',
 					cache: false,
 					data: {
-						id:this.agent_id,
+						token:this.token,
 						earnType:2,
 						time1:this.date1+' 00:00:00',
 						time2:this.date2+' 23:59:59',
@@ -344,7 +345,7 @@
 					this.pageNum = mescroll.num; // 页码, 默认从1开始
 					this.pageSize = mescroll.size; // 页长, 默认每页10条
 				uni.request({
-				url: 'http://192.168.0.199:8080/agent/earnings/ajax-result-earns',
+				url:this.COMMON.httpUrl+'/agent/earnings/ajax-result-earns',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -352,7 +353,7 @@
 					dataType: 'json',
 					cache: false,
 					data: {
-						id:this.agent_id,
+						token:this.token,
 						earnType:2,
 						time1:this.date1+' 00:00:00',
 						time2:this.date2+' 23:59:59',

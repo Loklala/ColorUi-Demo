@@ -163,156 +163,57 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
 {
   data: function data() {
     return {
+      url: 'http://sishuquan.com?id=3228969',
+
+      src: '',
+      token: '',
       providerList: [],
       sourceLink: 'http://yunzhujiao.cn/bind_pub/index.html',
       type: 0 };
 
   },
-  // onLoad() {
-  // 	// this.version = plus.runtime.version;
-  // 	uni.getProvider({
-  // 		service: 'share',
-  // 		success: (e) => {
-  // 			let data = [];
-  // 			for (let i = 0; i < e.provider.length; i++) {
-  // 				switch (e.provider[i]) {
-  // 					case 'weixin':
-  // 						data.push({
-  // 							name: '分享到微信好友',
-  // 							id: 'weixin'
-  // 						})
-  // 						data.push({
-  // 							name: '分享到微信朋友圈',
-  // 							id: 'weixin',
-  // 							type: 'WXSenceTimeline'
-  // 						})
-  // 						break;
-  // 					case 'qq':
-  // 						data.push({
-  // 							name: '分享到QQ',
-  // 							id: 'qq'
-  // 						})
-  // 						break;
-  // 					default:
-  // 						break;
-  // 				}
-  // 			}
-  // 			this.providerList = data;
-  // 		},
-  // 		fail: (e) => {
-  // 			console.log('获取登录通道失败'+ JSON.stringify(e));
-  // 		}
-  // 	});
-  // },
-  // 
+  onLoad: function onLoad() {var _this = this;
+    var agentInfo = uni.getStorageSync('agentInfo');
+    if (agentInfo) {
+      this.token = agentInfo.token;
+    }
+    uni.request({
+      url: 'http://192.168.0.199:8080/agent/tuiguang/ajax-share-photo',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' },
+
+      method: 'POST',
+      dataType: 'json',
+      cache: false,
+      data: {
+        token: this.token },
+
+      success: function success(res) {
+        _this.src = 'http://192.168.0.199:8080/agent/tuiguang/ajax-share-photo/../../../web/agent/tuiguang/share/1000.png';
+      },
+      fail: function fail() {},
+      complete: function complete() {} });
+
+  },
   methods: {
     navTo: function navTo() {
       uni.redirectTo({
         url: '../tabbar/tabbar' });
 
     },
-    //复制分享链接
-
-    // sharurl(){
-    // 	uni.setClipboardData({
-    // 		data: 'http://sishuquan.com?id=3228969',
-    // 		success: function () {
-    // 			console.log('success');
-    // 			uni.showModal({
-    // 				title: '复制成功',
-    // 				content: '内容已复制到粘贴板，可前往其他应用粘贴查看。', 
-    // 				showCancel:false,
-    // 				success: function(res) {
-    // 					if (res.confirm) {											 
-    // 						//console.log('用户点击确定');
-    // 					} else if (res.cancel) {
-    // 						//console.log('用户点击取消');
-    // 					}
-    // 				}
-    // 			});
-    // 		}
-    // 	});
-    // },
-    // 
-    //保存图片到相册
 
     save: function save() {
-      // 	uni.showActionSheet({
-      // 		itemList:['保存图片到相册'],
-      // 		success: () => {
-      // 			plus.gallery.save('http://pds.jyt123.com/wxtest/logo.png', function() {
-      // 				uni.showToast({
-      // 					title:'保存成功',
-      // 					icon:'none'
-      // 				})
-      // 			}, function() {
-      // 				uni.showToast({
-      // 					title:'保存失败，请重试！',
-      // 					icon:'none'
-      // 				})
-      // 			});
-      // 		}
-      // 	})
+
     },
-
-
 
     share: function share(e) {
-      // 	if (this.providerList.length === 0) {
-      // 		uni.showModal({
-      // 			title: '当前环境无分享渠道!',
-      // 			showCancel: false
-      // 		})
-      // 		return;
-      // 	}
-      // 	let itemList = this.providerList.map(function (value) {
-      // 		return value.name
-      // 	})
-      // 	 
-      // 	console.log(itemList)
-      // 	
-      // 	uni.showActionSheet({
-      // 		itemList: itemList,
-      // 		success: (res) => {
-      // 			console.log(this.providerList[res.tapIndex].id)
-      // 			if(this.providerList[res.tapIndex].id=='qq'){
-      // 				this.type=1
-      // 			}else{
-      // 				this.type=0
-      // 			}
-      // 			 uni.share({
-      // 			 	provider: this.providerList[res.tapIndex].id,
-      // 			 	scene: this.providerList[res.tapIndex].type && this.providerList[res.tapIndex].type === 'WXSenceTimeline' ? 'WXSenceTimeline' : "WXSceneSession",
-      // 			 	type: this.type,
-      // 			 	title:'耘助教',
-      // 			 	summary: '耘助教是一个在线教育应用平台',
-      // 			 	imageUrl:'http://pds.jyt123.com/wxtest/logo.png',
-      // 			 	href:"https://m3w.cn/uniapp",
-      // 			 	success: (res) => {
-      // 			 		console.log("success:" + JSON.stringify(res));
-      // 			 	},
-      // 			 	fail: (e) => {
-      // 			 		uni.showModal({
-      // 			 			content: e.errMsg,
-      // 			 			showCancel:false
-      // 			 		})
-      // 			 	}
-      // 			 });
-      // 		}
-      // 	})
-      //  
+
     },
     openLink: function openLink() {
-      // plus.runtime.openWeb(this.sourceLink)
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ "./node_modules/@dcloudio/uni-mp-weixin/dist/index.js")["default"]))
 
@@ -367,8 +268,13 @@ var render = function() {
     _c("view", { staticClass: "top" }),
     _c("view", { staticClass: "banner " }, [
       _c("view", { staticClass: "ths" }),
-      _vm._m(0),
-      _vm._m(1),
+      _c("view", { staticClass: "img" }, [
+        _c("image", { attrs: { src: _vm.src, mode: "" } })
+      ]),
+      _c("view", { staticClass: "tgtit" }, [
+        _vm._v("推广链接："),
+        _c("text", { staticClass: "tugurl" }, [_vm._v(_vm._s(_vm.url))])
+      ]),
       _c("view", { staticClass: "sharbuttn" }, [
         _c(
           "view",
@@ -377,7 +283,7 @@ var render = function() {
             attrs: { eventid: "3e01ce09-1" },
             on: { click: _vm.save }
           },
-          [_vm._v("保存二维码")]
+          [_vm._v("查看推广图")]
         ),
         _c(
           "view",
@@ -394,7 +300,7 @@ var render = function() {
         staticStyle: { height: "5rpx", "margin-top": "20rpx" }
       }),
       _c("view", { staticClass: "sharbuttn" }, [
-        _vm._m(2),
+        _vm._m(0),
         _c(
           "view",
           {
@@ -405,33 +311,14 @@ var render = function() {
           [_vm._v("复制推广码")]
         )
       ]),
+      _vm._m(1),
+      _vm._m(2),
       _vm._m(3),
-      _vm._m(4),
-      _vm._m(5),
       _c("view", { staticClass: "bottom" })
     ])
   ])
 }
 var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "img" }, [
-      _c("image", { attrs: { src: "../../static/img/1000.png", mode: "" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("view", { staticClass: "tgtit" }, [
-      _vm._v("推广链接："),
-      _c("text", { staticClass: "tugurl" }, [
-        _vm._v("http://sishuquan.com?id=3228969")
-      ])
-    ])
-  },
   function() {
     var _vm = this
     var _h = _vm.$createElement

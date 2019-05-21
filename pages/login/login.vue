@@ -22,13 +22,11 @@
 				<text class="cuIcon-lock text-olive"></text>
 				<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
 			</view>
-			<view class="cu-form-group l-input">
-				<!-- <view class="title">验证码：</view> -->
-				<!-- <text class="cuIcon-mark text-olive"></text> -->
+			<!-- <view class="cu-form-group l-input">
 				<text class="cuIcon-safe text-olive"></text>
 			<m-input class="m-input" type="text" clearable focus v-model="code" placeholder="输入验证码"></m-input>
 				<image :src="code_url" class="code-img" @click="changeImg"></image>	
-			</view>
+			</view> -->
         </view>
         <view class="btn-row login-btn">
             <button type="primary"  class="primary" @tap="bindLogin">登录</button>
@@ -83,7 +81,7 @@
 				var rand= new Date().getTime();
 				this.random_num= this.random_num+1;
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/login/captcha?refresh= ',
+					url: this.COMMON.httpUrl+'/agent/login/captcha?refresh=  ',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -92,11 +90,8 @@
 					cache: false,
 					data: {},
 					success: res => {
-						console.log(res);
-						this.code_url='http://192.168.0.199:8080'+res.data['url'];
-						console.log(res.data['url']);
-						console.log(this.code_url)
-					},
+						this.code_url=this.COMMON.httpUrl+res.data['url'];
+						},
 					fail: () => {},
 					complete: () => {}
 				});
@@ -124,7 +119,7 @@
                     return;
                 }
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/login/ajax-login',//
+					url:this.COMMON.httpUrl+ '/agent/login/ajax-login',//
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -149,6 +144,7 @@
 								herf_pic:res.data.result.herf_pic,
 								nickname:res.data.result.nickname,
 								token:res.data.result.token,
+								href:res.data.result.href
 							},
 								success: function () {
 									uni.redirectTo({
@@ -171,64 +167,12 @@
 					},
 					complete: () => {}
 				});
-            },
-			login(){
-				uni.request({
-					url: 'http://192.168.0.199/agent/login/ajax-login',
-					method: 'POST',
-					dataType: 'json',
-					cache: false,
-					data: {
-						username:this.account,
-						pwd:this.password,
-						verify_code:this.code,
-					},
-					success: res => {
-						console.log(res)
-						if(res.data.isSuccess==200){
-							uni.showToast({
-							    icon: 'none',
-							    title: res.data.message
-							});
-							
-							
-							
-						}else{
-							uni.showToast({
-							    icon: 'none',
-							   title: res.data.message
-							});
-						}
-					},
-					fail: () => {
-						
-					},
-					complete: () => {}
-				});
 			},
-            toMain(userName) {
-                this.login(userName);
-                /**
-                 * 强制登录时使用reLaunch方式跳转过来
-                 * 返回首页也使用reLaunch方式
-                 */
-                if (this.forcedLogin) {
-                    // uni.reLaunch({
-                    //     url: '../main/main',
-                    // });
-					uni.redirectTo({
-						url: '../index/index?account='+this.account
-					});
-                } else {
-                    uni.navigateBack();
-                }
-
-            }
-        },
         onReady() {
             this.initPosition();
         }
-    }
+    },
+}
 </script>
 
 <style>

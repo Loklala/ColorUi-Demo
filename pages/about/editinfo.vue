@@ -99,26 +99,27 @@ export default {
 				cityPickerValueDefault: [0, 0, 0],
 				pickerSingleArray: [{
 						label: '男',
-						value: 1
+						value: 0
 					},
 					{
 						label: '女',
-						value: 2
+						value: 1
 					}
 				],
 				mode: '',
 				deepLength: 1,
 				pickerValueDefault: [0],
-				pickerValueArray:[]
+				pickerValueArray:[],
+				token:'',
 			};
 		},
 		onLoad() {
-			const value = uni.getStorageSync('agentInfo');
+						const value = uni.getStorageSync('agentInfo');
 			if (value) {
-				this.id=value.id;
+				this.token=value.token;
 			}
 			uni.request({
-				url: 'http://192.168.0.199:8080/agent/agent/ajax-agent-info',
+				url:this.COMMON.httpUrl+'/agent/agent/ajax-agent-info',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -127,25 +128,35 @@ export default {
 				cache: false,
 				data: {
 					token:this.token,
-					id:this.id,
 				},
 				success: res => {
 					this.list=res;
 					let data=this.list.data;
-					console.log(data);
-					if(data.isSuccess==200){
-						this.nickName=data.result.nickname;
-						if(data.result.sex=='0'){
+					if(data.code==200){
+						this.nickName=data.data.nickname;
+						if(data.data.sex=='0'){
 							this.sexPickerText='男';
 							this.sexPickerVal=0;
-						}else if(data.result.sex=='1'){
+						}else if(data.data.sex=='1'){
 							this.sexPickerText='女';
 							this.sexPickerVal=1;
 						}
-						this.email=data.result.email;
-						this.qq=data.result.qq;
-						this.pickerText=data.result.area;
-						this.address=data.result.address;
+						this.email=data.data.email;
+						this.qq=data.data.qq;
+						this.pickerText=data.data.area;
+						this.address=data.data.address;
+					}else if(data.code==-200){
+						uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 					}
 				},
 				fail: () => {
@@ -217,9 +228,8 @@ export default {
 				var formData = e.detail.value;
 				var checkRes = graceChecker.check(formData, rule);
 				if(checkRes){
-					console.log(formData);
 					uni.request({
-						url: 'http://192.168.0.199:8080/agent/agent/ajax-up-info',
+						url:this.COMMON.httpUrl+'/agent/agent/ajax-up-info',
 						header: {
 							'content-type': 'application/x-www-form-urlencoded'
 						},
@@ -228,26 +238,36 @@ export default {
 						cache: false,
 						data: {
 							token:this.token,
-							id:this.id,
-							nickname:formData.nickName,
+							nickname:formData.nickname,
 							sex:formData.sexval,
-							qq:this.qq,
-							email:this.email,
+							qq:formData.qq,
+							email:formData.email,
 							area:this.pickerText,
-							address:this.address,
+							address:formData.address,
 						},
 						success: res => {
 							this.list=res;
 							let data=this.list.data;
-							console.log(data);
-							if(data.isSuccess==200){
+							if(data.code==200){
 								uni.showToast({title:"修改成功!", icon:"none"});
 								setTimeout(function() {
 									uni.redirectTo({
 										url: '../about/info'
 									});
 								}, 2000);
-							}
+							}else if(data.code==-200){
+							uni.showModal({
+									showCancel:false,
+									content: '用户信息已失效，请重新登陆',
+									success: function (res) {
+										if (res.confirm) {
+												uni.redirectTo({
+													url: '../login/login'
+												});
+										}
+									}
+							});
+					}
 						},
 						fail: () => {
 							uni.showToast({

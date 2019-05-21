@@ -309,7 +309,7 @@ function getDate(type) {
               _this2.mescroll.endSuccess();
             }
 
-          } else {
+          } else if (data.code == 400) {
             // 接口返回的当前页数据列表 (数组)
             _this2.curPageData = data.data.list;
             // 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
@@ -317,6 +317,18 @@ function getDate(type) {
             _this2.mescroll.endByPage(_this2.curPageData.length, _this2.totalPage);
             if (_this2.mescroll.num == 1) _this2.dataList = []; //如果是第一页需手动置空列表
             _this2.dataList = _this2.dataList.concat(_this2.curPageData); //追加新数据
+          } else if (data.code == -200) {
+            uni.showModal({
+              showCancel: false,
+              content: '用户信息已失效，请重新登陆',
+              success: function success(res) {
+                if (res.confirm) {
+                  uni.redirectTo({
+                    url: '../login/login' });
+
+                }
+              } });
+
           }
         },
         fail: function fail() {
@@ -388,7 +400,7 @@ function getDate(type) {
             mescroll.endByPage(_this3.curPageData.length, _this3.totalPage);
             if (mescroll.num == 1) _this3.dataList = []; //如果是第一页需手动置空列表
             _this3.dataList = _this3.dataList.concat(_this3.curPageData); //追加新数据
-          } else {
+          } else if (data.code == 400) {
             // 接口返回的当前页数据列表 (数组)
             _this3.curPageData = data.data.list;
             // 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
@@ -401,6 +413,18 @@ function getDate(type) {
             mescroll.endByPage(_this3.curPageData.length, _this3.totalPage);
             if (mescroll.num == 1) _this3.dataList = []; //如果是第一页需手动置空列表
             _this3.dataList = _this3.dataList.concat(_this3.curPageData); //追加新数据
+          } else if (data.code == -200) {
+            uni.showModal({
+              showCancel: false,
+              content: '用户信息已失效，请重新登陆',
+              success: function success(res) {
+                if (res.confirm) {
+                  uni.redirectTo({
+                    url: '../login/login' });
+
+                }
+              } });
+
           }
         },
         fail: function fail() {

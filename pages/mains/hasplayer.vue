@@ -129,13 +129,13 @@
 		methods: {
 			navTo() {
 				uni.redirectTo({
-					url: '../tabbar/tabbar'
+					url: '../tabbar/tabbar?page=mains'
 				});
 			},
 			loadPersonNum(){
 				console.log(this.agent_id);
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/tuiguang/ajax-player-num',
+					url: this.COMMON.httpUrl+'/agent/tuiguang/ajax-player-num',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -164,7 +164,7 @@
 			},
 			loadlist(){
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/tuiguang/ajax-has-player',
+					url: this.COMMON.httpUrl+'/agent/tuiguang/ajax-has-player',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -194,7 +194,7 @@
 								this.mescroll.endSuccess()
 							}
 							
-						} else {
+						} else if(data.code==400){
 							// 接口返回的当前页数据列表 (数组)
 							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
@@ -202,6 +202,18 @@
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
+						}else if(data.code==-200){
+							uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 						}
 					},
 					fail: () => {
@@ -243,7 +255,7 @@
 					this.pageNum = mescroll.num; // 页码, 默认从1开始
 					this.pageSize = mescroll.size; // 页长, 默认每页10条
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/tuiguang/ajax-has-player',
+					url: this.COMMON.httpUrl+'/agent/tuiguang/ajax-has-player',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -273,7 +285,7 @@
 							mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
-						} else {
+						} else if(data.code==400){
 							// 接口返回的当前页数据列表 (数组)
 							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
@@ -286,6 +298,18 @@
 							mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
+						}else if(data.code==-200){
+							uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 						}
 					},
 					fail: () => {

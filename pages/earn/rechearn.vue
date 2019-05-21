@@ -167,7 +167,7 @@
 		methods: {
 			navTo() {
 				uni.redirectTo({
-					url: '../tabbar/tabbar'
+					url: '../tabbar/tabbar?page=earn'
 				});
 			},
 			ontoday(){
@@ -200,7 +200,7 @@
 			},
 			loadlist(){
 				uni.request({
-				url: 'http://192.168.0.199:8080/agent/earnings/ajax-result-earns',
+				url:this.COMMON.httpUrl+'/agent/earnings/ajax-result-earns',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -208,7 +208,7 @@
 					dataType: 'json',
 					cache: false,
 					data: {
-						id:this.agent_id,
+						token:this.token,
 						earnType:1,
 						time1:this.date1+' 00:00:00',
 						time2:this.date2+' 23:59:59',
@@ -287,7 +287,7 @@
 					this.pageNum = mescroll.num; // 页码, 默认从1开始
 					this.pageSize = mescroll.size; // 页长, 默认每页10条
 				uni.request({
-				url: 'http://192.168.0.199:8080/agent/earnings/ajax-result-earns',
+				url:this.COMMON.httpUrl+'/agent/earnings/ajax-result-earns',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -295,7 +295,7 @@
 					dataType: 'json',
 					cache: false,
 					data: {
-						id:this.agent_id,
+						token:this.token,
 						earnType:1,
 						time1:this.date1+' 00:00:00',
 						time2:this.date2+' 23:59:59',

@@ -168,14 +168,15 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
       menuArrow: false,
       menuCard: false,
       disabled: false,
-      isdisabled: true };
+      isdisabled: true,
+      token: '',
+      list: [] };
 
   },
   onLoad: function onLoad() {
     var value = uni.getStorageSync('agentInfo');
     if (value) {
-      console.log(value);
-      this.id = value.id;
+      this.token = value.token;
       this.tel = value.agent_tel;
     }
   },
@@ -196,6 +197,12 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
           title: '请输入原密码' });
 
         return;
+      } else if (this.ypassword == this.npassword) {
+        uni.showToast({
+          icon: 'none',
+          title: '原密码和新密码相同' });
+
+        return;
       } else if (this.npassword == '') {
         uni.showToast({
           icon: 'none',
@@ -205,12 +212,18 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
       } else if (this.repassword == '') {
         uni.showToast({
           icon: 'none',
-          title: '请重新输入新密码' });
+          title: '请再次输入新密码' });
+
+        return;
+      } else if (this.repassword != this.npassword) {
+        uni.showToast({
+          icon: 'none',
+          title: '两次输入的新密码不一致' });
 
         return;
       }
       uni.request({
-        url: 'http://192.168.0.199:8080/agent/***/***',
+        url: 'http://192.168.0.199:8080/agent/agent/ajax-login-pwd',
         header: {
           'content-type': 'application/x-www-form-urlencoded' },
 
@@ -224,9 +237,39 @@ var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-
           repassword: this.repassword },
 
         success: function success(res) {
+          if (res.data.code == 200) {
+            uni.showModal({
+              showCancel: false,
+              content: '登录密码已修改，请重新登陆',
+              success: function success(res) {
+                if (res.confirm) {
+                  uni.redirectTo({
+                    url: '../login/login' });
 
+                }
+              } });
+
+          } else if (res.data.code == 400) {
+            uni.showToast({
+              icon: 'none',
+              title: data.data });
+
+          } else if (res.data.code == -200) {
+            uni.showModal({
+              showCancel: false,
+              content: '用户信息已失效，请重新登陆',
+              success: function success(res) {
+                if (res.confirm) {
+                  uni.redirectTo({
+                    url: '../login/login' });
+
+                }
+              } });
+
+          }
         },
         fail: function fail() {
+          console.log('11111');
           uni.showToast({
             icon: 'none',
             title: '网络异常,请稍后重试' });

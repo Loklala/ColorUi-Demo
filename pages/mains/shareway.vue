@@ -1,5 +1,5 @@
 <template>
-	<view class="content" >
+	<view class="content">
 		<view class="cu-bar bg search bg-gradual-blue fixed">
 			<view class="action" @tap="navTo()">
 				<text class="cuIcon-back text-white"></text>
@@ -8,304 +8,333 @@
 			<view class="action">
 			</view>
 		</view>
-	<view class="top"></view>
-	<view class="banner ">
-		<view class="ths"></view>
-		<view class="img">
-			<!-- ../../static/img/ewm.jpg -->
-			<image src="../../static/img/1000.png" mode=""></image>
-		</view>
-		<view class="tgtit">推广链接：<text class="tugurl">http://sishuquan.com?id=3228969</text></view>
-		<view class="sharbuttn">
-			<view class="btn" @click="save">保存二维码</view>
-			<view class="btn" @click="sharurl">复制推广链接</view>
-		</view>
-		<view class="text-center text-bold text-xxl bg-gradual-green" style="height: 5upx;margin-top: 20upx;"></view>
-		<view class="sharbuttn">
-			<!-- <view class="btn" @click="save">预览链接</view> -->
-			<view class="bgs text-bold text-xxl textma bg-white text-orange"><text class=" text-bold text-green">推广码：</text>1234</view>
-			<view class="btn" @click="sharurl">复制推广码</view>
-		</view>
-		<!-- <button class="btn" @click="share">分享</button> -->
-		<view class="shartitle"><view>可分享至</view></view>
-		<view class="sharapk" >
-			<!-- @click="share" -->
-			<view><image src="../../static/img/weact.png"></image></view>
-			<view><image src="../../static/img/shar.png"></image></view>
-			<view><image src="../../static/img/qq.png"></image></view>
-		</view>
-		<view class="text-center">
+		<view class="top"></view>
+		<view class="banner bg-white">
+			<view class="ths bg-white"></view>
+			<view class="img bg-white">
+				<image :src="src" mode="" @tap="showPhoto" data-target="Image"></image>
+			</view>
+			<view class="tgtit">推广链接：<text class="tugurl">{{url}}</text></view>
+			<view class="sharbuttn">
+				<view class="btn" @tap="showPhoto" data-target="Image">查看推广图</view>
+				<view class="btn" @click="copyurl">复制推广链接</view>
+			</view>
+
+			<view class="cu-modal" :class="modalName=='Image'?'show':''">
+				<view class="cu-dialog">
+					<view class="bg-img">
+						<text class="text-left ">长按图片复制，或长按识别二维码</text>
+						<view class="action close-btn" @tap="hideModal">
+							<text class="cuIcon-close text-black"></text>
+						</view>
+						<image :src="src" class="shareimg"></image>
+					</view>
+					<view class="cu-bar bg-white">
+						<view class="action margin-0 flex-sub  solid-left text-black" @tap="hideModal">关闭</view>
+					</view>
+				</view>
+			</view>
+
+
+
+			<view class="text-center text-bold text-xxl bg-gradual-green" style="height: 5upx;margin-top: 20upx;"></view>
+			<view class="sharbuttn">
+				<!-- <view class="btn" @click="save">预览链接</view> -->
+				<view class="bgs text-bold text-xxl textma bg-white text-orange">
+					<text class=" text-bold text-green">推广码：</text>{{code}}</view>
+				<button class="btn" @click="copyid">复制推广码</button>
+			</view>
+			<!-- <button class="btn" @click="share">分享</button> -->
+			<view class="text-center margin-top-xl">可分享至</view>
+			<view class="shartitle"></view>
+
+			<view class="sharapk">
+				<!-- @click="share" -->
+				<view>
+					<image src="../../static/img/weact.png"></image>
+				</view>
+				<view>
+					<image src="../../static/img/shar.png"></image>
+				</view>
+				<view>
+					<image src="../../static/img/qq.png"></image>
+				</view>
+			</view>
+			<!-- <view class="text-center">
 			<view class="con">1.好友识别二维码通过手机号进行注册</view>
 			<view class="con">2.也可分享此页面到微信或QQ邀请好友注册</view>
 			<view class="con">3.注册完成后该注册的玩家将绑定到您的代理ID下,您将获得该玩家产生的收益</view>
+		</view> -->
+
+			<view class="bottom">
+			</view>
 		</view>
-		
-		
-		<view class="bottom">
-			<!-- <ul>
-				<li>1、好友识别二维码通过手机号进行注册</li>
-				<li>2、也可分享此页面到微信或QQ邀请好友注册</li>
-				<li>3、注册完成后您即可得到相应的积分</li>
-			</ul> -->
-		</view>
-	</view>
-	
+
 	</view>
 </template>
 
 <script>
 	export default {
-		data(){
+		data() {
 			return {
-				providerList:[],				
-				sourceLink: 'http://yunzhujiao.cn/bind_pub/index.html',		
-				type:0,
+				url: '',
+				code: '',
+				token: '',
+				src: '',
+
+				modalName: null,
+				providerList: [],
+				type: 0,
 			}
 		},
-		// onLoad() {
-		// 	// this.version = plus.runtime.version;
-		// 	uni.getProvider({
-		// 		service: 'share',
-		// 		success: (e) => {
-		// 			let data = [];
-		// 			for (let i = 0; i < e.provider.length; i++) {
-		// 				switch (e.provider[i]) {
-		// 					case 'weixin':
-		// 						data.push({
-		// 							name: '分享到微信好友',
-		// 							id: 'weixin'
-		// 						})
-		// 						data.push({
-		// 							name: '分享到微信朋友圈',
-		// 							id: 'weixin',
-		// 							type: 'WXSenceTimeline'
-		// 						})
-		// 						break;
-		// 					case 'qq':
-		// 						data.push({
-		// 							name: '分享到QQ',
-		// 							id: 'qq'
-		// 						})
-		// 						break;
-		// 					default:
-		// 						break;
-		// 				}
-		// 			}
-		// 			this.providerList = data;
-		// 		},
-		// 		fail: (e) => {
-		// 			console.log('获取登录通道失败'+ JSON.stringify(e));
-		// 		}
-		// 	});
-		// },
-		// 
-		methods:{
+		onLoad() {
+			const agentInfo = uni.getStorageSync('agentInfo');
+			if (agentInfo) {
+				this.token = agentInfo.token;
+				this.url = agentInfo.href + 'inviterId=' + agentInfo.agent_id + '&agentId=' + agentInfo.agent_id;
+				this.code = agentInfo.agent_id;
+			}
+			uni.request({
+				url: this.COMMON.httpUrl+ '/agent/tuiguang/ajax-share-photo',
+				header: {
+					'content-type': 'application/x-www-form-urlencoded'
+				},
+				method: 'POST',
+				dataType: 'json',
+				cache: false,
+				data: {
+					token: this.token,
+				},
+				success: res => {
+					if (res.data.code == 200) {
+						this.src = this.COMMON.httpUrl+'/agent/tuiguang/' + res.data.data.src;
+					}
+				},
+				fail: () => {},
+				complete: () => {}
+			});
+		},
+		methods: {
 			navTo() {
 				uni.redirectTo({
-					url: '../tabbar/tabbar'
+					url: '../tabbar/tabbar?page=mains'
 				});
 			},
-			//复制分享链接
-			
-			// sharurl(){
-			// 	uni.setClipboardData({
-			// 		data: 'http://sishuquan.com?id=3228969',
-			// 		success: function () {
-			// 			console.log('success');
-			// 			uni.showModal({
-			// 				title: '复制成功',
-			// 				content: '内容已复制到粘贴板，可前往其他应用粘贴查看。', 
-			// 				showCancel:false,
-			// 				success: function(res) {
-			// 					if (res.confirm) {											 
-			// 						//console.log('用户点击确定');
-			// 					} else if (res.cancel) {
-			// 						//console.log('用户点击取消');
-			// 					}
-			// 				}
-			// 			});
-			// 		}
-			// 	});
-			// },
-			// 
-			//保存图片到相册
-			
-			save(){
-			// 	uni.showActionSheet({
-			// 		itemList:['保存图片到相册'],
-			// 		success: () => {
-			// 			plus.gallery.save('http://pds.jyt123.com/wxtest/logo.png', function() {
-			// 				uni.showToast({
-			// 					title:'保存成功',
-			// 					icon:'none'
-			// 				})
-			// 			}, function() {
-			// 				uni.showToast({
-			// 					title:'保存失败，请重试！',
-			// 					icon:'none'
-			// 				})
-			// 			});
-			// 		}
-			// 	})
+			showPhoto(e) {
+				this.savephoto();
+				this.modalName = e.currentTarget.dataset.target
 			},
-			
-			
-			
-			share(e) {
-			// 	if (this.providerList.length === 0) {
-			// 		uni.showModal({
-			// 			title: '当前环境无分享渠道!',
-			// 			showCancel: false
-			// 		})
-			// 		return;
-			// 	}
-			// 	let itemList = this.providerList.map(function (value) {
-			// 		return value.name
-			// 	})
-			// 	 
-			// 	console.log(itemList)
-			// 	
-			// 	uni.showActionSheet({
-			// 		itemList: itemList,
-			// 		success: (res) => {
-			// 			console.log(this.providerList[res.tapIndex].id)
-			// 			if(this.providerList[res.tapIndex].id=='qq'){
-			// 				this.type=1
-			// 			}else{
-			// 				this.type=0
-			// 			}
-			// 			 uni.share({
-			// 			 	provider: this.providerList[res.tapIndex].id,
-			// 			 	scene: this.providerList[res.tapIndex].type && this.providerList[res.tapIndex].type === 'WXSenceTimeline' ? 'WXSenceTimeline' : "WXSceneSession",
-			// 			 	type: this.type,
-			// 			 	title:'耘助教',
-			// 			 	summary: '耘助教是一个在线教育应用平台',
-			// 			 	imageUrl:'http://pds.jyt123.com/wxtest/logo.png',
-			// 			 	href:"https://m3w.cn/uniapp",
-			// 			 	success: (res) => {
-			// 			 		console.log("success:" + JSON.stringify(res));
-			// 			 	},
-			// 			 	fail: (e) => {
-			// 			 		uni.showModal({
-			// 			 			content: e.errMsg,
-			// 			 			showCancel:false
-			// 			 		})
-			// 			 	}
-			// 			 });
-			// 		}
-			// 	})
-			//  
+			hideModal(e) {
+				this.modalName = null
 			},
-			openLink() {
-				// plus.runtime.openWeb(this.sourceLink)
+			copyurl() {
+				uni.setClipboardData({
+					data: this.url,
+					success: function(data) {
+						uni.showToast({
+							icon: 'none',
+							title: '复制成功'
+						});
+					},
+					fail: function(err) {
+						uni.showToast({
+							icon: 'none',
+							title: '网络异常,请稍后重试'
+						});
+					},
+					complete: function(res) {
+
+					},
+				})
+			},
+			copyid() {
+				uni.setClipboardData({
+					data: this.code,
+					success: function(data) {
+						uni.showToast({
+							icon: 'none',
+							title: '复制成功'
+						});
+					},
+					fail: function(err) {
+						uni.showToast({
+							icon: 'none',
+							title: '网络异常,请稍后重试'
+						});
+					},
+					complete: function(res) {
+
+					},
+				})
+			},
+			savephoto() {
+				uni.saveImageToPhotosAlbum({
+					filePath: this.src,
+					success: function() {
+						console.log('save success');
+					},
+				})
 			}
+
 		}
 	}
-	
-	
 </script>
 
 <style>
-	.ths{
+	.text-ds {
+		color: #000000;
+	}
+
+	.close-btn {
+		float: right;
+		margin-right: 10upx;
+	}
+
+	.img-title {
+		height: 5%;
+		background-color: #EBEEF5;
+	}
+
+	.shareimg {
+		background-size: cover;
+		width: 100%;
+		height: 95%;
+	}
+
+	.cu-modal {
+		height: 100%;
+	}
+
+	.cu-dialog {
+		height: 90%;
+	}
+
+	.bg-img {
+		background-color: #ffffff;
+		height: 100%;
+	}
+
+	.ths {
+		background-color: #ffffff;
 		height: 70upx;
 	}
-	.bg-none{
+
+	.bg-none {
 		background-color: none;
 	}
-	.con{
+
+	.con {
 		text-align: left;
 		width: 70%;
 		margin-left: 15%;
 	}
-	.textma{
+
+	.textma {
 		margin-top: 0upx;
 	}
-	.tugurl{
+
+	.tugurl {
 		color: #999;
 	}
-	.sharbuttn{
+
+	.sharbuttn {
 		display: flex;
 		justify-content: center;
 	}
-	.shartitle{
-		    width: 80%;
-			text-align: center;
-			margin-left: 10%;
-			border-bottom: 1px solid #dddddd;
-			position: relative;
-			height: 60upx;
+
+	.shartitle {
+		width: 80%;
+		text-align: center;
+		margin-left: 10%;
+		border-bottom: 1px solid #dddddd;
+		position: relative;
+		height: 20upx;
 	}
-	.tgtit{
+
+	.tgtit {
 		text-align: center;
 	}
-	.shartitle view{
-		    height: 50upx;
-			line-height: 50upx;
-			font-size: 28upx;
-			color: #999;
-			width: 120upx;
-			margin: 32upx auto;
-			position: absolute;
-			background: #fff;
-			left: 50%;
-			margin-left: -60upx;
+
+	.shartitle view {
+		height: 50upx;
+		line-height: 50upx;
+		font-size: 28upx;
+		color: #fff;
+		width: 120upx;
+		margin: 32upx auto;
+		position: absolute;
+		background: #fff;
+		left: 50%;
+		margin-left: -60upx;
 	}
-	.sharapk{
-	 display: flex;
-	 justify-content: center;
-	 margin: 20upx auto
+
+	.sharapk {
+		display: flex;
+		justify-content: center;
+		margin: 20upx auto
 	}
-	.sharapk view{
+
+	.sharapk view {
 		margin: 40upx;
 	}
-	.sharapk view image{
+
+	.sharapk view image {
 		height: 80upx;
 		width: 80upx;
 	}
-	.content{
+
+	.content {
 		width: 100%;
 		background-color: #ffffff;
 	}
-	.top{
+
+	.top {
 		width: 100%;
-		height:0upx;
-		background: url(http://pds.jyt123.com/wxtest/banner.png) no-repeat ;
-		background-size:100% ;
-		background-position:center center;
+		height: 0upx;
+		background-size: 100%;
+		background-position: center center;
 	}
-	.banner{
-		width: 100% ;
+
+	.banner {
+		width: 100%;
 		background-color: #FFFFFF;
-		border-radius:0upx 0upx 0 0;
+		border-radius: 0upx 0upx 0 0;
 		margin-top: 0upx;
 	}
-	.banner dl{
+
+	.banner dl {
 		margin-top: 0upx;
 	}
-	.banner dl dt{
+
+	.banner dl dt {
 		text-align: center;
 	}
-	.banner dl dt image{
+
+	.banner dl dt image {
 		width: 0upx;
 		height: 0upx;
-		border-radius:80% ;
+		border-radius: 80%;
 	}
-	.banner dl dd{
+
+	.banner dl dd {
 		text-align: center;
 	}
-	.img{
+
+	.img {
 		width: 300upx;
-		height: 400upx;
-		background-color: red;
+		height: 430upx;
+		background-color: #FFFFFF;
 		margin: 0 auto;
 		margin-top: 50upx;
 		margin-bottom: 50upx;
 	}
-	.img image{
+
+	.img image {
 		width: 100%;
 		height: 100%;
 	}
-	.btn{
+
+	.btn {
 		width: 260upx;
 		height: 60upx;
 		line-height: 60upx;
@@ -319,8 +348,8 @@
 		color: #FFFFFF;
 		text-align: center;
 	}
-	
-	.bgs{
+
+	.bgs {
 		border: 1px solid #33b17b;
 		width: 260upx;
 		height: 60upx;
@@ -332,19 +361,22 @@
 		outline: 0;
 		text-align: center;
 	}
-	
-	.bottom{
+
+	.bottom {
 		width: 100%;
 		height: 100upx;
-	/* 	background: url(../../static/img/beij.png) no-repeat; */
-		background-position:left bottom;/* 设置背景图片位置 */
+		/* 	background: url(../../static/img/beij.png) no-repeat; */
+		background-position: left bottom;
+		/* 设置背景图片位置 */
 		background-size: 20%;
 	}
-	.bottom ul{
+
+	.bottom ul {
 		padding-left: 40upx;
 		box-sizing: border-box;
 	}
-	.bottom ul li{
+
+	.bottom ul li {
 		width: 100%;
 		height: 60upx;
 	}

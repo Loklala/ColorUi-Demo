@@ -88,7 +88,7 @@
 				console.log(last_tel);
 			}
 			uni.request({
-				url: 'http://192.168.0.199:8080/agent/login/last-sms-time',
+				url: this.COMMON.httpUrl+'/agent/login/last-sms-time',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -183,7 +183,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/login/ajax-find-pwd',
+					url: ' wd',
 					method: 'GET',
 					data: {
 						tel: this.tel,
@@ -249,7 +249,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/login/ajax-findpwd-code',
+					url: this.COMMON.httpUrl+'/agent/login/ajax-indpwd-code',
 					method: 'GET',
 					data: {
 						tel: this.tel,

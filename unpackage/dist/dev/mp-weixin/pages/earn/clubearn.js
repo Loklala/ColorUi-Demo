@@ -278,14 +278,15 @@ function getDate(type) {
       pageSize: 20,
 
       curPageData: [],
-      totalPage: 0 };
+      totalPage: 0,
+      token: '' };
 
 
   },
   onLoad: function onLoad() {
     var agentInfo = uni.getStorageSync('agentInfo');
     if (agentInfo) {
-      this.agent_id = agentInfo.id;
+      this.token = agentInfo.token;
     }
   },
   //注册滚动到底部的事件,用于上拉加载
@@ -340,7 +341,7 @@ function getDate(type) {
         dataType: 'json',
         cache: false,
         data: {
-          id: this.agent_id,
+          token: this.token,
           earnType: 3,
           time1: this.date1 + ' 00:00:00',
           time2: this.date2 + ' 23:59:59',
@@ -431,7 +432,7 @@ function getDate(type) {
         dataType: 'json',
         cache: false,
         data: {
-          id: this.agent_id,
+          token: this.token,
           earnType: 3,
           time1: this.date1 + ' 00:00:00',
           time2: this.date2 + ' 23:59:59',

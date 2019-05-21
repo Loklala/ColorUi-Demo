@@ -9,8 +9,19 @@
 				<view class="action">
 				</view>
 			</view>
-			
-			<view class="cu-list menu solid-top " :class="[1?'sm-border':'',0?'margin-top':'']" >
+			<view class="cu-list menu uni-badge-warning bg-black" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" >
+				<view class="icon-text bg-black">
+					<text class="cuIcon-notification text-white text-xl "></text>
+				</view>
+				<view class="solle-text bg-gray bg-black">
+					<swiper autoplay="true" circular="true" interval="3000">
+						<swiper-item v-for="(item, index) in msg" :key="index">
+							<navigator class="text-white">{{item}}</navigator>
+						</swiper-item>
+					</swiper>
+				</view>
+			</view>
+			<view class="cu-list menu solid-top " :class="[1?'sm-border':'',0?'margin-top':'']" style="margin-top: 0upx;">
 				<view class="cu-list grid bg-cyan" :class="['col-' + 3,gridBorder?'':'no-border']">
 					<view class="cu-item ">
 						<view class="money-title text-black">房卡总收益&yen;</view><view class="money-css text-black text-xxl">{{fkmoney}}</view>
@@ -85,6 +96,13 @@
 				towerStart: 0,
 				direction: '',
 				token:'',
+				msg : [
+					'皮蛋游戏大厅推广系统正式上线啦！',
+					'代理通过多种方式邀请玩家均会获得收益',
+					'邀请好友！绑定代理账户就可以获得收益！',
+					'随时随地查看当前收益金额，随时随地提现到账',
+					'收益到达一定额度，即可提交提现申请'
+				],
 			};
 		},
 		//加载金额
@@ -94,7 +112,7 @@
 				this.token=agentInfo.token;
 			}
 			uni.request({
-				url: 'http://192.168.0.199:8080/agent/earnings/ajax-earn',
+				url: this.COMMON.httpUrl+'/agent/earnings/ajax-earn',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},

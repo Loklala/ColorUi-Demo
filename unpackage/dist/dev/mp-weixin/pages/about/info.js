@@ -197,22 +197,24 @@ __webpack_require__.r(__webpack_exports__);
       menuBorder: false,
       menuArrow: false,
       menuCard: false,
-      id: '',
-      name: '李白',
-      tel: '17777777777',
-      nackName: '111',
-      sex: '男',
-      email: '123@qq.com',
-      qq: '17777777',
-      area: '北京市-市辖区-东城区',
-      address: '北京市-市辖区-东城区',
+
+      agent_id: '',
+      token: '',
+      name: '',
+      tel: '',
+      nackName: '',
+      sex: '',
+      email: '',
+      qq: '',
+      area: '',
+      address: '',
       list: [] };
 
   },
   onLoad: function onLoad() {var _this = this;
     var value = uni.getStorageSync('agentInfo');
     if (value) {
-      this.id = value.id;
+      this.token = value.token;
     }
     uni.request({
       url: 'http://192.168.0.199:8080/agent/agent/ajax-agent-info',
@@ -223,26 +225,37 @@ __webpack_require__.r(__webpack_exports__);
       dataType: 'json',
       cache: false,
       data: {
-        token: this.token,
-        id: this.id },
+        token: this.token },
 
       success: function success(res) {
         _this.list = res;
         var data = _this.list.data;
-        console.log(data);
-        if (data.isSuccess == 200) {
-          _this.name = data.result.agent_name;
-          _this.tel = data.result.agent_tel;
-          _this.nackName = data.result.nickname;
-          if (data.result.sex == '0') {
+        if (data.code == 200) {
+          _this.name = data.data.agent_name;
+          _this.tel = data.data.agent_tel;
+          _this.nackName = data.data.nickname;
+          if (data.data.sex == '0') {
             _this.sex = '男';
-          } else if (data.result.sex == '1') {
+          } else if (data.data.sex == '1') {
             _this.sex = '女';
           }
-          _this.email = data.result.email;
-          _this.qq = data.result.qq;
-          _this.area = data.result.area;
-          _this.address = data.result.address;
+          _this.agent_id = data.data.agent_id;
+          _this.email = data.data.email;
+          _this.qq = data.data.qq;
+          _this.area = data.data.area;
+          _this.address = data.data.address;
+        } else if (data.code == -200) {
+          uni.showModal({
+            showCancel: false,
+            content: '用户信息已失效，请重新登陆',
+            success: function success(res) {
+              if (res.confirm) {
+                uni.redirectTo({
+                  url: '../login/login' });
+
+              }
+            } });
+
         }
       },
       fail: function fail() {
@@ -351,7 +364,14 @@ var render = function() {
         _c(
           "view",
           { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-          [_c("text", { staticClass: "title" }, [_vm._v("I D ：")]), _vm._m(0)]
+          [
+            _c("text", { staticClass: "title" }, [_vm._v("I D ：")]),
+            _c("text", { staticClass: " content" }, [
+              _c("text", { staticClass: "text-grey" }, [
+                _vm._v(_vm._s(_vm.agent_id))
+              ])
+            ])
+          ]
         ),
         _c(
           "view",
@@ -384,7 +404,7 @@ var render = function() {
             _c("text", { staticClass: "title" }, [_vm._v("邮 箱：")]),
             _c("text", { staticClass: " content" }, [
               _c("text", { staticClass: "text-grey" }, [
-                _vm._v(_vm._s(_vm.email) + ".cn")
+                _vm._v(_vm._s(_vm.email))
               ])
             ])
           ]
@@ -442,16 +462,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("text", { staticClass: " content" }, [
-      _c("text", { staticClass: "text-grey" }, [_vm._v("1231")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

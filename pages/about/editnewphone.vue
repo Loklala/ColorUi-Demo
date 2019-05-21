@@ -3,7 +3,7 @@
 		<view class="cu-bar bg-gradual-blue search" :style="[{height:CustomBar + 'px'}]">
 			<view class="action" @click="navTo()"><text class="cuIcon-back"></text></view>
 			<view class="content">
-				修改提现密码
+				新手机号码
 			</view>
 			<view class="action">
 			</view>
@@ -13,20 +13,12 @@
 
 				<view class="cu-form-group l-input">
 					<view class="title">手机号：</view>
-					<input class="input" type="number"  v-model="tel" :disabled="isdisabled" :value="tel" placeholder="输入手机号码"></input>
+					<input class="input" type="number"  v-model="tel"  :value="tel" placeholder="输入手机号码"></input>
 				</view>
 				<view class="cu-form-group l-input">
 					<view class="title">验证码：</view>
 					<m-input class="m-input" placeholder="输入验证码" type="number" clearable focus v-model="code"></m-input>
 					<button class="cu-btn bg-gradual-blue shadow" type="button" :disabled="disabled" @click="sendcode">{{ btntxt }}</button>
-				</view>
-				<view class="cu-form-group l-input">
-					<view class="title">新密码：</view>
-					<m-input class="m-input" type="password" displayable v-model="npassword" placeholder="输入新密码"></m-input>
-				</view>
-				<view class="cu-form-group l-input">
-					<view class="title">确认密码：</view>
-					<m-input class="m-input" type="password" displayable v-model="repassword" placeholder="重新输入密码"></m-input>
 				</view>
 			</view>
 			<view>
@@ -50,8 +42,6 @@
 				
 				tel:"",
 				code:"",
-				npassword:"",
-				repassword:"",
 				token:'',
 				
 				StatusBar: this.StatusBar,
@@ -68,7 +58,6 @@
 			const agentInfo = uni.getStorageSync('agentInfo');
 			if (agentInfo) {
 				this.token=agentInfo.token;
-				this.tel=agentInfo.agent_tel;
 			}
 			const last_tel = uni.getStorageSync('last_tel');
 			if (last_tel) {
@@ -76,7 +65,7 @@
 				console.log(last_tel);
 			}
 			uni.request({
-				url:this.COMMON.httpUrl+'/agent/agent/last-sms-time',
+				url:this.COMMON.httpUrl+'/agent/agent/ajax-new-phone-time',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -86,7 +75,7 @@
 				data: {
 					token:this.token,
 					last_tel: this.last_tel,
-					sms_type: 3,
+					sms_type: 5,
 				},
 				success: res => {
 					let lists = res;
@@ -98,7 +87,7 @@
 					} else if(data.code==400) {
 						this.time = 0;
 						this.disabled = false;
-					} else if(data.code=-200){
+					}else if(data.code==-200){
 						uni.showModal({
 								showCancel:false,
 								content: '用户信息已失效，请重新登陆',
@@ -124,7 +113,7 @@
 		methods: {
 			navTo:function(){
 				uni.redirectTo({
-					url: '../tabbar/tabbar?page=about'
+					url: 'editphone'
 				});
 			},
 			tabSelect(e) {
@@ -135,30 +124,18 @@
 				if(this.code==''){
 					uni.showToast({
 						icon: 'none',
+						title: '请输入新手机号'
+					});
+					return;
+				}else if(this.code==''){
+					uni.showToast({
+						icon: 'none',
 						title: '请输入验证码'
-					});
-					return;
-				}else if(this.npassword==''){
-					uni.showToast({
-						icon: 'none',
-						title: '请输入新密码'
-					});
-					return;
-				}else if(this.npassword.length<4){
-					uni.showToast({
-						icon: 'none',
-						title: '密码最短为4位'
-					});
-					return;
-				}else if(this.repassword==''){
-					uni.showToast({
-						icon: 'none',
-						title: '请输入再次密码'
 					});
 					return;
 				}
 				uni.request({
-					url:this.COMMON.httpUrl+'/agent/agent/ajax-deposit-pwd',
+					url:this.COMMON.httpUrl+'/agent/agent/ajax-edit-new-phone',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -167,11 +144,9 @@
 					cache: false,
 					data: {
 						token:this.token,
-						npassword:this.npassword,
-						repassword:this.repassword,
 						code:this.code,
-						tel:this.last_tel,
-						sms_type:3,
+						tel:this.tel,
+						sms_type:5,
 					},
 					success: res => {
 						this.list=res;
@@ -182,13 +157,24 @@
 								icon: 'none',
 								title: data.data,
 							});
+							uni.showModal({
+								showCancel:false,
+								content: '手机号码已修改，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 						}else if(data.code==400){
 							uni.showToast({
 								icon: 'none',
 								title: data.data,
 							});
 						}else if(data.code==-200){
-							uni.showModal({
+						uni.showModal({
 								showCancel:false,
 								content: '用户信息已失效，请重新登陆',
 								success: function (res) {
@@ -199,7 +185,7 @@
 									}
 								}
 							});
-						}
+					}
 					},
 					fail: () => {
 						uni.showToast({
@@ -215,12 +201,12 @@
 				if (this.tel == '') {
 					uni.showToast({
 						icon: 'none',
-						title: '手机号码为空'
+						title: '新手机号码不能为空'
 					}, 2000);
 					return;
 				} 
 				uni.request({
-					url:this.COMMON.httpUrl+'/agent/agent/ajax-send-sms',
+					url: 'ajax-new-phone-code',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 						},
@@ -230,7 +216,7 @@
 					data: {
 						token:this.token,
 						tel: this.tel,
-						sms_type: 3,
+						sms_type: 5,
 					},
 					success: res => {
 						this.list = res;
@@ -251,7 +237,7 @@
 						if (data.code == 400) {
 							uni.showToast({
 								icon: 'none',
-								title: "请稍候再试",
+								title: msg,
 							}, 2000);
 							this.time = 0;
 							setTimeout(this.timer, 1000);

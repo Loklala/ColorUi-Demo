@@ -217,21 +217,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 var _mescrollUni = _interopRequireDefault(__webpack_require__(/*! mescroll-uni/mescroll-uni.vue */ "../../../ColorUi-Demo/node_modules/mescroll-uni/mescroll-uni.vue"));
 
 var _pdlist = _interopRequireDefault(__webpack_require__(/*! ../../common/pdlist.js */ "../../../ColorUi-Demo/common/pdlist.js"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };} // 自定义的mescroll-meituan.vue
@@ -354,25 +339,24 @@ function getDate(type) {
             // 接口返回的当前页数据列表 (数组)
             _this.curPageData = data.data.list;
             for (var i = 0; i < _this.curPageData.length; i++) {
-
-
               var deposit_type = _this.curPageData[i].deposit_type;
               if (deposit_type == "0") {
                 _this.curPageData[i].deposit_type = "微信";
               } else if (deposit_type == "1") {
                 _this.curPageData[i].deposit_type = "支付宝";
-              } else if (deposit_type == "1") {
+              } else if (deposit_type == "2") {
                 _this.curPageData[i].deposit_type = "银行卡";
               }
-              var status = _this.curPageData[i].status;
-              if (status == "1") {
-                _this.curPageData[i].status = "钻石";
-              } else if (status == "0") {
-                _this.curPageData[i].status = "金币";
-              }
-              var profit_fee_ratio = _this.curPageData[i].profit_fee_ratio * 100;
-              _this.curPageData[i].profit_fee_ratio = profit_fee_ratio + '%';
 
+              var status = _this.curPageData[i].status;
+              if (status == "0") {
+                _this.curPageData[i].status = "待审核";
+              } else if (status == "5") {
+                _this.curPageData[i].status = "通过";
+              } else
+              if (status == "6") {
+                _this.curPageData[i].status = "驳回";
+              }
             }
             // 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
             _this.totalPage = data.data.totalPage;
@@ -771,10 +755,10 @@ var render = function() {
                           { staticClass: "flex-sub  padding-sm  radius " },
                           [
                             _c("text", { staticClass: "list-text4" }, [
-                              _vm._v("房间号:")
+                              _vm._v("金额:")
                             ]),
                             _c("text", { staticClass: "list-text3" }, [
-                              _vm._v(_vm._s(pd.room_id))
+                              _vm._v(_vm._s(pd.apply_money))
                             ])
                           ]
                         ),
@@ -800,10 +784,10 @@ var render = function() {
                           { staticClass: "flex-sub  padding-sm  radius" },
                           [
                             _c("text", { staticClass: "list-text3" }, [
-                              _vm._v("收益:")
+                              _vm._v("渠道:")
                             ]),
                             _c("text", { staticClass: "list-text3" }, [
-                              _vm._v(_vm._s(pd.profit_money))
+                              _vm._v(_vm._s(pd.deposit_type))
                             ])
                           ]
                         ),
@@ -812,10 +796,10 @@ var render = function() {
                           { staticClass: "flex-sub  padding-sm  radius " },
                           [
                             _c("text", { staticClass: "list-text3" }, [
-                              _vm._v("游戏:")
+                              _vm._v("状态:")
                             ]),
                             _c("text", { staticClass: "list-text3" }, [
-                              _vm._v(_vm._s(pd.gametype))
+                              _vm._v(_vm._s(pd.status))
                             ])
                           ]
                         ),
@@ -843,54 +827,14 @@ var render = function() {
                       "view",
                       { staticClass: "flex-sub  padding-sm  radius" },
                       [
-                        _c("text", { staticClass: "list-text3" }, [
-                          _vm._v("支付类型:")
+                        _c("text", { staticClass: "list-text2" }, [
+                          _vm._v("订单号:")
                         ]),
                         _c("text", { staticClass: "list-text3" }, [
-                          _vm._v(_vm._s(pd.pay_mode))
+                          _vm._v(_vm._s(pd.orderid))
                         ])
                       ]
-                    ),
-                    _c(
-                      "view",
-                      { staticClass: "flex-sub  padding-sm  radius " },
-                      [
-                        _c("text", { staticClass: "list-text3" }, [
-                          _vm._v("房费类型:")
-                        ]),
-                        _c("text", { staticClass: "list-text3" }, [
-                          _vm._v(_vm._s(pd.room_money_mode))
-                        ])
-                      ]
-                    ),
-                    _c("view", { staticClass: "  padding-sm  radius" })
-                  ]),
-                  _c("view", { staticClass: "flex" }, [
-                    _c(
-                      "view",
-                      { staticClass: "flex-sub  padding-sm  radius" },
-                      [
-                        _c("text", { staticClass: "list-text3" }, [
-                          _vm._v("消耗数量:")
-                        ]),
-                        _c("text", { staticClass: "list-text3" }, [
-                          _vm._v(_vm._s(pd.room_fee))
-                        ])
-                      ]
-                    ),
-                    _c(
-                      "view",
-                      { staticClass: "flex-sub  padding-sm  radius " },
-                      [
-                        _c("text", { staticClass: "list-text3" }, [
-                          _vm._v("提成比例:")
-                        ]),
-                        _c("text", { staticClass: "list-text3" }, [
-                          _vm._v(_vm._s(pd.profit_fee_ratio))
-                        ])
-                      ]
-                    ),
-                    _c("view", { staticClass: "  padding-sm  radius" })
+                    )
                   ]),
                   _c("view", { staticClass: "flex" }, [
                     _c(
@@ -898,10 +842,10 @@ var render = function() {
                       { staticClass: "flex-sub  padding-sm  radius" },
                       [
                         _c("text", { staticClass: "list-text2" }, [
-                          _vm._v("玩家:")
+                          _vm._v("备注:")
                         ]),
                         _c("text", { staticClass: "list-text3" }, [
-                          _vm._v(_vm._s(pd.players))
+                          _vm._v(_vm._s(pd.remark))
                         ])
                       ]
                     )

@@ -191,7 +191,7 @@ __webpack_require__.r(__webpack_exports__);
       payname: " ",
       payaccount: " ",
 
-      id: 0,
+      token: '',
       StatusBar: this.StatusBar,
       CustomBar: this.CustomBar,
       menuBorder: false,
@@ -204,21 +204,22 @@ __webpack_require__.r(__webpack_exports__);
   onLoad: function onLoad() {var _this = this;
     var value = uni.getStorageSync('agentInfo');
     if (value) {
-      this.id = value.id;
-      uni.request({
-        url: 'http://192.168.0.199:8080/agent/agent/ajax-get-info',
-        header: {
-          'content-type': 'application/x-www-form-urlencoded' },
+      this.token = value.token;
+    }
+    uni.request({
+      url: 'http://192.168.0.199:8080/agent/agent/ajax-get-info',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' },
 
-        method: 'POST',
-        dataType: 'json',
-        cache: false,
-        data: {
-          id: this.id },
+      method: 'POST',
+      dataType: 'json',
+      cache: false,
+      data: {
+        token: this.token },
 
-        success: function success(res) {
-          console.log(res.data.isSuccess);
-          var data = res.data.result;
+      success: function success(res) {
+        if (res.data.code == 200) {
+          var data = res.data.data;
           if (data) {
             _this.name = data.current_payname;
             if (data.current_paytype == '0') {
@@ -234,11 +235,24 @@ __webpack_require__.r(__webpack_exports__);
               _this.isaccount = false;
             }
           }
-        },
-        fail: function fail() {},
-        complete: function complete() {} });
+        } else if (res.data.code == -200) {
+          uni.showModal({
+            showCancel: false,
+            content: '用户信息已失效，请重新登陆',
+            success: function success(res) {
+              if (res.confirm) {
+                uni.redirectTo({
+                  url: '../login/login' });
 
-    }
+              }
+            } });
+
+        }
+
+      },
+      fail: function fail() {},
+      complete: function complete() {} });
+
   },
   methods: {
     editdeposit: function editdeposit() {

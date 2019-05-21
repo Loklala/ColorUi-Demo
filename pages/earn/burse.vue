@@ -112,7 +112,7 @@
 		methods: {
 			navTo() {
 				uni.redirectTo({
-					url: '../tabbar/tabbar'
+					url: '../tabbar/tabbar?page=earn'
 				});
 			},
 			initPosition() {
@@ -121,7 +121,7 @@
 			// 点击提现
 			ontsmoney(){
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/earnings/ajax-apply-deposit',
+					url:this.COMMON.httpUrl+'/agent/earnings/ajax-apply-deposit',
 						header: {
 							'content-type': 'application/x-www-form-urlencoded'
 						},
@@ -159,7 +159,7 @@
 			},
 			getMoney(){
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/earnings/ajax-burse-money',
+					url:this.COMMON.httpUrl+'/agent/earnings/ajax-burse-money',
 						header: {
 							'content-type': 'application/x-www-form-urlencoded'
 						},

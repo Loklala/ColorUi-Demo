@@ -43,7 +43,15 @@
 					<input type="text" class="text-black" name="payaccount" placeholder="输入账号" :value="payaccount" maxlength="19"/>
 				</text>
 			</view>
-			<view class="cu-form-group l-input">
+			<view class="cu-item" :class="menuArrow?'arrow':''">
+				<text class='cuIcon-brand text-blue icon-title'></text>
+				<text class="title">密码：</text>
+				<text class=" content" >
+					<input type="password" class="text-black" name="paypassword" placeholder="输入提现密码" :value="paypassword" maxlength="19"/>
+				</text>
+			</view>
+			<view class="cu-form-group l-input" >
+				<!-- style="display: none;" -->
 				<view class="title">手机号：</view>
 				<input class="input" type="number"  v-model="tel" disabled="true" :value="tel" ></input>
 			</view>
@@ -90,8 +98,9 @@ export default {
 				payname:"微信",
 				payType:1,
 				payaccount:"LIBAI001WEIXIN",
+				paypassword:'',
 				code:'',
-				tel:'17700000000',
+				tel:'',
 				
 				btntxt: '获取验证码',
 				
@@ -121,21 +130,22 @@ export default {
 				],
 				list: [],
 				token:'',
+				last_tel:'',
 			};
 		},
 		onLoad() {
 			const value = uni.getStorageSync('agentInfo');
 			if (value) {
-				console.log(value);
 				this.token=value.token;
 				this.tel=value.agent_tel
 			}
 			const last_tel = uni.getStorageSync('last_tel');
 			if (last_tel) {
+				this.last_tel=last_tel;
 				console.log(last_tel);
 			}
 			uni.request({
-				url: 'http://192.168.0.199:8080/agent/agent/last-sms-time',
+				url:this.COMMON.httpUrl+'/agent/agent/last-sms-time',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -143,20 +153,32 @@ export default {
 				dataType: 'json',
 				cache: false,
 				data: {
+					token:this.token,
 					last_tel: last_tel,
-					sms_type: 1,
+					sms_type: 2,
 				},
 				success: res => {
 					let lists = res;
 					let data = lists.data
-					if (data.isSuccess == 200) {
-						this.time = 60 - parseInt(data.result);
-						console.log(this.time)
+					if (data.code == 200) {
+						this.time = 60 - parseInt(data.data);
 						this.disabled = true;
 						this.timer();
-					} else {
+					} else if(data.code==400) {
 						this.time = 0;
 						this.disabled = false;
+					} else if(data.code==-200){
+						uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 					}
 				},
 				fail: () => {
@@ -167,7 +189,53 @@ export default {
 				},
 				complete: () => {}
 			});
-			
+			uni.request({
+				url:this.COMMON.httpUrl+'/agent/agent/ajax-edit-deposit',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					method: 'POST',
+					dataType: 'json',
+					cache: false,
+					data: {
+						token:this.token,
+					},
+					success: res => {
+						if(res.data.code==200){
+							let data=res.data.data;
+							if(data){
+								this.name=data.current_payname;
+								if(data.current_paytype=='0'){
+									this.payname='微信';
+									this.payaccount=data.wechat_num;
+								}else if(data.current_paytype=='1'){
+									this.payname='支付宝';
+									this.payaccount=data.alipay_num;
+								}else if(data.current_paytype=='2'){
+									this.payname='银行卡';
+									this.payaccount=data.bank_num;
+								}else if(data.current_paytype==''){
+									this.isaccount=false;
+								}
+							}
+						}else if(res.data.code==-200){
+							uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
+						}
+						
+					},
+					fail: () => {},
+					complete: () => {}
+				});
 			
 			
 		},
@@ -211,6 +279,7 @@ export default {
 					{name:"name", checkType : "string", checkRule:"0,20",  errorMsg:"姓名应为0-20个字符之内"},
 					{name:"payname", checkType : "in", checkRule:"微信,支付宝，银行卡",  errorMsg:"请选择账号类型"},
 					{name:"payaccount", checkType : "string", checkRule:"0,30",  errorMsg:"请正确填写账号"},
+					{name:"paypassword", checkType : "string", checkRule:"4,30", errorMsg:"密码最短为4个字符"},
 				];
 				//进行表单检查
 				var formData = e.detail.value;
@@ -218,7 +287,7 @@ export default {
 				if(checkRes){
 
 					uni.request({
-						url: 'http://192.168.0.199:8080/agent/agent/ajax-edit-deposit',
+						url: ' eposit',
 							header: {
 								'content-type': 'application/x-www-form-urlencoded'
 							},
@@ -230,12 +299,16 @@ export default {
 								name:formData['name'],
 								payType:formData['payType'],
 								payaccount:formData['payaccount'],
+								paypassword:formData['paypassword'],
+								code:this.code,
+								last_tel:this.last_tel,
+								sms_type:2,
 							},
 							success: res => {
 								this.list = res;
 								let data = this.list.data;
-								let msg = data.result;
-								if(data.isSuccess == 200){
+								let msg = data.data;
+								if(data.code == 200){
 									uni.showToast({title:"修改成功!", icon:"none"});
 									setTimeout(function() {
 										uni.redirectTo({
@@ -251,22 +324,15 @@ export default {
 			},
 			//获取验证码
 			sendcode() {
-				var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
 				if (this.tel == '') {
 					uni.showToast({
 						icon: 'none',
-						title: '请输入手机号码'
+						title: '手机号码为空'
 					}, 2000);
 					return;
-				} else if (!reg.test(this.tel)) {
-					uni.showToast({
-						icon: 'none',
-						title: '手机格式不正确'
-					}, 2000);
-					return;
-				}
+				} 
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/agent/ajax-send-sms',
+					url: ' ms',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 						},
@@ -274,14 +340,15 @@ export default {
 					dataType: 'json',
 					cache: false,
 					data: {
+						token:this.token,
 						tel: this.tel,
 						sms_type: 2,
 					},
 					success: res => {
 						this.list = res;
 						let data = this.list.data;
-						let msg = data.result;
-						if (data.isSuccess == 200) {
+						let msg = data.data;
+						if (data.code == 200) {
 							this.time = 60;
 							this.disabled = true;
 							uni.showToast({
@@ -289,17 +356,11 @@ export default {
 								title: msg,
 							}, 2000);
 							let self = this;
-							//记录成功发送验证码手机号
-							uni.setStorage({
-								key: 'last_tel',
-								data: this.tel,
-								success: function() {
-									self.timer();
-								}
-							});
-			
+							//记录,成功发送验证码手机号
+							uni.setStorageSync('last_tel', this.tel);
+							this.timer();
 						}
-						if (data.isSuccess == 400) {
+						if (data.code == 400) {
 							uni.showToast({
 								icon: 'none',
 								title: "请稍候再试",

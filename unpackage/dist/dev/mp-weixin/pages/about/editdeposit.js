@@ -191,6 +191,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
 var _mpvuePicker = _interopRequireDefault(__webpack_require__(/*! ../../components/mpvuePicker.vue */ "../../../ColorUi-Demo/components/mpvuePicker.vue"));
 var _mInput = _interopRequireDefault(__webpack_require__(/*! ../../components/m-input.vue */ "../../../ColorUi-Demo/components/m-input.vue"));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
 var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../../../ColorUi-Demo/common/graceChecker.js");var _default =
@@ -205,8 +213,9 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
       payname: "微信",
       payType: 1,
       payaccount: "LIBAI001WEIXIN",
+      paypassword: '',
       code: '',
-      tel: '17700000000',
+      tel: '',
 
       btntxt: '获取验证码',
 
@@ -235,18 +244,19 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
 
 
       list: [],
-      token: '' };
+      token: '',
+      last_tel: '' };
 
   },
   onLoad: function onLoad() {var _this = this;
     var value = uni.getStorageSync('agentInfo');
     if (value) {
-      console.log(value);
       this.token = value.token;
       this.tel = value.agent_tel;
     }
     var last_tel = uni.getStorageSync('last_tel');
     if (last_tel) {
+      this.last_tel = last_tel;
       console.log(last_tel);
     }
     uni.request({
@@ -258,20 +268,32 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
       dataType: 'json',
       cache: false,
       data: {
+        token: this.token,
         last_tel: last_tel,
-        sms_type: 1 },
+        sms_type: 2 },
 
       success: function success(res) {
         var lists = res;
         var data = lists.data;
-        if (data.isSuccess == 200) {
-          _this.time = 60 - parseInt(data.result);
-          console.log(_this.time);
+        if (data.code == 200) {
+          _this.time = 60 - parseInt(data.data);
           _this.disabled = true;
           _this.timer();
-        } else {
+        } else if (data.code == 400) {
           _this.time = 0;
           _this.disabled = false;
+        } else if (data.code == -200) {
+          uni.showModal({
+            showCancel: false,
+            content: '用户信息已失效，请重新登陆',
+            success: function success(res) {
+              if (res.confirm) {
+                uni.redirectTo({
+                  url: '../login/login' });
+
+              }
+            } });
+
         }
       },
       fail: function fail() {
@@ -282,6 +304,52 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
       },
       complete: function complete() {} });
 
+    uni.request({
+      url: 'http://192.168.0.199:8080/agent/agent/ajax-get-info',
+      header: {
+        'content-type': 'application/x-www-form-urlencoded' },
+
+      method: 'POST',
+      dataType: 'json',
+      cache: false,
+      data: {
+        token: this.token },
+
+      success: function success(res) {
+        if (res.data.code == 200) {
+          var data = res.data.data;
+          if (data) {
+            _this.name = data.current_payname;
+            if (data.current_paytype == '0') {
+              _this.payname = '微信';
+              _this.payaccount = data.wechat_num;
+            } else if (data.current_paytype == '1') {
+              _this.payname = '支付宝';
+              _this.payaccount = data.alipay_num;
+            } else if (data.current_paytype == '2') {
+              _this.payname = '银行卡';
+              _this.payaccount = data.bank_num;
+            } else if (data.current_paytype == '') {
+              _this.isaccount = false;
+            }
+          }
+        } else if (res.data.code == -200) {
+          uni.showModal({
+            showCancel: false,
+            content: '用户信息已失效，请重新登陆',
+            success: function success(res) {
+              if (res.confirm) {
+                uni.redirectTo({
+                  url: '../login/login' });
+
+              }
+            } });
+
+        }
+
+      },
+      fail: function fail() {},
+      complete: function complete() {} });
 
 
 
@@ -325,7 +393,8 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
       var rule = [
       { name: "name", checkType: "string", checkRule: "0,20", errorMsg: "姓名应为0-20个字符之内" },
       { name: "payname", checkType: "in", checkRule: "微信,支付宝，银行卡", errorMsg: "请选择账号类型" },
-      { name: "payaccount", checkType: "string", checkRule: "0,30", errorMsg: "请正确填写账号" }];
+      { name: "payaccount", checkType: "string", checkRule: "0,30", errorMsg: "请正确填写账号" },
+      { name: "paypassword", checkType: "string", checkRule: "4,30", errorMsg: "密码最短为4个字符" }];
 
       //进行表单检查
       var formData = e.detail.value;
@@ -344,13 +413,17 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
             token: this.token,
             name: formData['name'],
             payType: formData['payType'],
-            payaccount: formData['payaccount'] },
+            payaccount: formData['payaccount'],
+            paypassword: formData['paypassword'],
+            code: this.code,
+            last_tel: this.last_tel,
+            sms_type: 2 },
 
           success: function success(res) {
             _this2.list = res;
             var data = _this2.list.data;
-            var msg = data.result;
-            if (data.isSuccess == 200) {
+            var msg = data.data;
+            if (data.code == 200) {
               uni.showToast({ title: "修改成功!", icon: "none" });
               setTimeout(function () {
                 uni.redirectTo({
@@ -366,17 +439,10 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
     },
     //获取验证码
     sendcode: function sendcode() {var _this3 = this;
-      var reg =  true && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
       if (this.tel == '') {
         uni.showToast({
           icon: 'none',
-          title: '请输入手机号码' },
-        2000);
-        return;
-      } else if (!reg.test(this.tel)) {
-        uni.showToast({
-          icon: 'none',
-          title: '手机格式不正确' },
+          title: '手机号码为空' },
         2000);
         return;
       }
@@ -389,14 +455,15 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
         dataType: 'json',
         cache: false,
         data: {
+          token: this.token,
           tel: this.tel,
           sms_type: 2 },
 
         success: function success(res) {
           _this3.list = res;
           var data = _this3.list.data;
-          var msg = data.result;
-          if (data.isSuccess == 200) {
+          var msg = data.data;
+          if (data.code == 200) {
             _this3.time = 60;
             _this3.disabled = true;
             uni.showToast({
@@ -404,17 +471,11 @@ var graceChecker = __webpack_require__(/*! ../../common/graceChecker.js */ "../.
               title: msg },
             2000);
             var self = _this3;
-            //记录成功发送验证码手机号
-            uni.setStorage({
-              key: 'last_tel',
-              data: _this3.tel,
-              success: function success() {
-                self.timer();
-              } });
-
-
+            //记录,成功发送验证码手机号
+            uni.setStorageSync('last_tel', _this3.tel);
+            _this3.timer();
           }
-          if (data.isSuccess == 400) {
+          if (data.code == 400) {
             uni.showToast({
               icon: 'none',
               title: "请稍候再试" },
@@ -611,6 +672,28 @@ var render = function() {
                         name: "payaccount",
                         placeholder: "输入账号",
                         value: _vm.payaccount,
+                        maxlength: "19"
+                      }
+                    })
+                  ])
+                ]
+              ),
+              _c(
+                "view",
+                { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
+                [
+                  _c("text", {
+                    staticClass: "cuIcon-brand text-blue icon-title"
+                  }),
+                  _c("text", { staticClass: "title" }, [_vm._v("密码：")]),
+                  _c("text", { staticClass: " content" }, [
+                    _c("input", {
+                      staticClass: "text-black",
+                      attrs: {
+                        type: "password",
+                        name: "paypassword",
+                        placeholder: "输入提现密码",
+                        value: _vm.paypassword,
                         maxlength: "19"
                       }
                     })

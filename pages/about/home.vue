@@ -42,7 +42,7 @@
 					<text class="text-grey">修改提现密码</text>
 				</button>
 			</view>
-			<view class="cu-item" :class="menuArrow?'arrow':''">
+			<!-- <view class="cu-item" :class="menuArrow?'arrow':''">
 				<button class="cu-btn content"  @click="PageChange" data-cur="../about/feedback">
 					<text class="cuIcon-circlefill text-grey"></text>
 					<text class="text-grey">建议反馈</text>
@@ -53,8 +53,13 @@
 					<text class="cuIcon-circlefill text-grey"></text>
 					<text class="text-grey">关于</text>
 				</button>
+			</view> -->
+			<view class="cu-item" :class="menuArrow?'arrow':''">
+				<button class="cu-btn content"  @click="PageChange" data-cur="../about/editphone">
+					<text class="cuIcon-circlefill text-grey"></text>
+					<text class="text-grey">修改手机号码</text>
+				</button>
 			</view>
-			
 		</view>
 			<button class="cu-btn bg-white margin-tb-sm lg logout" @click="PageChange" data-cur="../login/login">退出</button>
 	</scroll-view>

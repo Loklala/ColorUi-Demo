@@ -1,17 +1,5 @@
 <template>
 	<view class="content">
-
-<!-- 		<view class="cu-bar bg search bg-gradual-blue fixed">
-			<view class="action" @tap="navTo()">
-				<text class="cuIcon-back text-white"></text>
-				返回
-			</view>
-			<view class="content title-text">
-				注册
-			</view>
-			<view class="action">
-			</view>
-		</view> -->
 			<cu-custom bgColor="" class="bg title-text bg-gradual-blue" :isBack="true">
 				<block slot="backText"></block>
 				<block slot="content">注册</block>
@@ -225,7 +213,7 @@
 				console.log(last_tel);
 			}
 			uni.request({
-				url: 'http://192.168.0.199:8080/agent/login/last-sms-time',
+				url:this.COMMON.httpUrl+'/agent/login/astl-sms-time',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -381,7 +369,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/login/ajax-agent-reg',
+					url: this.COMMON.httpUrl+'/agent/login/ajax-agent-reg',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -444,7 +432,7 @@
 					return;
 				}
 				uni.request({
-					url: 'http://192.168.0.199:8080/agent/login/ajax-reg-code',
+					url: this.COMMON.httpUrl+'/agent/login/ajax-reg-code',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 						},

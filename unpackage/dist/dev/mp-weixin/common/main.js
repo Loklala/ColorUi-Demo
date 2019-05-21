@@ -997,6 +997,11 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ "./node_modules
 
 
 
+
+
+
+
+
 var self;var _default =
 {
   data: function data() {
@@ -1688,36 +1693,16 @@ var render = function() {
                 {
                   staticClass: "cu-btn content",
                   attrs: {
-                    "data-cur": "../about/feedback",
+                    "data-cur": "../about/editphone",
                     eventid: "ca08fa36-6"
                   },
                   on: { click: _vm.PageChange }
                 },
                 [
                   _c("text", { staticClass: "cuIcon-circlefill text-grey" }),
-                  _c("text", { staticClass: "text-grey" }, [_vm._v("建议反馈")])
-                ]
-              )
-            ],
-            1
-          ),
-          _c(
-            "view",
-            { staticClass: "cu-item", class: _vm.menuArrow ? "arrow" : "" },
-            [
-              _c(
-                "button",
-                {
-                  staticClass: "cu-btn content",
-                  attrs: {
-                    "data-cur": "../about/about",
-                    eventid: "ca08fa36-7"
-                  },
-                  on: { click: _vm.PageChange }
-                },
-                [
-                  _c("text", { staticClass: "cuIcon-circlefill text-grey" }),
-                  _c("text", { staticClass: "text-grey" }, [_vm._v("关于")])
+                  _c("text", { staticClass: "text-grey" }, [
+                    _vm._v("修改手机号码")
+                  ])
                 ]
               )
             ],
@@ -1729,7 +1714,7 @@ var render = function() {
         "button",
         {
           staticClass: "cu-btn bg-white margin-tb-sm lg logout",
-          attrs: { "data-cur": "../login/login", eventid: "ca08fa36-8" },
+          attrs: { "data-cur": "../login/login", eventid: "ca08fa36-7" },
           on: { click: _vm.PageChange }
         },
         [_vm._v("退出")]

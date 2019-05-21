@@ -76,7 +76,7 @@ export default {
 				payname:" ",
 				payaccount:" ",
 				
-				id:0,
+				token:'',
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
 				menuBorder: false,
@@ -89,9 +89,10 @@ export default {
 		onLoad() {
 			const value = uni.getStorageSync('agentInfo');
 			if (value) {
-				this.id=value.id;
+				this.token=value.token;
+			}
 			uni.request({
-				url: 'http://192.168.0.199:8080/agent/agent/ajax-get-info',
+				url:this.COMMON.httpUrl+'/agent/agent/ajax-get-info',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -99,31 +100,44 @@ export default {
 					dataType: 'json',
 					cache: false,
 					data: {
-						id:this.id,
+						token:this.token,
 					},
 					success: res => {
-						console.log(res.data.isSuccess);
-						let data=res.data.result;
-						if(data){
-							this.name=data.current_payname;
-							if(data.current_paytype=='0'){
-								this.payname='微信';
-								this.payaccount=data.wechat_num;
-							}else if(data.current_paytype=='1'){
-								this.payname='支付宝';
-								this.payaccount=data.alipay_num;
-							}else if(data.current_paytype=='2'){
-								this.payname='银行卡';
-								this.payaccount=data.bank_num;
-							}else if(data.current_paytype==''){
-								this.isaccount=false;
+						if(res.data.code==200){
+							let data=res.data.data;
+							if(data){
+								this.name=data.current_payname;
+								if(data.current_paytype=='0'){
+									this.payname='微信';
+									this.payaccount=data.wechat_num;
+								}else if(data.current_paytype=='1'){
+									this.payname='支付宝';
+									this.payaccount=data.alipay_num;
+								}else if(data.current_paytype=='2'){
+									this.payname='银行卡';
+									this.payaccount=data.bank_num;
+								}else if(data.current_paytype==''){
+									this.isaccount=false;
+								}
 							}
+						}else if(res.data.code==-200){
+							uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 						}
+						
 					},
 					fail: () => {},
 					complete: () => {}
 				});
-			}
 		},
 		methods: {
 			editdeposit: function() {
@@ -133,7 +147,7 @@ export default {
 			},
 			navTo(){
 				uni.redirectTo({
-					url: '../tabbar/tabbar'
+					url: '../tabbar/tabbar?page=about'
 				});
 			}
 		}

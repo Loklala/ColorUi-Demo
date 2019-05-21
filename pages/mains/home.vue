@@ -9,7 +9,7 @@
 				<view class="action">
 				</view>
 			</view>
-			<view class="cu-list menu uni-badge-warning bg-black" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" >
+			<!-- <view class="cu-list menu uni-badge-warning bg-black" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" >
 				<view class="icon-text bg-black">
 					<text class="cuIcon-notification text-white text-xl "></text>
 				</view>
@@ -20,8 +20,8 @@
 						</swiper-item>
 					</swiper>
 				</view>
-			</view>
-			<view style="background-image: url('../../static/img/login-logo.jpg');height: 350upx;background-size: 100%;"></view>
+			</view> -->
+			<view style="background-image: url('../../static/img/login-logo.jpg');height:330upx;background-size: cover;width: 100%;"></view>
 			
 			<!-- card-menu -->
 			<view class="cu-list menu   margin-bottom-sm shadow-lg">
@@ -49,12 +49,12 @@
 						<text class="text-grey">我的俱乐部</text>
 					</view>
 				</view>
-				<view class="cu-item arrow " data-cur=""  @click="PageChange">
+<!-- 				<view class="cu-item arrow " data-cur=""  @click="PageChange">
 					<view class="content">
 						<text class="cuIcon-noticefill text-grey"></text>
 						<text class="text-grey">公告</text>
 					</view>
-				</view>
+				</view> -->
 			</view>
 			<view class="cu-tabbar-height"></view>
 		</scroll-view>
@@ -70,13 +70,13 @@
 				CustomBar: this.CustomBar,
 				src:'',
 				title:"滚动公告",
-				msg : [
-					'皮蛋游戏大厅推广系统正式上线啦！',
-					'代理通过多种方式邀请玩家均会获得收益',
-					'邀请好友！绑定代理账户就可以获得收益！',
-					'随时随地查看当前收益金额，随时随地提现到账',
-					'收益到达一定额度，即可提交提现申请'
-				],
+				// msg : [
+				// 	'皮蛋游戏大厅推广系统正式上线啦！',
+				// 	'代理通过多种方式邀请玩家均会获得收益',
+				// 	'邀请好友！绑定代理账户就可以获得收益！',
+				// 	'随时随地查看当前收益金额，随时随地提现到账',
+				// 	'收益到达一定额度，即可提交提现申请'
+				// ],
 				elements: [{
 						title: '推广方式',
 						name: '推广',
@@ -94,35 +94,7 @@
 				
 				
 				cardCur: 0,
-				swiperList: [{
-					id: 0,
-					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big84000.jpg'
-				}, {
-					id: 1,
-					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big37006.jpg',
-				}, {
-					id: 2,
-					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big39000.jpg'
-				}, {
-					id: 3,
-					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big10001.jpg'
-				}, {
-					id: 4,
-					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big25011.jpg'
-				}, {
-					id: 5,
-					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big21016.jpg'
-				}, {
-					id: 6,
-					type: 'image',
-					url: 'https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg'
-				}],
+				
 				dotStyle: true,
 				towerStart: 0,
 				direction: ''
