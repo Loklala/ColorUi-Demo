@@ -33,6 +33,7 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 	import mInput from '../../components/m-input.vue'
 	export default {
 		components: {
@@ -107,8 +108,9 @@
 					});
 					return;
 				}
+				
 				uni.request({
-					url:this.COMMON.httpUrl+'/agent/agent/ajax-login-pwd',
+					url:helper.websiteUrl+'/agent/agent/ajax-login-pwd',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -137,7 +139,7 @@
 						}else  if(res.data.code==400){
 							uni.showToast({
 								icon: 'none',
-								title: data.data,
+								title:res. data.data,
 							});
 						}else if(res.data.code==-200){
 							uni.showModal({
@@ -154,7 +156,6 @@
 						}
 					},
 					fail: () => {
-						console.log('11111')
 						uni.showToast({
 							icon: 'none',
 							title: '网络异常,请稍后重试'

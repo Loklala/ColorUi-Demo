@@ -16,7 +16,7 @@
 			<view class="cu-form-group l-input">
 				<view class="title">手机号：</view>
 				<!-- <text class="cuIcon-my text-olive"></text> -->
-				<m-input class="m-input" type="number" clearable focus v-model="tel" placeholder="输入手机号码"></m-input>
+				<m-input class="m-input" type="number" clearable  v-model="tel" placeholder="输入手机号码"></m-input>
 				<view class="cu-capsule radius">
 					<view class="cu-tag bg-gradual-blue ">+86</view>
 					<view class="cu-tag line-blue">中国大陆</view>
@@ -24,7 +24,7 @@
 			</view>
 			<view class="cu-form-group l-input">
 				<view class="title">验证码：</view>
-				<m-input class="m-input" placeholder="输入验证码" type="number" clearable focus v-model="code"></m-input>
+				<m-input class="m-input" placeholder="输入验证码" type="number" clearable  v-model="code"></m-input>
 				<button class="cu-btn bg-gradual-blue shadow" type="button" :disabled="disabled" @click="sendcode">{{ btntxt }}</button>
 			</view>
 			<view class="cu-form-group l-input">
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 	import service from '../../service.js';
 	import mInput from '../../components/m-input.vue';
 
@@ -85,10 +86,10 @@
 		onLoad() {
 			const last_tel = uni.getStorageSync('last_tel');
 			if (last_tel) {
-				console.log(last_tel);
+				let last_tels=last_tel
 			}
 			uni.request({
-				url: this.COMMON.httpUrl+'/agent/login/last-sms-time',
+				url: helper.websiteUrl+'/agent/login/last-sms-time',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -96,7 +97,7 @@
 				dataType: 'json',
 				cache: false,
 				data: {
-					last_tel: last_tel,
+					last_tel: last_tels,
 					sms_type: 1,
 				},
 				success: res => {
@@ -104,7 +105,6 @@
 					let data = lists.data
 					if (data.isSuccess == 200) {
 						this.time = 60 - parseInt(data.result);
-						console.log(this.time)
 						this.disabled = true;
 						this.timer();
 					} else {
@@ -140,6 +140,7 @@
 			},
 			//找回密码
 			commit() {
+				
 				var reg = 11 && /^((13|14|15|17|18)[0-9]{1}\d{8})$/;
 				if (this.tel == '') {
 					uni.showToast({
@@ -183,12 +184,18 @@
 					return;
 				}
 				uni.request({
-					url: ' wd',
-					method: 'GET',
+					url: helper.websiteUrl+'/agent/login/ajax-find-new-pwd',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					method: 'POST',
+					dataType: 'json',
+					cache: false,
 					data: {
 						tel: this.tel,
 						smsCode:this.code,
-						pwd:this.repassword,
+						repwd:this.repassword,
+						pwd:this.password,
 						sms_type: 1,
 					},
 					success: res => {
@@ -196,31 +203,20 @@
 						let data = this.list.data;
 						let msg = data.result;
 						if (data.isSuccess == 200) {
-							this.time = 60;
-							this.disabled = true;
 							uni.showToast({
 								icon: 'none',
 								title: msg,
 							}, 2000);
 							let self = this;
-							//记录成功发送验证码手机号
-							uni.setStorage({
-								key: 'last_tel',
-								data: this.tel,
-								success: function() {
-									self.timer();
-								}
-							});
-				
+							setTimeout(function() {
+								self.navTo();
+							}, 2000);
 						}
 						if (data.isSuccess == 400) {
 							uni.showToast({
 								icon: 'none',
-								title: "请稍候再试",
+								title: data.result,
 							}, 2000);
-							this.time = 0;
-							setTimeout(this.timer, 1000);
-							this.disabled = false;
 						}
 					},
 					fail: () => {
@@ -249,8 +245,13 @@
 					return;
 				}
 				uni.request({
-					url: this.COMMON.httpUrl+'/agent/login/ajax-indpwd-code',
-					method: 'GET',
+					url: helper.websiteUrl+'/agent/login/ajax-findpwd-code',
+					header: {
+						'content-type': 'application/x-www-form-urlencoded'
+					},
+					method: 'POST',
+					dataType: 'json',
+					cache: false,
 					data: {
 						tel: this.tel,
 						sms_type: 1,
@@ -280,7 +281,7 @@
 						if (data.isSuccess == 400) {
 							uni.showToast({
 								icon: 'none',
-								title: "请稍候再试",
+								title: data.result,
 							}, 2000);
 							this.time = 0;
 							setTimeout(this.timer, 1000);

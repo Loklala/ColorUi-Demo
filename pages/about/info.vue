@@ -35,7 +35,7 @@
 				</text>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
-				<text class="title">姓 别：</text>
+				<text class="title">性 别：</text>
 				<text class=" content" >
 					<text class="text-grey">{{sex}}</text>
 				</text>
@@ -74,6 +74,7 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 export default {
 		data() {
 			return {
@@ -102,7 +103,7 @@ export default {
 				this.token=value.token;
 			}
 			uni.request({
-				url:this.COMMON.httpUrl+'/agent/agent/ajax-agent-info',
+				url:helper.websiteUrl+'/agent/agent/ajax-agent-info',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -125,10 +126,30 @@ export default {
 							this.sex='女';
 						}
 						this.agent_id=data.data.agent_id;
-						this.email=data.data.email;
-						this.qq=data.data.qq;
-						this.area=data.data.area;
-						this.address=data.data.address;
+						
+						if(data.data.email==null){
+							this.email='-暂未填写-';
+						}else{
+							this.email=data.data.email;
+						}
+						
+						if(data.data.qq==null){
+							this.qq='-暂未填写-';
+						}else{
+							this.qq=data.data.qq;
+						}
+						
+						if(data.data.area==null){
+							this.area='-暂未选择-';
+						}else{
+							this.area=data.data.area;
+						}
+						if(data.data.address==null){
+							this.address='-暂未填写-';
+						}else{
+							this.address=data.data.address;
+						}
+						
 					}else if(data.code==-200){
 						uni.showModal({
 								showCancel:false,

@@ -37,6 +37,7 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 	import mInput from '../../components/m-input.vue'
 	export default {
 		components: {
@@ -76,7 +77,7 @@
 				console.log(last_tel);
 			}
 			uni.request({
-				url:this.COMMON.httpUrl+'/agent/agent/last-sms-time',
+				url:helper.websiteUrl+'/agent/agent/last-sms-time',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -158,7 +159,7 @@
 					return;
 				}
 				uni.request({
-					url:this.COMMON.httpUrl+'/agent/agent/ajax-deposit-pwd',
+					url:helper.websiteUrl+'/agent/agent/ajax-deposit-pwd',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -170,7 +171,7 @@
 						npassword:this.npassword,
 						repassword:this.repassword,
 						code:this.code,
-						tel:this.last_tel,
+						tel:this.tel,
 						sms_type:3,
 					},
 					success: res => {
@@ -220,7 +221,7 @@
 					return;
 				} 
 				uni.request({
-					url:this.COMMON.httpUrl+'/agent/agent/ajax-send-sms',
+					url:helper.websiteUrl+'/agent/agent/ajax-send-sms',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 						},

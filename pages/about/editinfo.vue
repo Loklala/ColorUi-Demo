@@ -20,8 +20,8 @@
 					<input type="text" class="text-black" name="nickname" :value="nickName" maxlength="40"/>
 				</text>
 			</view>
-			<view class="cu-item" :class="1?'arrow':''" @click="PickerChange">
-					<text class="title">姓 别：</text>
+			<view class="cu-item" :class="1?'arrow':''" @click="PickerChange()">
+					<text class="title">性 别：</text>
 					<text class=" content" >
 						<text class="text-black"  name='gender'>{{sexPickerText}}</text>
 						<input type="text" class="hide" name="gender" :value="sexPickerText" maxlength="40"/>
@@ -31,26 +31,26 @@
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<text class="title">邮 箱：</text>
 				<text class=" content" >
-					<input type="text" class="text-black" name="email" :value="email" maxlength="40"/>
+					<input type="text" class="text-black"  placeholder="请填写邮箱号" name="email" :value="email" maxlength="40"/>
 				</text>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<text class="title">Q Q ：</text>
 				<text class=" content" >
-					<input type="number" class="text-black" name="qq" :value="qq" maxlength="11"/>
+					<input type="number" class="text-black"  placeholder="请填写QQ号" name="qq" :value="qq" maxlength="11"/>
 				</text>
 			</view>
-			<view class="cu-item" :class="1?'arrow':''">
+			<view class="cu-item" :class="1?'arrow':''" @click="showThreePicker()">
 				<text class="title">地 区：</text>
 				<text class=" content" >
-					<text class="text-black" @click="showMulLinkageThreePicker" >{{pickerText}}</text>
+					<text class="text-black"  >{{pickerText}}</text>
 					<input type="text" class="hide" name="area" :value="pickerText" maxlength="40"/>
 				</text>
 			</view>
 			<view class="cu-item" :class="menuArrow?'arrow':''">
 				<text class="title">地 址：</text>
 				<text class=" content" >
-					<input type="text" class="text-black" name="address" :value="address" placeholder="街/区/号" maxlength="100"/>
+					<input type="text" class="text-black" name="address" :value="address" placeholder="请填写街/区/号" maxlength="100"/>
 				</text>
 				<text class='cuIcon-locationfill text-orange'></text>
 			</view>
@@ -68,6 +68,7 @@
 </template>
 
 <script> 
+	import helper from '../../common/helper.js';  
 	import mpvuePicker from '../../components/mpvuePicker.vue'; 
 	import mpvueCityPicker from '../../components/mpvueCityPicker.vue';
 	import cityData from '../../common/city.data.js';
@@ -80,7 +81,7 @@ export default {
 		data() {
 			return {
 				address: "",
-				pickerText: '',
+				pickerText: '北京市-市辖区-东城区',
 				email: "",
 				sexPickerText:'',
 				sexPickerVal:'',
@@ -114,12 +115,12 @@ export default {
 			};
 		},
 		onLoad() {
-						const value = uni.getStorageSync('agentInfo');
+			const value = uni.getStorageSync('agentInfo');
 			if (value) {
 				this.token=value.token;
 			}
 			uni.request({
-				url:this.COMMON.httpUrl+'/agent/agent/ajax-agent-info',
+				url:helper.websiteUrl+'/agent/agent/ajax-agent-info',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -141,10 +142,29 @@ export default {
 							this.sexPickerText='女';
 							this.sexPickerVal=1;
 						}
-						this.email=data.data.email;
-						this.qq=data.data.qq;
-						this.pickerText=data.data.area;
-						this.address=data.data.address;
+						if(data.data.email==null){
+							this.email='';
+						}else{
+							this.email=data.data.email;
+						}
+						
+						if(data.data.qq==null){
+							this.qq='';
+						}else{
+							this.qq=data.data.qq;
+						}
+						
+						if(data.data.area==null){
+							this.area='';
+						}else{
+							this.area=data.data.area;
+						}
+						
+						if(data.data.address==null){
+							this.address='';
+						}else{
+							this.address=data.data.address;
+						}
 					}else if(data.code==-200){
 						uni.showModal({
 								showCancel:false,
@@ -182,8 +202,9 @@ export default {
 				this.pickerValueDefault = [0]
 				this.$refs.mpvuePicker.show()
 			},
-			showMulLinkageThreePicker() {
-				this.$refs.mpvueCityPicker.show()
+			showThreePicker() {
+				console.log('000000')
+				this.$refs.mpvueCityPicker.show();
 			},
 			onBackPress() {
 				if (this.$refs.mpvuePicker.showPicker) {
@@ -226,10 +247,30 @@ export default {
 				];
 				//进行表单检查
 				var formData = e.detail.value;
+				var regemail = /^([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+@([a-zA-Z0-9]+[_|\_|\.]?)*[a-zA-Z0-9]+\.[a-zA-Z]{2,3}$/;
+				if(formData.email.length>0){
+					if (!regemail.test(formData.email)) {
+					uni.showToast({
+						icon: 'none',
+						title: '邮箱格式不正确'
+					});
+					return false;
+					}
+				}
+				if(formData.qq.length>0){
+					var regqq = /^[1-9]\d{4,10}$/;
+						if (!regqq.test(formData.qq)) {
+						uni.showToast({
+							icon: 'none',
+							title: 'qq号码格式不正确'
+						});
+						return false;
+					}
+				}
 				var checkRes = graceChecker.check(formData, rule);
 				if(checkRes){
 					uni.request({
-						url:this.COMMON.httpUrl+'/agent/agent/ajax-up-info',
+						url:helper.websiteUrl+'/agent/agent/ajax-up-info',
 						header: {
 							'content-type': 'application/x-www-form-urlencoded'
 						},
@@ -267,7 +308,7 @@ export default {
 										}
 									}
 							});
-					}
+							}
 						},
 						fail: () => {
 							uni.showToast({
@@ -282,7 +323,6 @@ export default {
 				}
 			},
 			formReset: function (e) {
-				console.log("清空数据")
 				this.chosen = ''
 			}
 		}

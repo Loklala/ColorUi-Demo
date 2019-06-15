@@ -35,14 +35,14 @@
 				</view>
 				
 				<view class="action">
-					<button class="cu-btn bg-gradual-blue shadow-blur round" @click="loadlist()">查询</button>
+					<button class="cu-btn bg-gradual-blue shadow-blur round" :disabled="isDisable" @click="loadlist()">查询</button>
 				</view>
 			</view>
 		</view>
 		
-		<mescroll-uni top="280" bottom="50" @down="downCallback" @up="upCallback" @init="mescrollInit">
+		<mescroll-uni top="300" bottom="50" @down="downCallback" @up="upCallback" @init="mescrollInit">
 			<!-- 分页的数据列表 -->
-		<view class="cu-list menu padding-xl radius shadow-warp bg-white margin-top" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" v-for="(pd,k) in curPageData" :key="k">
+		<view class="cu-list menu padding-xl radius shadow-warp bg-white margin-top" style="border-radius:4upx ;" :class="[0?'sm-border':'',0?'card-menu margin-top':'']" v-for="(pd,k) in curPageData" :key="k">
 			<view class="cu-item " :class="pd.isDisplay?'bg-c bg-grey':'bg-white'" @tap="changeSN(k)" >
 					<text class="list-text1">ID:</text>
 					<text class="list-text2">{{pd.userid}}</text>
@@ -63,6 +63,7 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 	// 自定义的mescroll-meituan.vue
 	import MescrollUni from "mescroll-uni/mescroll-uni.vue";
 	// 模拟数据
@@ -109,6 +110,7 @@
 					token:'',
 					allnum:'0',
 					weeknum:'0',
+					isDisable: false,
 				}
 		},
 		onLoad() {
@@ -135,7 +137,7 @@
 			loadPersonNum(){
 				console.log(this.agent_id);
 				uni.request({
-					url: this.COMMON.httpUrl+'/agent/tuiguang/ajax-player-num',
+					url: helper.websiteUrl+'/agent/tuiguang/ajax-player-num',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -163,8 +165,19 @@
 				});
 			},
 			loadlist(){
+				this.isDisable = true
+				setTimeout(() => {
+				this.isDisable = false
+				}, 1000);
+				if(this.date1>this.date2){
+					uni.showToast({
+						icon: 'none',
+						title: '开始时间应小于于结束时间'
+					});
+					return;
+				}
 				uni.request({
-					url: this.COMMON.httpUrl+'/agent/tuiguang/ajax-has-player',
+					url: helper.websiteUrl+'/agent/tuiguang/ajax-has-player',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -255,7 +268,7 @@
 					this.pageNum = mescroll.num; // 页码, 默认从1开始
 					this.pageSize = mescroll.size; // 页长, 默认每页10条
 				uni.request({
-					url: this.COMMON.httpUrl+'/agent/tuiguang/ajax-has-player',
+					url:helper.websiteUrl+ '/agent/tuiguang/ajax-has-player',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},

@@ -29,6 +29,7 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 	import mInput from '../../components/m-input.vue'
 	export default {
 		components: {
@@ -63,10 +64,9 @@
 			const last_tel = uni.getStorageSync('last_tel');
 			if (last_tel) {
 				this.last_tel=last_tel;
-				console.log(last_tel);
 			}
 			uni.request({
-				url:this.COMMON.httpUrl+'/agent/agent/last-sms-time',
+				url:helper.websiteUrl+'/agent/agent/last-sms-time',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -129,8 +129,9 @@
 					});
 					return;
 				}
+				this.last_tel= uni.getStorageSync('last_tel');
 				uni.request({
-					url:this.COMMON.httpUrl+'/agent/agent/ajax-edit-phone',
+					url:helper.websiteUrl+'/agent/agent/ajax-edit-phone',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -189,7 +190,7 @@
 					return;
 				} 
 				uni.request({
-					url: ' ms',
+					url:helper.websiteUrl+'/agent/agent/ajax-send-sms',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 						},
@@ -199,7 +200,7 @@
 					data: {
 						token:this.token,
 						tel: this.tel,
-						sms_type: 3,
+						sms_type: 4,
 					},
 					success: res => {
 						this.list = res;

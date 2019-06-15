@@ -61,7 +61,7 @@
 				</button>
 			</view>
 		</view>
-			<button class="cu-btn bg-white margin-tb-sm lg logout" @click="PageChange" data-cur="../login/login">退出</button>
+			<button class="cu-btn bg-white margin-tb-sm lg logout" @click="login_out" data-cur="../login/login">退出</button>
 	</scroll-view>
 	
 </template>
@@ -150,6 +150,12 @@
 					url:e.currentTarget.dataset.cur
 					});
 			},
+			login_out:function(e){
+				uni.clearStorage();
+				uni.redirectTo({
+					url:e.currentTarget.dataset.cur
+					});
+			}
 		
 		}
 		

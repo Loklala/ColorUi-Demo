@@ -49,12 +49,12 @@
 							<text class="text-grey">充值收益记录</text>
 						</view>
 					</view>
-					<view class="cu-item arrow " data-cur="../earn/clubearn"  @click="PageChange">
+					<!-- <view class="cu-item arrow " data-cur="../earn/clubearn"  @click="PageChange">
 						<view class="content">
 							<text class="cuIcon-moneybagfill text-grey"></text>
 							<text class="text-grey">俱乐部收益记录</text>
 						</view>
-					</view>
+					</view> -->
 					<view class="cu-item arrow  " data-cur="../earn/depositresult"  @click="PageChange">
 						<view class="content">
 							<text class="cuIcon-sponsorfill text-grey"></text>
@@ -71,6 +71,7 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 	export default {
 		name: "components",
 		data() {
@@ -97,7 +98,6 @@
 				direction: '',
 				token:'',
 				msg : [
-					'皮蛋游戏大厅推广系统正式上线啦！',
 					'代理通过多种方式邀请玩家均会获得收益',
 					'邀请好友！绑定代理账户就可以获得收益！',
 					'随时随地查看当前收益金额，随时随地提现到账',
@@ -112,7 +112,7 @@
 				this.token=agentInfo.token;
 			}
 			uni.request({
-				url: this.COMMON.httpUrl+'/agent/earnings/ajax-earn',
+					url: helper.websiteUrl+'/agent/earnings/ajax-earn',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -125,9 +125,22 @@
 					success: res => {
 						let data=res.data;
 						if(data.code==200){
+							console.log(data);
 							this.fkmoney=data.data.fkmoney;
-							this.zcmoney=data.data.zcmoney;
+							this.czmoney=data.data.zcmoney;
 							this.jlbmoney=data.data.jlbmoney;
+						}else if(data.code==-200){
+							uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 						}
 					},
 					fail: () => {},
@@ -159,10 +172,12 @@
 
 <style>
 	.deposit{
-		margin-left:5%;
-		width: 90%;
+		/* margin-left:5%; */
+
+		width: 100%;
+		height: 80upx;
 		margin-top: 50upx;
-		color: #3396e6;
+		color: red;
 	}
 	.depositres{
 		margin-left:5%;

@@ -29,6 +29,7 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 	import mInput from '../../components/m-input.vue'
 	export default {
 		components: {
@@ -65,7 +66,7 @@
 				console.log(last_tel);
 			}
 			uni.request({
-				url:this.COMMON.httpUrl+'/agent/agent/ajax-new-phone-time',
+				url:helper.websiteUrl+'/agent/agent/ajax-new-phone-time',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -134,8 +135,9 @@
 					});
 					return;
 				}
+				this.last_tel= uni.getStorageSync('last_tel');
 				uni.request({
-					url:this.COMMON.httpUrl+'/agent/agent/ajax-edit-new-phone',
+					url:helper.websiteUrl+'/agent/agent/ajax-edit-new-phone',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -206,7 +208,7 @@
 					return;
 				} 
 				uni.request({
-					url: 'ajax-new-phone-code',
+					url:helper.websiteUrl+'/agent/agent/ajax-new-phone-code',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 						},

@@ -23,7 +23,7 @@
 			<view class="cu-modal" :class="modalName=='Image'?'show':''">
 				<view class="cu-dialog">
 					<view class="bg-img">
-						<text class="text-left ">长按图片复制，或长按识别二维码</text>
+						<text class="text-left ">长按图片保存并分享</text>
 						<view class="action close-btn" @tap="hideModal">
 							<text class="cuIcon-close text-black"></text>
 						</view>
@@ -74,13 +74,14 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 	export default {
 		data() {
 			return {
 				url: '',
 				code: '',
 				token: '',
-				src: '',
+				src: '../../static/loding.jpg',
 
 				modalName: null,
 				providerList: [],
@@ -95,7 +96,7 @@
 				this.code = agentInfo.agent_id;
 			}
 			uni.request({
-				url: this.COMMON.httpUrl+ '/agent/tuiguang/ajax-share-photo',
+				url:helper.websiteUrl+'/agent/tuiguang/ajax-share-photo',
 				header: {
 					'content-type': 'application/x-www-form-urlencoded'
 				},
@@ -107,7 +108,8 @@
 				},
 				success: res => {
 					if (res.data.code == 200) {
-						this.src = this.COMMON.httpUrl+'/agent/tuiguang/' + res.data.data.src;
+						this.src = helper.websiteUrl+'/agent/tuiguang/' + res.data.data.src;
+						this.url=res.data.data.url+ 'inviterId=' + agentInfo.agent_id + '&agentId=' + agentInfo.agent_id;
 					}
 				},
 				fail: () => {},
@@ -189,7 +191,6 @@
 		float: right;
 		margin-right: 10upx;
 	}
-
 	.img-title {
 		height: 5%;
 		background-color: #EBEEF5;
@@ -198,7 +199,7 @@
 	.shareimg {
 		background-size: cover;
 		width: 100%;
-		height: 95%;
+		height: 96%;
 	}
 
 	.cu-modal {

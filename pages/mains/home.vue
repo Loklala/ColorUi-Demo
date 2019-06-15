@@ -37,7 +37,13 @@
 						<text class="text-grey">邀请列表</text>
 					</view>
 				</view>
-				<view class="cu-item arrow margin-top-sm" data-cur=""  @click="PageChange">
+				<view class="cu-item arrow " data-cur="../mains/childagent"  @click="PageChange">
+					<view class="content">
+						<text class="cuIcon-crown text-grey"></text>
+						<text class="text-grey">我的下级代理</text>
+					</view>
+				</view>
+<!-- 				<view class="cu-item arrow margin-top-sm" data-cur=""  @click="PageChange">
 					<view class="content">
 						<text class="cuIcon-crown text-grey"></text>
 						<text class="text-grey">俱乐部中心</text>
@@ -48,7 +54,7 @@
 						<text class="cuIcon-crownfill text-grey"></text>
 						<text class="text-grey">我的俱乐部</text>
 					</view>
-				</view>
+				</view> -->
 <!-- 				<view class="cu-item arrow " data-cur=""  @click="PageChange">
 					<view class="content">
 						<text class="cuIcon-noticefill text-grey"></text>

@@ -1,53 +1,50 @@
 <template>
     <view class="content">
-<!-- 		<cu-custom class="toptab" bgColor="bg-gradual-blue" :isBack="false">
-			<block slot="backText"></block>
-			<block slot="content">皮蛋游戏代理系统</block>
-			<block slot="right"></block>
-		</cu-custom> -->
-
-<!-- 		<view class="cu-form-group head"> 
-				<view class="cu-avatar xl round margin-left head-img" style="background-image:url(https://ossweb-img.qq.com/images/lol/web201310/skin/big99008.jpg);"></view>
-		</view> -->
+		<view class="cu-bar title-bg" :style="[{height:CustomBar + 'px',display:ishead}]">
+			<view class="action" @tap="navTo()">
+				<text class="cuIcon-back text-white"></text>
+				游戏大厅
+			</view>
+			<view class="content title-text">
+			</view>
+			<view class="action">
+			</view>
+		</view>
 		<image src="../../static/img/login-logo.jpg" 
 		 mode="widthFix" class="response"></image>
         <view class="input-group">
 			<view class="cu-form-group l-input">
 				<!-- <view class="title">账号：</view> -->
-				<text class="cuIcon-my text-olive"></text>
-				<m-input class="m-input" type="text" clearable focus v-model="account" placeholder="请输入账号"></m-input>
+				<text class="cuIcon-my text-olive margin-right-sm"></text>
+				<m-input class="m-input" type="number" clearable v-model="account" placeholder="请输入手机号或ID"></m-input>
 			</view>
 			<view class="cu-form-group l-input">
 				<!-- <view class="title">密码：</view> -->
-				<text class="cuIcon-lock text-olive"></text>
-				<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入密码"></m-input>
+				<text class="cuIcon-lock text-olive margin-right-sm"></text>
+				<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入登录密码"></m-input>
 			</view>
-			<!-- <view class="cu-form-group l-input">
-				<text class="cuIcon-safe text-olive"></text>
-			<m-input class="m-input" type="text" clearable focus v-model="code" placeholder="输入验证码"></m-input>
-				<image :src="code_url" class="code-img" @click="changeImg"></image>	
-			</view> -->
+			<view class="cu-form-group l-input">
+				<text class="cuIcon-safe text-olive margin-right-sm"></text>
+			<m-input class="m-input" type="text" clearable  v-model="code" placeholder="输入验证码"></m-input>
+				<image :src="code_url" class="code-img" @click="changeImg()"></image>	
+			</view>
         </view>
         <view class="btn-row login-btn">
             <button type="primary"  class="primary" @tap="bindLogin">登录</button>
         </view>
         <view class="action-row">
-            <navigator url="../login/reg" >注册账号</navigator>
+            <navigator  @click="PageChange" data-cur="../login/reg" >注册账号</navigator>
             <text>|</text>
-            <navigator url="../login/pwd" >忘记密码</navigator>
-        </view>
-        <view class="oauth-row" v-if="hasProvider" v-bind:style="{top: positionTop + 'px'}">
-            <view class="oauth-image" v-for="provider in providerList" :key="provider.value">
-                <image :src="provider.image" @tap="oauth(provider.value)"></image>
-            </view>
+            <navigator  @click="PageChange" data-cur="../login/pwd" >忘记密码</navigator>
         </view>
     </view>
 </template>
 
 <script>
 	var self;
-    import service from '../../service.js';
+    import service from '../../service.js?v=1.0';
     import mInput from '../../components/m-input.vue'
+	import helper from '../../common/helper.js?v=1.0';  
 	
     export default {
         components: {
@@ -57,7 +54,7 @@
 			lists:[],
 			self=this
             return {
-				code_url:'http://192.168.0.199:8080/agent/login/captcha?',
+				code_url:'',
 				disableScroll:true,
                 providerList: [],
                 hasProvider: false,
@@ -65,34 +62,54 @@
                 password: '',
                 positionTop: 0,
 				code:'',
-				
+				webUrl:this.websiteUrl,
 				random_num:0,
+				ishead:false,
+				// page_url:'',
             }
         },
-		onLoad:function(){
-			this.random_num=new Date().getTime();
-			console.log('random_num'+this.random_num);
+		onLoad:function(e){
+		var ua = navigator.userAgent.toLowerCase();
+        if(ua.indexOf("micromessenger") ==  -1){
+            // "不是微信端";
+			this.ishead=false;
+        }else{
+			this.ishead=true;
+			// "是微信端";
+		}
+			this.random();
 			this.changeImg();
 		},
         methods: {
+			navTo(){
+				window.location.replace(helper.webtoUrl);
+			},
+			random(){
+				this.random_num=new Date().getTime();
+			},
+			//页面跳转
+			PageChange: function(e) {
+				uni.redirectTo({
+					url:e.currentTarget.dataset.cur
+					});
+			},
 			//获取验证码
 			changeImg(){
-				this.code_url="";
-				var rand= new Date().getTime();
-				this.random_num= this.random_num+1;
+				this.code_url='';
 				uni.request({
-					url: this.COMMON.httpUrl+'/agent/login/captcha?refresh=  ',
+					url:helper.websiteUrl+'/agent/login/captcha?refresh=refresh&&time_unid='+this.random_num,
 					header: {
-						'content-type': 'application/x-www-form-urlencoded'
+						'content-type':'application/x-www-form-urlencoded'
 					},
 					method: 'POST',
 					dataType: 'json',
 					cache: false,
 					data: {},
 					success: res => {
-						this.code_url=this.COMMON.httpUrl+res.data['url'];
+						this.code_url=helper.websiteUrl+res.data['url']+'&time_unid='+this.random_num;
 						},
-					fail: () => {},
+					fail: () => {
+					},
 					complete: () => {}
 				});
 			},
@@ -119,7 +136,7 @@
                     return;
                 }
 				uni.request({
-					url:this.COMMON.httpUrl+ '/agent/login/ajax-login',//
+					url:helper.websiteUrl+'/agent/login/ajax-login',//
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -130,9 +147,9 @@
 						account:this.account,
 						password:this.password,
 						code:this.code,
+						unid:this.random_num,
 					},
 					success: res => {
-						console.log(res)
 						if(res.data.isSuccess==200){
 							//缓存
 							uni.setStorage({
@@ -152,11 +169,40 @@
 									});
 								}
 							});
-						}else{
+						}else if(res.data.isSuccess==400){
+							this.code="";
+							let self=this;
+							uni.showModal({
+								showCancel:false,
+								content: res.data.message,
+								success: function (res) {
+									if (res.confirm) {
+											self.changeImg();
+									}
+								}
+							});
+							// uni.showToast({
+							//     icon: 'none',
+							// 	duration: 2000,
+							//    title: res.data.message
+							// });
+							
+						}else if(res.data.isSuccess==301){
+							this.code="";
 							uni.showToast({
 							    icon: 'none',
+								duration: 2000,
 							   title: res.data.message
 							});
+							this.changeImg();
+						}else if(res.data.isSuccess==302){
+							this.code="";
+							uni.showToast({
+							    icon: 'none',
+								duration: 2000,
+							   title: res.data.message
+							});
+							this.changeImg();
 						}
 					},
 					fail: () => {
@@ -165,7 +211,8 @@
 							title: '网络异常,请稍后重试'
 						});
 					},
-					complete: () => {}
+					complete: () => {
+					}
 				});
 			},
         onReady() {
@@ -176,6 +223,13 @@
 </script>
 
 <style>
+	.title-bg{
+		width: 100%;
+		z-index: 2;
+		opacity:1;
+		position:absolute;
+		color:#FFFFFF; 
+	}
 	.toptab{
 		height: 60upx;
 	}

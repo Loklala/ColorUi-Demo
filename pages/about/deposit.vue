@@ -9,34 +9,33 @@
 			</view>
 		</view>
 		
-		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu ':'',isaccount?'show':'hide']">
+		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu ':'',isaccount?'show':'hide']" style="border-radius:4upx ;">
 			<view class="cu-bar bg-white solid-bottom bg-grey">
 				<view class="action">
 					<text class='cuIcon-newsfill text-blue icon-title'></text>
 					账号信息
 				</view>
 				<view>
-					<button type="default" class="edit-btn " @click="editdeposit">编辑</button>
+					<button type="default" class="edit-btn " style="border-radius:4upx ;" @click="editdeposit">编辑</button>
 				</view>
 			</view>
 				<view class="cu-item" :class="0?'arrow':''">
 					<text class='cuIcon-peoplelist text-blue icon-title'></text>
-					<text class="title">姓名：</text>
+					<text class="title">账户姓名：</text>
 					<text class=" content" >
 						<text class="text-grey">{{name}}</text>
 					</text>
 				</view>
 				<view class="cu-item" :class="menuArrow?'arrow':''">
 					<text class='cuIcon-shake text-blue icon-title'></text>
-					<text class="title">类型：</text>
+					<text class="title">账户类型：</text>
 					<text class="content" >
 						<text class="text-grey">{{payname}}</text>
 					</text>
 				</view>
-				
 				<view class="cu-item" :class="menuArrow?'arrow':''">
 					<text class='cuIcon-brand text-blue icon-title'></text>
-					<text class="title">账号：</text>
+					<text class="title">收款账号：</text>
 					<text class=" content" >
 						<text class="text-grey">{{payaccount}}</text>
 					</text>
@@ -69,6 +68,7 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 export default {
 		data() {
 			return {
@@ -92,7 +92,7 @@ export default {
 				this.token=value.token;
 			}
 			uni.request({
-				url:this.COMMON.httpUrl+'/agent/agent/ajax-get-info',
+				url:helper.websiteUrl+'/agent/agent/ajax-get-info',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -106,6 +106,9 @@ export default {
 						if(res.data.code==200){
 							let data=res.data.data;
 							if(data){
+								if(data.current_paytype==null ||data.current_paytype==''){
+									this.isaccount=false;
+								}
 								this.name=data.current_payname;
 								if(data.current_paytype=='0'){
 									this.payname='微信';

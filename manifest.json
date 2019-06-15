@@ -55,7 +55,18 @@
         }
     },
     "h5" : {
-        "title" : "皮蛋游戏推广后台",
-        "domain" : "demo.color-ui.com"
+        "title" : "皮蛋娱乐推广系统",
+        "domain" : "",
+        "devServer" : {
+            "port" : 80,
+            "disableHostCheck" : true,
+            "proxy" : {
+                "/agent" : {
+                    "target" : "http://testadmin.xkegame.com",
+                    "changeOrigin" : true,
+                    "secure" : false
+                }
+            }
+        }
     }
 }

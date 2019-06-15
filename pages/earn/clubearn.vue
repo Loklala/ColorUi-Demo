@@ -14,14 +14,14 @@
 		<view class="bg-white nav text-center fixed" :style="[{top:CustomBar+ 'px'}]">
 			<view class="cu-item text-blue cu-text hander ">
 				<view class="grid margin-bottom text-center col-4">
-					<view><button class="cu-btn round" @click="ontoday()">查询今天</button></view>
-					<view><button class="cu-btn round" @click="onseven()">最近7天</button></view>
-					<view><button class="cu-btn round" @click="ononemonth()">近1个月</button></view>
-					<view><button class="cu-btn round" @click="onthreemonth()">近3个月</button></view>
+					<view><button class="cu-btn round"	:disabled="isDisable0" @click="ontoday()">查询今天</button></view>
+					<view><button class="cu-btn round"	:disabled="isDisable1" @click="onseven()">最近7天</button></view>
+					<view><button class="cu-btn round"	:disabled="isDisable2" @click="ononemonth()">近1个月</button></view>
+					<view><button class="cu-btn round"	:disabled="isDisable3" @click="onthreemonth()">近3个月</button></view>
 				</view>
 			</view>
 			<view class="cu-bar search bg-white hander1">
-				<text class="idnet-text">注册日期：</text>
+				<text class="idnet-text">收益日期：</text>
 				<view class="search-form round bg-white">
 					<picker class="time " mode="date" :value="date1"  :end="endDate" @change="DateChange1">
 						<view class="picker">
@@ -39,14 +39,14 @@
 				</view>
 				
 				<view class="action">
-					<button class="cu-btn bg-gradual-blue shadow-blur round" @click="loadlist()">查询</button>
+					<button class="cu-btn bg-gradual-blue shadow-blur round" :disabled="isDisable4" @click="loadlist()">查询</button>
 				</view>
 			</view>
 		</view>
 		
-		<mescroll-uni top="280" bottom="50" @down="downCallback" @up="upCallback" @init="mescrollInit">
+		<mescroll-uni top="300" bottom="50" @down="downCallback" @up="upCallback" @init="mescrollInit">
 			<!-- 分页的数据列表 -->
-		<view class="cu-list menu padding-xl radius shadow-warp bg-white " :class="[0?'sm-border':'',1?'card-menu ':'']" v-for="(pd,k) in curPageData" :key="k">
+		<view class="cu-list menu padding-xl radius shadow-warp bg-white " style="border-radius:4upx ;" :class="[0?'sm-border':'',1?'card-menu ':'']" v-for="(pd,k) in curPageData" :key="k">
 			<view class=""  @tap="changeSN(k)">
 				<view class="cu-item" :class="pd.isDisplay?'bg-c bg-grey':'bg-white'">
 					<view class="flex">
@@ -115,11 +115,19 @@
 </template>
 
 <script>
+		import helper from '../../common/helper.js';  
 	// 自定义的mescroll-meituan.vue
 	import MescrollUni from "mescroll-uni/mescroll-uni.vue";
 	// 模拟数据
 	import mockData from "../../common/pdlist.js";
-	
+	function fun_date(aa){
+        var date1 = new Date(),
+        time1=date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();//time1表示当前时间
+        var date2 = new Date(date1);
+			date2.setDate(date1.getDate()-aa);
+        var time2 = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
+		return time2;
+    };
 	function getDate(type) {
 		const date = new Date();
 	
@@ -131,8 +139,6 @@
 			year = year - 60;
 		} else if (type === 'end') {
 			year = year;
-		} else if(type=='7day'){
-			day=day-7;
 		} else if(type=='1month'){
 			month=month-1;
 		} else if(type=='3month'){
@@ -165,7 +171,11 @@
 					curPageData:[],
 					totalPage:0,
 					token:'',
-
+					isDisable0: false,
+					isDisable1: false,
+					isDisable2: false,
+					isDisable3: false,
+					isDisable4: false
 				}
 		},
 		onLoad() {
@@ -189,36 +199,64 @@
 				});
 			},
 			ontoday(){
+				this.isDisable0 = true
+				setTimeout(() => {
+				this.isDisable0 = false
+				}, 1000)
 				let time2=getDate({format: true})
 				let time1=getDate({format: true})
 				this.date1 =time1;
 				this.date2 =time2;
-				this.loadlist();				
+				this.mescroll.triggerDownScroll()
 			},
 			onseven(){
+				this.isDisable1 = true
+				setTimeout(() => {
+				this.isDisable1 = false
+				}, 1000)
 				let time2=getDate({format: true})
-				let time1=getDate('7day');
+				let time1=fun_date(7);
 				this.date1 =time1;
 				this.date2 =time2;
-				this.loadlist();
+				this.mescroll.triggerDownScroll()
 			},
 			ononemonth(){
+				this.isDisable2 = true
+				setTimeout(() => {
+				this.isDisable2 = false
+				}, 1000)
 				let time2=getDate({format: true})
 				let time1=getDate('1month');
 				this.date1 =time1;
 				this.date2 =time2;
-				this.loadlist();
+				this.mescroll.triggerDownScroll()
 			},
 			onthreemonth(){
+				this.isDisable3 = true
+				setTimeout(() => {
+				this.isDisable3 = false
+				}, 1000)
 				let time2=getDate({format: true})
 				let time1=getDate('3month');
 				this.date1 =time1;
 				this.date2 =time2;
-				this.loadlist();
+				this.mescroll.triggerDownScroll()
 			},
 			loadlist(){
+				this.isDisable4 = true
+				setTimeout(() => {
+				this.isDisable4 = false
+				}, 1000)
+				
+				if(this.date1>this.date2){
+					uni.showToast({
+						icon: 'none',
+						title: '开始时间应小于于结束时间'
+					});
+					return;
+				}
 				uni.request({
-				url:this.COMMON.httpUrl+'/agent/earnings/ajax-rult-earns',
+					url:helper.websiteUrl+'/agent/earnings/ajax-result-earns',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -260,7 +298,7 @@
 								this.mescroll.endSuccess()
 							}
 							
-						} else {
+						} else if(data.code==400){
 							// 接口返回的当前页数据列表 (数组)
 							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
@@ -268,6 +306,18 @@
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
+						} else if(data.code==-200){
+							uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 						}
 					},
 					fail: () => {
@@ -300,6 +350,7 @@
 			},
 			// 下拉刷新的回调
 			downCallback(mescroll){
+				this.curPageData=[];
 				mescroll.resetUpScroll() // 重置列表为第一页 (自动执行 mescroll.num=1, 再触发upCallback方法 )
 			},
 			/*上拉加载的回调: mescroll携带page的参数, 其中num:当前页 从1开始, size:每页数据条数,默认20 */
@@ -309,7 +360,7 @@
 					this.pageNum = mescroll.num; // 页码, 默认从1开始
 					this.pageSize = mescroll.size; // 页长, 默认每页10条
 				uni.request({
-				url: this.COMMON.httpUrl+'/agent/earnings/ajax-result-earns',
+					url: helper.websiteUrl+'/agent/earnings/ajax-result-earns',
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -329,29 +380,29 @@
 						let data = lists.data
 						if (data.code == 200) {
 							// 接口返回的当前页数据列表 (数组)
-							this.curPageData =data.data.list;
+							let listdata =data.data.list;
 							for (let i=0;i < this.curPageData.length;i++) {
-								let playerList=this.curPageData[i].players;
+								let playerList=listdata[i].players;
 								if(playerList && playerList != ""){
 									playerList = JSON.parse(playerList);
 									let players = "";
 									for(let j = 0; j < playerList.length; j++){
 										players += playerList[j].nickName + "	 /     ";
 									}
-									this.curPageData[i].players= players;
+									listdata[i].players= players;
 								}
 							}
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
 							this.totalPage = data.data.totalPage; 
-							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
+							this.mescroll.endByPage(listdata.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							
-							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
+							this.dataList = this.dataList.concat(listdata); //追加新数据
 							if(this.dataList.length>0){
 								this.mescroll.endSuccess()
 							}
 							
-						} else {
+						} else if(data.code==400){
 							// 接口返回的当前页数据列表 (数组)
 							this.curPageData =data.data.list;
 							// 接口返回的总页数 (比如列表有26个数据,每页10条,共3页; 则totalPage值为3)
@@ -359,6 +410,18 @@
 							this.mescroll.endByPage(this.curPageData.length, this.totalPage);
 							if(this.mescroll.num == 1) this.dataList = []; //如果是第一页需手动置空列表
 							this.dataList = this.dataList.concat(this.curPageData); //追加新数据
+						} else if(data.code==-200){
+							uni.showModal({
+								showCancel:false,
+								content: '用户信息已失效，请重新登陆',
+								success: function (res) {
+									if (res.confirm) {
+											uni.redirectTo({
+												url: '../login/login'
+											});
+									}
+								}
+							});
 						}
 					},
 					fail: () => {
