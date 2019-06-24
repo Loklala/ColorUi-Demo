@@ -1,11 +1,7 @@
 <template>
 	<view  class="content">
-<!-- 		<cu-custom bgColor="bg-gradual-blue" :isBack="true">
-			<block slot="backText"></block>
-			<block slot="content">修改个人信息</block>
-		</cu-custom> -->
 		<view class="cu-bar bg-gradual-blue search" :style="[{height:CustomBar + 'px'}]">
-			<view class="action" @click="navTo()"><text class="cuIcon-back"></text></view>
+			<view class="action" @click="navTo()"><text class="cuIcon-back"></text>返回</view>
 			<view class="content">
 				修改个人信息
 			</view>
@@ -115,9 +111,11 @@ export default {
 			};
 		},
 		onLoad() {
-			const value = uni.getStorageSync('agentInfo');
-			if (value) {
-				this.token=value.token;
+			if(uni.getStorageSync('agentInfo')){
+				const value=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+				if (value) {
+					this.token=value.token;
+				}
 			}
 			uni.request({
 				url:helper.websiteUrl+'/agent/agent/ajax-agent-info',
@@ -172,7 +170,7 @@ export default {
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}
@@ -303,7 +301,7 @@ export default {
 									success: function (res) {
 										if (res.confirm) {
 												uni.redirectTo({
-													url: '../login/login'
+													url: '../login/login?lout=1'
 												});
 										}
 									}

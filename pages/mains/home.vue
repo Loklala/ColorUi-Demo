@@ -28,21 +28,30 @@
 				<view class="cu-item arrow">
 					<view class="content" data-cur="../mains/shareway" @click="PageChange">
 						<text class="cuIcon-share text-grey"></text>
-						<text class="text-grey">分享中心</text>
+						<text class="text-grey">推广中心</text>
 					</view>
 				</view>
+				
 				<view class="cu-item arrow " data-cur="../mains/hasplayer"  @click="PageChange">
 					<view class="content">
-						<text class="cuIcon-group_fill text-grey"></text>
-						<text class="text-grey">邀请列表</text>
+						<text class="cuIcon-profile text-grey"></text>
+						<text class="text-grey">我的充值玩家</text>
+					</view>
+				</view>
+
+				<view class="cu-item arrow " data-cur="../mains/fkplayer"  @click="PageChange">
+					<view class="content">
+						<text class="cuIcon-we text-grey"></text>
+						<text class="text-grey">我的房卡玩家</text>
 					</view>
 				</view>
 				<view class="cu-item arrow " data-cur="../mains/childagent"  @click="PageChange">
 					<view class="content">
-						<text class="cuIcon-crown text-grey"></text>
+						<text class="cuIcon-list text-grey"></text>
 						<text class="text-grey">我的下级代理</text>
 					</view>
 				</view>
+				
 <!-- 				<view class="cu-item arrow margin-top-sm" data-cur=""  @click="PageChange">
 					<view class="content">
 						<text class="cuIcon-crown text-grey"></text>

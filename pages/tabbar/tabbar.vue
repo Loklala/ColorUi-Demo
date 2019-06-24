@@ -6,8 +6,6 @@
 			<earn v-if="PageCur=='earn'"></earn>
 			<about v-if="PageCur=='about'"></about>
 			
-			
-
 		<view class="cu-bar tabbar bg-white shadow foot">
 			<view class="action " @click="NavChange" data-cur="mains">
 				<view class='cuIcon-cu-image'>

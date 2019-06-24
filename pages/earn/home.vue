@@ -22,16 +22,20 @@
 				</view>
 			</view>
 			<view class="cu-list menu solid-top " :class="[1?'sm-border':'',0?'margin-top':'']" style="margin-top: 0upx;">
-				<view class="cu-list grid bg-cyan" :class="['col-' + 3,gridBorder?'':'no-border']">
+				<view class="cu-list grid bg-cyan" :class="['col-' + 2,gridBorder?'':'no-border']">
 					<view class="cu-item ">
 						<view class="money-title text-black">房卡总收益&yen;</view><view class="money-css text-black text-xxl">{{fkmoney}}</view>
 					</view>
 					<view class="cu-item">
 						<view class="money-title text-black">充值总收益&yen;</view><view class="money-css text-black text-xxl">{{czmoney}}</view>
 					</view>
-					<view class="cu-item">
-						<view class="money-title text-black">俱乐部总收益&yen;</view><view class="money-css text-black text-xxl">{{jlbmoney}}</view>
+					<view class="cu-item ">
+						<view class="money-title text-black">今日房卡收益&yen;</view><view class="money-css text-black text-xxl">{{today_fkmoney}}</view>
 					</view>
+					<view class="cu-item">
+						<view class="money-title text-black">今日充值收益&yen;</view><view class="money-css text-black text-xxl">{{today_czmoney}}</view>
+					</view>
+					
 				</view>
 			</view>	
 			<view class="bg-gray">
@@ -39,13 +43,13 @@
 				<view class="cu-list menu   margin-bottom-sm shadow-lg">
 					<view class="cu-item arrow">
 						<view class="content" data-cur="../earn/roomearn" @click="PageChange">
-							<text class="cuIcon-card text-grey"></text>
+							<text class="cuIcon-news text-grey"></text>
 							<text class="text-grey">房卡收益记录</text>
 						</view>
 					</view>
 					<view class="cu-item arrow " data-cur="../earn/rechearn"  @click="PageChange">
 						<view class="content">
-							<text class="cuIcon-rechargefill text-grey"></text>
+							<text class="cuIcon-moneybag text-grey"></text>
 							<text class="text-grey">充值收益记录</text>
 						</view>
 					</view>
@@ -57,7 +61,7 @@
 					</view> -->
 					<view class="cu-item arrow  " data-cur="../earn/depositresult"  @click="PageChange">
 						<view class="content">
-							<text class="cuIcon-sponsorfill text-grey"></text>
+							<text class="cuIcon-sponsor text-grey"></text>
 							<text class="text-grey">提现记录</text>
 						</view>
 					</view>
@@ -79,6 +83,9 @@
 				fkmoney:'0.00',
 				czmoney:'0.00',
 				jlbmoney:'0.00',
+				
+				today_fkmoney:'0.00',
+				today_czmoney:'0.00',
 				
 				StatusBar: this.StatusBar,
 				CustomBar: this.CustomBar,
@@ -107,9 +114,11 @@
 		},
 		//加载金额
 		created:function(){
-			const agentInfo = uni.getStorageSync('agentInfo');
-			if (agentInfo) {
-				this.token=agentInfo.token;
+			if(uni.getStorageSync('agentInfo')){
+					const agentInfo=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+					if (agentInfo) {
+						this.token = agentInfo.token;
+					}
 			}
 			uni.request({
 					url: helper.websiteUrl+'/agent/earnings/ajax-earn',
@@ -125,22 +134,15 @@
 					success: res => {
 						let data=res.data;
 						if(data.code==200){
-							console.log(data);
 							this.fkmoney=data.data.fkmoney;
 							this.czmoney=data.data.zcmoney;
 							this.jlbmoney=data.data.jlbmoney;
-						}else if(data.code==-200){
-							uni.showModal({
-								showCancel:false,
-								content: '用户信息已失效，请重新登陆',
-								success: function (res) {
-									if (res.confirm) {
-											uni.redirectTo({
-												url: '../login/login'
-											});
-									}
-								}
-							});
+							this.today_fkmoney=data.data.today_fkmoney;
+							this.today_zcmoney=data.data.today_zcmoney;
+						}else{
+							this.fkmoney=0.00;
+							this.czmoney=0.00;
+							this.jlbmoney=0.00;
 						}
 					},
 					fail: () => {},
@@ -172,9 +174,8 @@
 
 <style>
 	.deposit{
-		/* margin-left:5%; */
-
-		width: 100%;
+		margin-left:5%;
+		width: 90%;
 		height: 80upx;
 		margin-top: 50upx;
 		color: red;

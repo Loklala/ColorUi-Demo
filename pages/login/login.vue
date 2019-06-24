@@ -16,14 +16,14 @@
 			<view class="cu-form-group l-input">
 				<!-- <view class="title">账号：</view> -->
 				<text class="cuIcon-my text-olive margin-right-sm"></text>
-				<m-input class="m-input" type="number" clearable v-model="account" placeholder="请输入手机号或ID"></m-input>
+				<m-input class="m-input" type="number" clearable v-model="account" @input="change()" placeholder="请输入手机号或ID"></m-input>
 			</view>
 			<view class="cu-form-group l-input">
 				<!-- <view class="title">密码：</view> -->
 				<text class="cuIcon-lock text-olive margin-right-sm"></text>
-				<m-input class="m-input" type="password" displayable v-model="password" placeholder="请输入登录密码"></m-input>
+				<m-input class="m-input" type="password"  v-model="password" placeholder="请输入登录密码"></m-input>
 			</view>
-			<view class="cu-form-group l-input">
+			<view :class="autologin ?'cu-form-group l-input hide':'cu-form-group l-input'">
 				<text class="cuIcon-safe text-olive margin-right-sm"></text>
 			<m-input class="m-input" type="text" clearable  v-model="code" placeholder="输入验证码"></m-input>
 				<image :src="code_url" class="code-img" @click="changeImg()"></image>	
@@ -45,7 +45,6 @@
     import service from '../../service.js?v=1.0';
     import mInput from '../../components/m-input.vue'
 	import helper from '../../common/helper.js?v=1.0';  
-	
     export default {
         components: {
             mInput
@@ -65,20 +64,57 @@
 				webUrl:this.websiteUrl,
 				random_num:0,
 				ishead:false,
-				// page_url:'',
+				autologin:false,
+				lofinURL:'/agent/login/ajax-login',
+				islogin:'0',
+				sign:"",
             }
         },
 		onLoad:function(e){
-		var ua = navigator.userAgent.toLowerCase();
-        if(ua.indexOf("micromessenger") ==  -1){
-            // "不是微信端";
-			this.ishead=false;
-        }else{
-			this.ishead=true;
-			// "是微信端";
-		}
 			this.random();
 			this.changeImg();
+			 const account=this.utils.decrypt(uni.getStorageSync('account'),"abcdefgabcdefg12")
+			 const password=this.utils.decrypt(uni.getStorageSync('password'),'abcdefgabcdefg12')
+			 var newtime = new Date().getTime(); 
+			if(account && account!=null){
+				this.account=account;
+			}
+			if(password && password!=null){
+				this.password=password;
+			}
+			if(e.lout){
+				// console.log('退出登录');
+				uni.clearStorage();
+				this.autologin=false;
+				this.lofinURL="/agent/login/ajax-login"
+			}else{
+				if(uni.getStorageSync('agentInfo')&& uni.getStorageSync('agentInfo')!=undefined){
+					const agentInfo=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+					if(agentInfo.sign){
+						this.sign=agentInfo.sign;
+						this.islogin=agentInfo.auto_login;
+					}
+					// console.log(agentInfo);
+					let times=newtime-(agentInfo.timer+24*60*60*1000)
+					// console.log(times);
+					if(agentInfo && times<0){
+						// console.log('自动登录')//隐藏验证码
+						this.autologin=true;
+						this.lofinURL="/agent/login/ajax-auto-login"
+					}else{
+						uni.clearStorage();
+						// console.log('手动登录')//显示验证码
+						this.autologin=false;
+						this.lofinURL="/agent/login/ajax-login"
+					}
+				}else{
+					uni.clearStorage();
+					// console.log('手动登录')//显示验证码
+					this.autologin=false;
+					this.lofinURL="/agent/login/ajax-login"
+				}
+			}
+			
 		},
         methods: {
 			navTo(){
@@ -86,6 +122,17 @@
 			},
 			random(){
 				this.random_num=new Date().getTime();
+			},
+			change(){
+				if(uni.getStorageSync('agentInfo')){
+					var agentdata=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+					if(agentdata.agent_id&&this.account!=agentdata.agent_id){
+						// console.log('手动登录')//显示验证码
+						this.autologin=false;
+						this.lofinURL="/agent/login/ajax-login"
+					}
+				}
+				console.log(agentdata);
 			},
 			//页面跳转
 			PageChange: function(e) {
@@ -118,9 +165,9 @@
 			initPosition() {
                 this.positionTop = uni.getSystemInfoSync().windowHeight - 100;
             },
-            
 			//登录
 			bindLogin() {
+
                 if (this.account.length < 4) {
                     uni.showToast({
                         icon: 'none',
@@ -135,8 +182,23 @@
                     });
                     return;
                 }
+				if(!this.autologin){
+					if (this.code.length <=0) {
+					    uni.showToast({
+					        icon: 'none',
+					        title: '请输入验证码'
+					    });
+					    return;
+					}
+				}
+				uni.showLoading({
+					title: '登录中'
+				});
+				this.login();
+			},
+			login(){
 				uni.request({
-					url:helper.websiteUrl+'/agent/login/ajax-login',//
+					url:helper.websiteUrl+this.lofinURL,//
 					header: {
 						'content-type': 'application/x-www-form-urlencoded'
 					},
@@ -148,30 +210,58 @@
 						password:this.password,
 						code:this.code,
 						unid:this.random_num,
+						autologin:this.islogin,
+						sign:this.sign,
 					},
 					success: res => {
+						var curtime = new Date().getTime(); 
+						console.log(curtime)
 						if(res.data.isSuccess==200){
+							console.log(res.data.result);
+							uni.setStorageSync('account', this.utils.encrypt(this.account,'abcdefgabcdefg12'));
+							uni.setStorageSync('password', this.utils.encrypt(this.password,'abcdefgabcdefg12'));
+							if(res.data.result.auto_login!=null&&res.data.result.auto_login!=""){
+								this.autologin=res.data.result.auto_login;
+							}else{
+								this.autologin=0;
+							}
 							//缓存
+							let data={
+									id:res.data.result.id,
+									agent_id:res.data.result.agent_id,
+								    agent_tel:res.data.result.agent_tel,
+									herf_pic:res.data.result.herf_pic,
+									nickname:res.data.result.nickname,
+									token:res.data.result.token,
+									href:res.data.result.href,
+									timer:curtime,
+									auto_login:res.data.result.auto_login,
+									sign:res.data.result.sign,
+							};
+							let encryptdata=this.utils.encrypt(JSON.stringify(data),'abcdefgabcdefg12');
+							// console.log(encryptdata)
 							uni.setStorage({
 								key: 'agentInfo',
-								data: {
-								id:res.data.result.id,
-								agent_id:res.data.result.agent_id,
-							    agent_tel:res.data.result.agent_tel,
-								herf_pic:res.data.result.herf_pic,
-								nickname:res.data.result.nickname,
-								token:res.data.result.token,
-								href:res.data.result.href
-							},
+								data:encryptdata,
 								success: function () {
+									setTimeout(function () {
+										uni.hideLoading();
+									}, 1000);
 									uni.redirectTo({
 										url: '../tabbar/tabbar'
 									});
+									
 								}
 							});
 						}else if(res.data.isSuccess==400){
+							uni.hideLoading();
+							uni.clearStorage();
+							this.autologin=false;
+							this.account="";
+							this.password="";
 							this.code="";
 							let self=this;
+							this.lofinURL="/agent/login/ajax-login"
 							uni.showModal({
 								showCancel:false,
 								content: res.data.message,
@@ -181,13 +271,11 @@
 									}
 								}
 							});
-							// uni.showToast({
-							//     icon: 'none',
-							// 	duration: 2000,
-							//    title: res.data.message
-							// });
-							
 						}else if(res.data.isSuccess==301){
+							uni.hideLoading();
+							uni.clearStorage();
+							this.autologin=false;
+							this.lofinURL="/agent/login/ajax-login"
 							this.code="";
 							uni.showToast({
 							    icon: 'none',
@@ -196,7 +284,40 @@
 							});
 							this.changeImg();
 						}else if(res.data.isSuccess==302){
+							uni.clearStorage();
+							uni.hideLoading();
+							this.lofinURL="/agent/login/ajax-login"
+							this.autologin=false;
+							this.account="";
+							this.password="";
 							this.code="";
+							uni.showToast({
+							    icon: 'none',
+								duration: 2000,
+							   title: res.data.message
+							});
+							this.changeImg();
+						}else if(res.data.isSuccess==101){
+							uni.hideLoading();
+							uni.clearStorage();
+							this.autologin=false;
+							this.lofinURL="/agent/login/ajax-login"
+							this.account="";
+							this.password="";
+							this.code="";
+							uni.showToast({
+							    icon: 'none',
+								duration: 2000,
+							   title: res.data.message
+							});
+							this.changeImg();
+						}else if(res.data.isSuccess==100){
+							uni.hideLoading();
+							uni.clearStorage();
+							this.account="";
+							this.password="";
+							this.code="";
+							this.autologin=false;
 							uni.showToast({
 							    icon: 'none',
 								duration: 2000,
@@ -210,11 +331,13 @@
 							icon: 'none',
 							title: '网络异常,请稍后重试'
 						});
+						uni.clearStorage();
 					},
 					complete: () => {
 					}
 				});
 			},
+			
         onReady() {
             this.initPosition();
         }
@@ -223,6 +346,12 @@
 </script>
 
 <style>
+	.show{
+		display: block;
+	}
+	.hide{
+		display: none;
+	}
 	.title-bg{
 		width: 100%;
 		z-index: 2;

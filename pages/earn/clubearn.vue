@@ -121,12 +121,16 @@
 	// 模拟数据
 	import mockData from "../../common/pdlist.js";
 	function fun_date(aa){
-        var date1 = new Date(),
-        time1=date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();//time1表示当前时间
-        var date2 = new Date(date1);
-			date2.setDate(date1.getDate()-aa);
-        var time2 = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
-		return time2;
+       	var date1 = new Date(),
+       	time1 = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate(); //time1表示当前时间
+       var date2 = new Date(date1);
+       date2.setDate(date1.getDate() - aa);
+       if(date2.getMonth() + 1<=9){
+       	var time2 = date2.getFullYear() + '-' +'0'+ (date2.getMonth() + 1) + '-' + date2.getDate();
+       }else{
+       	var time2 = date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate();
+       }
+       return time2;
     };
 	function getDate(type) {
 		const date = new Date();
@@ -179,9 +183,11 @@
 				}
 		},
 		onLoad() {
-			const agentInfo = uni.getStorageSync('agentInfo');
-			if (agentInfo) {
-				this.token=agentInfo.token;
+			if(uni.getStorageSync('agentInfo')){
+					const agentInfo=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+					if (agentInfo) {
+						this.token = agentInfo.token;
+					}
 			}
 		},
 		//注册滚动到底部的事件,用于上拉加载
@@ -313,7 +319,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}
@@ -417,7 +423,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}

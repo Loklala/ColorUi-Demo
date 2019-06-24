@@ -9,11 +9,9 @@ environment[0]='http://h5.xkegame.com'
 environment[1]='http://test.xkegame.com'
 
 
-
-const websiteUrl =myUrl[0];
-const webtoUrl =environment[0]; //http://h5.xkegame.com
-
-
+//数据连接   1测试  0 正式
+const websiteUrl =	  myUrl[0]
+const webtoUrl =environment[0];
 
 
 

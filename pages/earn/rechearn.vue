@@ -105,12 +105,16 @@
 	// 模拟数据
 	import mockData from "../../common/pdlist.js";
 		function fun_date(aa){
-        var date1 = new Date(),
-        time1=date1.getFullYear()+"-"+(date1.getMonth()+1)+"-"+date1.getDate();//time1表示当前时间
+        	var date1 = new Date(),
+        	time1 = date1.getFullYear() + '-' + (date1.getMonth() + 1) + '-' + date1.getDate(); //time1表示当前时间
         var date2 = new Date(date1);
-			date2.setDate(date1.getDate()-aa);
-        var time2 = date2.getFullYear()+"-"+(date2.getMonth()+1)+"-"+date2.getDate();
-		return time2;
+        date2.setDate(date1.getDate() - aa);
+        if(date2.getMonth() + 1<=9){
+        	var time2 = date2.getFullYear() + '-' +'0'+ (date2.getMonth() + 1) + '-' + date2.getDate();
+        }else{
+        	var time2 = date2.getFullYear() + '-' + (date2.getMonth() + 1) + '-' + date2.getDate();
+        }
+        return time2;
     };
 	function getDate(type) {
 		const date = new Date();
@@ -165,9 +169,11 @@
 				}
 		},
 		onLoad() {
-			const agentInfo = uni.getStorageSync('agentInfo');
-			if (agentInfo) {
-				this.token=agentInfo.token;
+			if(uni.getStorageSync('agentInfo')){
+					const agentInfo=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+					if (agentInfo) {
+						this.token = agentInfo.token;
+					}
 			}
 		},
 		//注册滚动到底部的事件,用于上拉加载
@@ -188,7 +194,7 @@
 				this.isDisable0 = true
 				setTimeout(() => {
 				this.isDisable0 = false
-				}, 1000)
+				}, 500)
 				let time2=getDate({format: true})
 				let time1=getDate({format: true})
 				this.date1 =time1;
@@ -199,7 +205,7 @@
 				this.isDisable1 = true
 				setTimeout(() => {
 				this.isDisable1 = false
-				}, 1000)
+				}, 500)
 				let time2=getDate({format: true})
 				let time1=fun_date(7);
 				this.date1 =time1;
@@ -210,7 +216,7 @@
 				this.isDisable2 = true
 				setTimeout(() => {
 				this.isDisable2 = false
-				}, 1000)
+				}, 500)
 				let time2=getDate({format: true})
 				let time1=getDate('1month');
 				this.date1 =time1;
@@ -221,7 +227,7 @@
 				this.isDisable3 = true
 				setTimeout(() => {
 				this.isDisable3 = false
-				}, 1000)
+				}, 500)
 				let time2=getDate({format: true})
 				let time1=getDate('3month');
 				this.date1 =time1;
@@ -232,7 +238,7 @@
 				this.isDisable4 = true
 				setTimeout(() => {
 				this.isDisable4 = false
-				}, 1000)
+				}, 500)
 				if(this.date1>this.date2){
 					uni.showToast({
 						icon: 'none',
@@ -331,7 +337,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}

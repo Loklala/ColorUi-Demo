@@ -4,9 +4,9 @@
 	<view>
 		<view class="cu-bar bg search bg-gradual-blue fixed">
 			<view class="action" @tap="navTo()">
-				<text class="cuIcon-back text-white"></text>
+				<text class="cuIcon-back text-white"></text>返回
 			</view>
-			<view class=" title-text text-center text-xl">邀请列表</view>
+			<view class=" title-text text-center text-xl">我的充值玩家</view>
 			<view class="action">
 			</view>
 		</view>
@@ -54,8 +54,8 @@
 			<view :class="pd.isDisplay?'cu-item show bg-c bg-grey':'hide bg-white'">
 						<text class="list-text2">注册时间:</text>
 						<text class="list-text3">{{pd.registerTime}}</text>
-						<text class="list-text2">最后登陆:</text>
-						<text class="list-text3">{{pd.last_modify_time}}</text>
+						<text class="list-text2"></text>
+						<text class="list-text3"></text>
 			</view>
 		</view>
 		</mescroll-uni>
@@ -114,10 +114,14 @@
 				}
 		},
 		onLoad() {
-			const agentInfo = uni.getStorageSync('agentInfo');
-			if (agentInfo) {
-				this.token=agentInfo.token;
+			if(uni.getStorageSync('agentInfo')){
+					const value=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+					if (value) {
+						this.token=value.token;
+					
+						}
 			}
+			
 			this.loadPersonNum();
 		},
 		//注册滚动到底部的事件,用于上拉加载
@@ -135,7 +139,7 @@
 				});
 			},
 			loadPersonNum(){
-				console.log(this.agent_id);
+				
 				uni.request({
 					url: helper.websiteUrl+'/agent/tuiguang/ajax-player-num',
 					header: {
@@ -168,7 +172,7 @@
 				this.isDisable = true
 				setTimeout(() => {
 				this.isDisable = false
-				}, 1000);
+				}, 500);
 				if(this.date1>this.date2){
 					uni.showToast({
 						icon: 'none',
@@ -222,7 +226,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}
@@ -318,7 +322,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}

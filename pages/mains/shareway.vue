@@ -2,9 +2,9 @@
 	<view class="content">
 		<view class="cu-bar bg search bg-gradual-blue fixed">
 			<view class="action" @tap="navTo()">
-				<text class="cuIcon-back text-white"></text>
+				<text class="cuIcon-back text-white"></text>返回
 			</view>
-			<view class=" title-text text-center text-xl bg-none">推广</view>
+			<view class=" title-text text-center text-xl bg-none">推广中心</view>
 			<view class="action">
 			</view>
 		</view>
@@ -89,11 +89,13 @@
 			}
 		},
 		onLoad() {
-			const agentInfo = uni.getStorageSync('agentInfo');
-			if (agentInfo) {
-				this.token = agentInfo.token;
-				this.url = agentInfo.href + 'inviterId=' + agentInfo.agent_id + '&agentId=' + agentInfo.agent_id;
-				this.code = agentInfo.agent_id;
+			if(uni.getStorageSync('agentInfo')){
+					const agentInfo=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+					if (agentInfo) {
+						this.token = agentInfo.token;
+						this.url = agentInfo.href + 'inviterId=' + agentInfo.agent_id + '&agentId=' + agentInfo.agent_id;
+						this.code = agentInfo.agent_id;
+					}
 			}
 			uni.request({
 				url:helper.websiteUrl+'/agent/tuiguang/ajax-share-photo',
@@ -107,6 +109,8 @@
 					token: this.token,
 				},
 				success: res => {
+
+				let agentInfo=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
 					if (res.data.code == 200) {
 						this.src = helper.websiteUrl+'/agent/tuiguang/' + res.data.data.src;
 						this.url=res.data.data.url+ 'inviterId=' + agentInfo.agent_id + '&agentId=' + agentInfo.agent_id;
@@ -322,7 +326,7 @@
 	}
 
 	.img {
-		width: 300upx;
+		width: 260upx;
 		height: 430upx;
 		background-color: #FFFFFF;
 		margin: 0 auto;

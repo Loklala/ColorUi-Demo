@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<view class="cu-bar bg-gradual-blue search" :style="[{height:CustomBar + 'px'}]">
-			<view class="action" @click="navTo()"><text class="cuIcon-back"></text></view>
+			<view class="action" @click="navTo()"><text class="cuIcon-back"></text>返回</view>
 			<view class="content">
 				修改登录密码
 			</view>
@@ -60,10 +60,12 @@
 			};
 		},
 		onLoad() {
-			const value = uni.getStorageSync('agentInfo');
-			if (value) {
-				this.token=value.token;
-				this.tel=value.agent_tel
+			if(uni.getStorageSync('agentInfo')){
+					const value=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+					if (value) {
+						this.token=value.token;
+						this.tel=value.agent_tel
+						}
 			}
 		},
 		methods: {
@@ -131,7 +133,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}
@@ -148,7 +150,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}

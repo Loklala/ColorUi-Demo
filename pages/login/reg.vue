@@ -21,6 +21,19 @@
 		</view>
 		<view class="input-group">
 			<view class="cu-form-group l-input">
+				<view class="title">真实姓名：</view>
+				<m-input class="m-input" type="text" clearable  v-model="name" placeholder="输入真实姓名"></m-input>
+			</view>
+			
+			<view class="cu-form-group l-input">
+				<view class="title">密 码：</view>
+				<m-input class="m-input" type="password" displayable v-model="password" placeholder="输入密码"></m-input>
+			</view>
+			<view class="cu-form-group l-input">
+				<view class="title">确认密码：</view>
+				<m-input class="m-input" type="password" displayable v-model="repassword" placeholder="输入确认密码"></m-input>
+			</view>
+			<view class="cu-form-group l-input">
 				<view class="title">手机号：</view>
 				<!-- <text class="cuIcon-my text-olive"></text> -->
 				<m-input class="m-input" type="number" clearable  v-model="tel" placeholder="输入手机号码"></m-input>
@@ -34,24 +47,12 @@
 				<m-input class="m-input" placeholder="输入验证码" type="number" clearable  v-model="code"></m-input>
 				<button class="cu-btn bg-gradual-blue shadow" type="button" :disabled="disabled" @tap="sendcode">{{ btntxt }}</button>
 			</view>
-			<view class="cu-form-group l-input">
-				<view class="title">密 码：</view>
-				<m-input class="m-input" type="password" displayable v-model="password" placeholder="输入密码"></m-input>
-			</view>
-			<view class="cu-form-group l-input">
-				<view class="title">确认密码：</view>
-				<m-input class="m-input" type="password" displayable v-model="repassword" placeholder="输入确认密码"></m-input>
-			</view>
-			<view class="cu-form-group l-input">
-				<view class="title">真实姓名：</view>
-				<m-input class="m-input" type="text" clearable  v-model="name" placeholder="输入真实姓名"></m-input>
-			</view>
-			<view class="cu-form-group l-input">
+			<!-- <view class="cu-form-group l-input">
 				<view class="title">身份证号：</view>
 				<m-input class="m-input" type="idcard" clearable  v-model="idcard" placeholder="输入身份证号"></m-input>
-			</view>
+			</view> -->
 		</view>
-		<view class="btn-rows">
+		<view class="btn-rows" style="margin-top: 120upx;">
 			<checkbox-group class="block" @change="CheckboxChange">
 				<checkbox class="round" :class="checkbox[0].checked ? 'checked' : ''" :checked="checkbox[0].checked ? true : false"
 				 value="A"></checkbox>
@@ -66,7 +67,7 @@
 		<view class="cu-modal" :class="modalName=='Modal'?'show':''">
 			<view class="cu-dialog">
 				<view class="cu-bar bg-white justify-end">
-					<view class="content">皮蛋娱乐大厅协议</view>
+					<view class="content">皮蛋娱乐推广合作协议</view>
 					<view class="action" @tap="hideModal"><text class="cuIcon-close text-red"></text></view>
 				</view>
 				<view class="padding-xl">
@@ -217,18 +218,6 @@
 			
 			if(e.parent_agent_id && e.parent_agent_id!=''){
 				this.parent_agent_id=e.parent_agent_id;
-				// uni.showModal({
-				// 		title: '传递过来的一级代理',
-				// 		content: this.parent_agent_id,
-				// 		showCancel:false,
-				// 		success: function (res) {
-				// 			
-				// 		}
-				// 	});
-				
-				
-				
-				
 			}else{
 				this.parent_agent_id='';
 			}
@@ -255,7 +244,7 @@
 					let data = lists.data
 					if (data.isSuccess == 200) {
 						this.time = 60 - parseInt(data.result);
-						console.log(this.time)
+						
 						this.disabled = true;
 						this.timer();
 					} else {
@@ -384,20 +373,20 @@
 				// 	return;
 				// }
 				//验证身份证
-				if (this.idcard == "") {
-					uni.showToast({
-						icon: 'none',
-						title: '身份证号码不能为空'
-					});
-					return;
-				}
-				if (!this.validid.cnid(this.idcard)) {
-					uni.showToast({
-						icon: 'none',
-						title: '身份证号码不正确'
-					});
-					return;
-				}
+				// if (this.idcard == "") {
+				// 	uni.showToast({
+				// 		icon: 'none',
+				// 		title: '身份证号码不能为空'
+				// 	});
+				// 	return;
+				// }
+				// if (!this.validid.cnid(this.idcard)) {
+				// 	uni.showToast({
+				// 		icon: 'none',
+				// 		title: '身份证号码不正确'
+				// 	});
+				// 	return;
+				// }
 				uni.request({
 					url:helper.websiteUrl+'/agent/login/ajax-agent-reg',
 					header: {

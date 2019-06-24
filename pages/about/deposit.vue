@@ -1,14 +1,13 @@
 <template>
 	<view  class="content">
 		<view class="cu-bar bg-gradual-blue search" :style="[{height:CustomBar + 'px'}]">
-			<view class="action" @click="navTo()"><text class="cuIcon-back"></text></view>
+			<view class="action" @click="navTo()"><text class="cuIcon-back"></text>返回</view>
 			<view class="content">
 				提现账号
 			</view>
 			<view class="action">
 			</view>
 		</view>
-		
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu ':'',isaccount?'show':'hide']" style="border-radius:4upx ;">
 			<view class="cu-bar bg-white solid-bottom bg-grey">
 				<view class="action">
@@ -16,7 +15,7 @@
 					账号信息
 				</view>
 				<view>
-					<button type="default" class="edit-btn " style="border-radius:4upx ;" @click="editdeposit">编辑</button>
+					<button type="default" class="edit-btn " style="border-radius:4upx ;" @click="editdeposit()">编辑</button>
 				</view>
 			</view>
 				<view class="cu-item" :class="0?'arrow':''">
@@ -40,6 +39,22 @@
 						<text class="text-grey">{{payaccount}}</text>
 					</text>
 				</view>
+				<view class="cu-bar bg-white solid-bottom bg-grey margin-top-xs">
+					<view class="action">
+						<text class='cuIcon-newsfill text-blue icon-title'></text>
+						提现密码
+					</view>
+					<view>
+						<button type="default" class="edit-btn " style="border-radius:4upx ;" @click="editdepositpwd()">修改</button>
+					</view>
+				</view>
+					<view class="cu-item" :class="0?'arrow':''">
+						<text class='cuIcon-peoplelist text-blue icon-title'></text>
+						<text class="title">提现密码：</text>
+						<text class=" content" >
+							<text class="text-grey">**************</text>
+						</text>
+					</view>
 		</view>
 		
 		<view class="cu-list menu" :class="[menuBorder?'sm-border':'',menuCard?'card-menu ':'',isaccount?'hide':'show']">
@@ -59,8 +74,24 @@
 					暂无账号信息请先添加账号
 				</text>
 			</view>
+			<view class="cu-bar bg-white solid-bottom bg-grey margin-top-xs">
+			<view class="action">
+					<text class='cuIcon-newsfill text-blue icon-title'></text>
+					提现密码
+				</view>
+				<view>
+					<button type="default" class="edit-btn " style="border-radius:4upx ;" ></button>
+				</view>
+			</view>
+				<view class="cu-item" :class="0?'arrow':''">
+					<text class='cuIcon-peoplelist text-blue icon-title'></text>
+					<text class="title">提现密码：</text>
+					<text class=" content" >
+						<text class="text-grey">暂未设置</text>
+					</text>
+			</view>
 			<view class=" margin-top-xl bg-gray" :class="0?'arrow':''">
-					<button class="cu-btn bg-gradual-blue margin-tb-sm lg deposit-btn" @click="editdeposit()">添加提现账号</button>
+					<button class="cu-btn bg-gradual-blue margin-tb-sm lg deposit-btn" @click="adddeposit()">添加提现账号信息</button>
 			</view>
 		</view>
 		
@@ -87,9 +118,11 @@ export default {
 			};
 		},
 		onLoad() {
-			const value = uni.getStorageSync('agentInfo');
-			if (value) {
-				this.token=value.token;
+			if(uni.getStorageSync('agentInfo')){
+				const value=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+				if (value) {
+					this.token=value.token;
+				}
 			}
 			uni.request({
 				url:helper.websiteUrl+'/agent/agent/ajax-get-info',
@@ -117,9 +150,21 @@ export default {
 									this.payname='支付宝';
 									this.payaccount=data.alipay_num;
 								}else if(data.current_paytype=='2'){
-									this.payname='银行卡';
+									this.payname='中国银行';
 									this.payaccount=data.bank_num;
-								}else if(data.current_paytype==''){
+								}else if(data.current_paytype=='3'){
+									this.payname='招商银行';
+									this.payaccount=data.bank_num;
+								}else if(data.current_paytype=='4'){
+									this.payname='建设银行';
+									this.payaccount=data.bank_num;
+								}else if(data.current_paytype=='5'){
+									this.payname='农业银行';
+									this.payaccount=data.bank_num;
+								}else if(data.current_paytype=='6'){
+									this.payname='工商银行';
+									this.payaccount=data.bank_num;
+								}else if(data.current_paytype=='其他'){
 									this.isaccount=false;
 								}
 							}
@@ -130,7 +175,7 @@ export default {
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}
@@ -147,6 +192,17 @@ export default {
 					uni.redirectTo({
 						url: '../about/editdeposit'
 					});
+			},
+			editdepositpwd:function(){
+				uni.redirectTo({
+					url: '../about/deposit-password'
+				});
+			},
+			adddeposit:function(){
+				let page="../about/deposit"
+				uni.redirectTo({
+					url: "../about/sitdeposit?page="+page
+				});
 			},
 			navTo(){
 				uni.redirectTo({

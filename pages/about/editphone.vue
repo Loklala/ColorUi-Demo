@@ -1,9 +1,9 @@
 <template>
 	<view>
 		<view class="cu-bar bg-gradual-blue search" :style="[{height:CustomBar + 'px'}]">
-			<view class="action" @click="navTo()"><text class="cuIcon-back"></text></view>
+			<view class="action" @click="navTo()"><text class="cuIcon-back"></text>返回</view>
 			<view class="content">
-				修改手机号码
+				验证原手机号码
 			</view>
 			<view class="action">
 			</view>
@@ -17,12 +17,12 @@
 				</view>
 				<view class="cu-form-group l-input">
 					<view class="title">验证码：</view>
-					<m-input class="m-input" placeholder="输入验证码" type="number" clearable focus v-model="code"></m-input>
+					<m-input class="m-input" placeholder="输入验证码" type="number" clearable  v-model="code"></m-input>
 					<button class="cu-btn bg-gradual-blue shadow" type="button" :disabled="disabled" @click="sendcode">{{ btntxt }}</button>
 				</view>
 			</view>
 			<view>
-				<button class="cu-btn bg-blue margin-tb-sm lg btn"  formType="submit" type="primary" @click="changerDeposit()">提交</button>
+				<button class="cu-btn bg-blue margin-tb-sm lg btn"  formType="submit" type="primary" @click="changerDeposit()">下一步</button>
 			</view>
 		</view>
 	</view>
@@ -56,10 +56,12 @@
 			};
 		},
 		onLoad() {
-			const agentInfo = uni.getStorageSync('agentInfo');
-			if (agentInfo) {
-				this.token=agentInfo.token;
-				this.tel=agentInfo.agent_tel;
+			if(uni.getStorageSync('agentInfo')){
+					const agentInfo=JSON.parse(this.utils.decrypt(uni.getStorageSync('agentInfo'),'abcdefgabcdefg12'));
+					if (agentInfo) {
+						this.token = agentInfo.token;
+						this.tel=agentInfo.agent_tel;
+					}
 			}
 			const last_tel = uni.getStorageSync('last_tel');
 			if (last_tel) {
@@ -95,7 +97,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}
@@ -164,7 +166,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}
@@ -232,7 +234,7 @@
 								success: function (res) {
 									if (res.confirm) {
 											uni.redirectTo({
-												url: '../login/login'
+												url: '../login/login?lout=1'
 											});
 									}
 								}

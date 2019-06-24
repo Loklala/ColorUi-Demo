@@ -16,6 +16,8 @@ Vue.prototype.validid = icanH5Api;
 import IdCard from './static/js/IdCard.js'
 Vue.prototype.validid = IdCard;
 
+import utils from './utils/utils.js'
+Vue.prototype.utils = utils;
 
 import cuCustom from './colorui/components/cu-custom.vue'
 Vue.component('cu-custom',cuCustom)
