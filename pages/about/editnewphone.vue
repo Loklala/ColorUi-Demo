@@ -24,7 +24,22 @@
 			<view>
 				<button class="cu-btn bg-blue margin-tb-sm lg btn"  formType="submit" type="primary" @click="changerDeposit()">提交</button>
 			</view>
-		</view>
+		</view>                                                                                       <!-- #ifdef APP-PLUS -->
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<!-- #endif -->
 	</view>
 </template>
 

@@ -4,6 +4,9 @@ import App from './App'
 import mains from './pages/mains/home.vue'
 Vue.component('mains',mains)
 
+import proxyrechage from './pages/proxyrechage/home.vue'
+Vue.component('proxyrechage',proxyrechage)
+
 import earn from './pages/earn/home.vue'
 Vue.component('earn',earn)
 

@@ -22,20 +22,6 @@
 					</view>
 				</view>
 			</view>	
-<!-- 			<view class="cu-list grid bg" :class="['col-' + 2,gridBorder?'':'no-border']">
-				<view class="cu-item">
-					<view class="money-title"></view><view class="text-white text-xl">累计提现</view>
-				</view>
-				<view class="cu-item">
-					<view class="money-title"></view><view class="text-white text-bold text-xxl">{{ztsmoney}}</view>
-				</view>
-				<view class="cu-item">
-					<view class="money-title"></view><view class="text-white text-xl">当前余额</view>
-				</view>
-				<view class="cu-item">
-					<view class="money-title"></view><view class="text-white text-bold text-xxl">{{thismoney}}</view>
-				</view>
-			</view> -->
 		</view>	
 		<view class="cu-list menu  " :class="[menuBorder?'':'',menuCard?'card-menu ':'']" style="margin-top: -18upx;border-radius: 4upx;">
 			<view class="cu-item" :class="0?'arrow':''">

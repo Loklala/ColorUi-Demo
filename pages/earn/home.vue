@@ -178,12 +178,18 @@
 		width: 90%;
 		height: 80upx;
 		margin-top: 50upx;
-		color: red;
+		color: #1BB8B7;
+	}
+	.rechage{
+		margin-left:5%;
+		width: 90%;
+		height: 80upx;
+		margin-top: 50upx;
+		color: #1BB8B7;
 	}
 	.depositres{
 		margin-left:5%;
 		width: 90%;
-		
 		color: #3396e6;
 	}
 	.money-css{

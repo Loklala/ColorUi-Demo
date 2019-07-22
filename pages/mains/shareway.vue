@@ -1,13 +1,14 @@
 <template>
 	<view class="content">
-		<view class="cu-bar bg search bg-gradual-blue fixed">
+		<view class="cu-bar bg search bg-gradual-blue fixed title">
 			<view class="action" @tap="navTo()">
 				<text class="cuIcon-back text-white"></text>返回
 			</view>
-			<view class=" title-text text-center text-xl bg-none">推广中心</view>
+			<view class=" title-text text-center text-xl">推广中心</view>
 			<view class="action">
 			</view>
 		</view>
+		
 		<view class="top"></view>
 		<view class="banner bg-white">
 			<view class="ths bg-white"></view>
@@ -187,6 +188,9 @@
 </script>
 
 <style>
+	.title{
+		height: 50upx;
+	}
 	.text-ds {
 		color: #000000;
 	}

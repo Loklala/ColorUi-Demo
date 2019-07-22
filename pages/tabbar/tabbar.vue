@@ -5,6 +5,7 @@
 			<mains v-if="PageCur=='mains'"></mains>
 			<earn v-if="PageCur=='earn'"></earn>
 			<about v-if="PageCur=='about'"></about>
+			<proxyrechage v-if="PageCur=='proxyrechage'"></proxyrechage>
 			
 		<view class="cu-bar tabbar bg-white shadow foot">
 			<view class="action " @click="NavChange" data-cur="mains">
@@ -13,6 +14,13 @@
 				</view>
 				<view :class="PageCur=='mains'?'text-green':'text-gray'">首页</view>
 			</view>
+			
+			<!-- <view class="action" @click="NavChange" data-cur="proxyrechage">
+				<view class='cuIcon-cu-image'>
+					<image :src="'/static/tabbar/proxyrechage' + [PageCur == 'proxyrechage'?'_cur':''] + '.png'"></image>
+				</view>
+				<view :class="PageCur=='proxyrechage'?'text-green':'text-gray'">代理代充</view>
+			</view> -->
 			
 			<view class="action" @click="NavChange" data-cur="earn">
 				<view class='cuIcon-cu-image'>
@@ -36,12 +44,13 @@
 	export default {
 		data() {
 		return {
-				PageCur: 'mains',
+				PageCur: 'proxyrechage',
 				data:'',
 			}
 		},
 		methods: {
 			NavChange: function(e) {
+				console.log(e.currentTarget.dataset.cur)
 				this.PageCur = e.currentTarget.dataset.cur
 			},
 		},

@@ -334,7 +334,7 @@
 								}
 								let gametype=listdata[i].gametype;
 								if(gametype && gametype == "shiss"){
-									gametype='宁海罗松'
+									gametype='皮蛋闯关'
 									listdata[i].gametype= gametype;
 								}else if(gametype && gametype == "xdmj"){
 									gametype='西店麻将'

@@ -373,7 +373,6 @@ export default {
 				var rule = [
 					{name:"name", checkType : "string", checkRule:"0,20",  errorMsg:"姓名应为0-20个字符之内"},
 					{name:"payaccount", checkType : "string", checkRule:"0,30",  errorMsg:"请正确填写账号"},
-					{name:"paypassword", checkType : "string", checkRule:"4,30", errorMsg:"密码最短为4个字符"},
 					{name:"code", checkType : "notnull", checkRule:"4,30", errorMsg:"验证码不能为空"},
 				];
 				//进行表单检查
